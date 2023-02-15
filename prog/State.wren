@@ -12,6 +12,7 @@ class Globals {
         __camera = null
         __scale = config.get_num("renderer", "scale", 3)
         __fullscreen = config.get_bool("renderer", "fullscreen", false)
+        __area = config.get_string("game", "area", "Forest_A1#1")
     }
 
     static game_surf { __game_surf }
@@ -22,4 +23,6 @@ class Globals {
     static scale=(s) { __scale = s }
     static fullscreen { __fullscreen }
     static fullscreen=(s) { __fullscreen = s }
+    static area { __area }
+    static area=(s) { __area = s }
 }

@@ -1,7 +1,7 @@
 import "lib/Renderer" for Renderer
 import "lib/Engine" for Engine
 import "State" for Constants, Globals
-import "Game" for Game
+import "Menu" for Menu
 
 Globals.init()
 
@@ -18,4 +18,4 @@ var renderer_config = {
 Engine.fps_limit = 60
 System.print(Engine.info)
 
-var start_level = Game.new()
+var start_level = Menu.new()

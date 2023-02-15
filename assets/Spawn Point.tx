@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="Spawn Point" class="LevelControl::Marker">
+  <properties>
+   <property name="id" type="int" value="1"/>
+  </properties>
+ </object>
+</template>
