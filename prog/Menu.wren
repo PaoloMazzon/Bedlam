@@ -1,6 +1,7 @@
 import "lib/Engine" for Level
 import "lib/Renderer" for Renderer, Camera
 import "lib/Drawing" for Surface
+import "lib/Input" for Gamepad
 import "State" for Globals, Constants
 import "Util" for Util
 import "Area" for Area
@@ -12,6 +13,7 @@ class Menu is Level {
         super.create()
         Globals.camera = Camera.new()
         Util.maximize_scale()
+        Gamepad.stick_deadzone = 0.3
     }
 
     update() {

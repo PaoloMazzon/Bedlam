@@ -39,11 +39,8 @@ class Area is Level {
 
         // Draw tilesets
         Renderer.lock_cameras(Globals.camera)
-        Renderer.clear()
         // TODO: Draw a background
-        Renderer.set_colour_mod([0.4, 0.4, 0.4, 1])
-        Renderer.draw_texture(_background_surface, Globals.camera.x * 0.18, Globals.camera.y * 0.18)
-        Renderer.set_colour_mod(Renderer.COLOUR_DEFAULT)
+        Renderer.draw_texture(_background_surface, 0, 0)
         Renderer.draw_texture(_collision_surface, 0, 0)
         super.update()
         Renderer.draw_texture(_foreground_surface, 0, 0)

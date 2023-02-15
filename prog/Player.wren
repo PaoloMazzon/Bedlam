@@ -25,8 +25,8 @@ class Player is Entity {
     }
 
     draw(level) {
-        Renderer.set_colour_mod([0, 128, 255, 255])
+        Renderer.set_colour_mod([0, 0.5, 1, 1])
         Renderer.draw_rectangle_outline(x, y, 8, 12, 0, 0, 0, 1)
-        Renderer.set_colour_mod([255, 255, 255, 255])
+        Renderer.set_colour_mod([1, 1, 1, 1])
     }
 }

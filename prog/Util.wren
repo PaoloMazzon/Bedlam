@@ -25,6 +25,7 @@ class Util {
         Globals.camera.h_on_screen = Globals.scale * Constants.GAME_HEIGHT
         Globals.camera.width = Constants.GAME_WIDTH
         Globals.camera.height = Constants.GAME_HEIGHT
+        Globals.camera.zoom = 1
         Globals.camera.update()
     }
 
