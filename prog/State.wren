@@ -5,12 +5,16 @@ class Constants {
     static GAME_HEIGHT { 120 }
 }
 
+class Balance {
+    static GRAVITY { 0.1 }
+}
+
 class Globals {
     static init() {
         var config = INI.open("config")
         __game_surf = null
         __camera = null
-        __scale = config.get_num("renderer", "scale", 3)
+        __scale = config.get_num("renderer", "scale", 5)
         __fullscreen = config.get_bool("renderer", "fullscreen", false)
         __area = config.get_string("game", "area", "Forest_A1#1")
     }

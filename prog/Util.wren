@@ -45,7 +45,8 @@ class Util {
         var p = level.add_entity(Player)
         var x = 0
         var y = 0
-        for (i in level.get_entities(Marker)) {
+        var markers = level.get_entities(Marker)
+        for (i in markers) {
             if (s[1] == i.id) {
                 x = i.x
                 y = i.y

@@ -13,7 +13,6 @@ class Menu is Level {
         super.create()
         Globals.camera = Camera.new()
         Util.maximize_scale()
-        Gamepad.stick_deadzone = 0.3
     }
 
     update() {

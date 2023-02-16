@@ -2,6 +2,7 @@ import "lib/Renderer" for Renderer
 import "lib/Engine" for Engine
 import "State" for Constants, Globals
 import "Menu" for Menu
+import "LevelControl" for Marker
 
 Globals.init()
 

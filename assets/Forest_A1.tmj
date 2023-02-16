@@ -123,11 +123,9 @@
                  "rotation":0,
                  "visible":true,
                  "width":8,
-                 "x":288,
-                 "y":48
+                 "x":37.6590909090909,
+                 "y":171.166666666667
                 }],
-         "offsetx":-256.204545454545,
-         "offsety":124.011363636364,
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
