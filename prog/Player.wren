@@ -3,6 +3,7 @@ import "lib/Renderer" for Renderer
 import "lib/Util" for Hitbox, Math
 import "lib/Input" for Gamepad, Keyboard
 import "State" for Globals, Constants, Balance
+import "Assets" for Assets
 
 class Player is Entity {
     construct new() {}
@@ -64,6 +65,7 @@ class Player is Entity {
         Globals.camera.x = Math.clamp((x + 4) - (Constants.GAME_WIDTH / 2), 0, level.tileset.width - Constants.GAME_WIDTH)
         Globals.camera.y = Math.clamp((y + 6) - (Constants.GAME_HEIGHT / 2), 0, level.tileset.height - Constants.GAME_HEIGHT)
         Globals.camera.update()
+        Renderer.draw_font(Assets.fnt_font, "Joe Mama Yahnutse", x - 75, y - 16)
     }
 
     draw(level) {
