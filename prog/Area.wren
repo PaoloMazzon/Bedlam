@@ -5,9 +5,28 @@ import "Util" for Util
 import "State" for Globals, Constants
 
 class Area is Level {
-    construct new() {}
+    construct new() {
+        _paused = false
+        _pause_timer = -1
+    }
 
-    tileset { _tileset }
+    tileset { _tileset } // tileset used for collision checking
+    is_paused { _paused } // it is the entity's responsibility to check this
+    
+    pause(time_in_seconds) {
+        _paused = true
+        _pause_timer = (time_in_seconds * 60).round
+    }
+    
+    pause() { 
+        _paused = true 
+        _pause_timer = -1
+    }
+
+    unpause() {
+        _paused = false
+        _pause_timer = -1
+    }
 
     create() {
         super.create()
@@ -45,6 +64,14 @@ class Area is Level {
         super.update()
         Renderer.draw_texture(_foreground_surface, 0, 0)
         Renderer.unlock_cameras()
+
+        // Handle pausing
+        if (is_paused && _pause_timer != -1) {
+            _pause_timer = _pause_timer - 1
+            if (_pause_timer == 0) {
+                unpause()
+            }
+        }
     }
 
     destroy() {

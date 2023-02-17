@@ -20,6 +20,9 @@ class Player is Entity {
     }
 
     update(level) {
+        if (level.is_paused) {
+            return
+        }
         super.update(level)
 
         //x = x + (Gamepad.left_stick_x(0) * 2)
@@ -62,10 +65,11 @@ class Player is Entity {
         x = x + _hspeed
         y = y + _vspeed
 
-        Globals.camera.x = Math.clamp((x + 4) - (Constants.GAME_WIDTH / 2), 0, level.tileset.width - Constants.GAME_WIDTH)
-        Globals.camera.y = Math.clamp((y + 6) - (Constants.GAME_HEIGHT / 2), 0, level.tileset.height - Constants.GAME_HEIGHT)
+        var diff_x = ((x + 4) - (Constants.GAME_WIDTH / 2)) - Globals.camera.x
+        var diff_y = ((y + 6) - (Constants.GAME_HEIGHT / 2)) - Globals.camera.y
+        Globals.camera.x = Math.clamp(Globals.camera.x + (diff_x * 0.1), 0, level.tileset.width - Constants.GAME_WIDTH)
+        Globals.camera.y = Math.clamp(Globals.camera.y + (diff_y * 0.1), 0, level.tileset.height - Constants.GAME_HEIGHT)
         Globals.camera.update()
-        Renderer.draw_font(Assets.fnt_font, "Joe Mama Yahnutse", x - 75, y - 16)
     }
 
     draw(level) {
