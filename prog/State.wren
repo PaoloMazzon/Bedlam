@@ -10,8 +10,11 @@ class Constants {
 class Balance {
     static GRAVITY { 0.1 }
     static BASE_ENEMY_HP { 100 }
-    static HIT_FREEZE_DELAY { 0.1 }
+    static HIT_FREEZE_DELAY { 0.25 }
     static FADE_DURATION { 0.25 }
+    static PLAYER_MANA { 30 }
+    static PLAYER_MAX_BASE_HP { 30 }
+    static PLAYER_IFRAMES { 60 }
 }
 
 class Globals {
@@ -23,6 +26,8 @@ class Globals {
         __fullscreen = __config.get_bool("renderer", "fullscreen", false)
         __area = __config.get_string("game", "area", "Forest_A1#1")
         __rng = Random.new()
+        __max_player_hp = __config.get_num("game", "max_hp", Balance.PLAYER_MAX_BASE_HP)
+        __player_hp = __config.get_num("game", "hp", Balance.PLAYER_MAX_BASE_HP)
     }
 
     static game_surf { __game_surf }
@@ -35,6 +40,8 @@ class Globals {
     static scale { __scale }
     static fullscreen { __fullscreen }
     static area { __area }
+    static max_player_hp { __max_player_hp }
+    static player_hp { __player_hp }
     static scale=(s) {
         __scale = s
         __config.set_num("renderer", "scale", __scale)
@@ -49,6 +56,15 @@ class Globals {
         __area = s
         __config.set_string("game", "area", __area)
         __config.flush("config")
+    }
+    static max_player_hp=(s) {
+        __max_player_hp = s
+        __config.set_num("game", "max_hp", __max_player_hp)
+        __config.flush("config")
+    }
+    static player_hp=(s) {
+        __player_hp = s
+        __config.set_num("game", "hp", __player_hp)
     }
 
     static move_camera(x, y) {

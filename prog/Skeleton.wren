@@ -17,6 +17,9 @@ class Skeleton is Enemy {
     }
 
     update(level) {
+        if (level.is_paused) {
+            return
+        }
         super.update(level)
 
         // Walk and stand around

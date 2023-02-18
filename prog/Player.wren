@@ -3,21 +3,48 @@ import "lib/Renderer" for Renderer
 import "lib/Util" for Hitbox, Math
 import "lib/Input" for Gamepad, Keyboard
 import "State" for Globals, Constants, Balance
+import "Enemy" for Enemy
 import "Assets" for Assets
 
 class Player is Entity {
     construct new() { super() }
 
+    take_damage(damage) {
+        _hp = Math.clamp(_hp - damage, 0, _hp)
+        Globals.player_hp = _hp
+        _level.pause(Balance.HIT_FREEZE_DELAY)
+        _iframes = Balance.PLAYER_IFRAMES
+    }
+
+    heal(hp) {
+        _hp = Math.clamp(_hp + hp, _hp, _max_hp)
+        Globals.player_hp = _hp
+    }
+
+    is_dead { _hp == 0 }
+
     create(level, tiled_data) {
         super.create(level, tiled_data)
         hitbox = Hitbox.new_rectangle(6, 12)
         hitbox.x_offset = -1
+
+        // Meta
+        _level = level
+
+        // Physics
         _speed = 1.2
         _hspeed = 0
         _vspeed = 0
         _jumps = 0
         _max_jumps = 0
         _jump_height = 2
+
+        // Combat things
+        _mana = Balance.PLAYER_MANA
+        _max_hp = Globals.max_player_hp
+        _hp = Globals.player_hp
+        _iframes = 0
+        _flicker = 0
     }
 
     update(level) {
@@ -64,16 +91,40 @@ class Player is Entity {
         x = x + _hspeed
         y = y + _vspeed
 
+        // Move camera to player
         var diff_x = ((x + 4) - (Constants.GAME_WIDTH / 2)) - Globals.camera.x
         var diff_y = ((y + 6) - (Constants.GAME_HEIGHT / 2)) - Globals.camera.y
         Globals.camera.x = Math.clamp(Globals.camera.x + (diff_x * 0.1), 0, level.tileset.width - Constants.GAME_WIDTH)
         Globals.camera.y = Math.clamp(Globals.camera.y + (diff_y * 0.1), 0, level.tileset.height - Constants.GAME_HEIGHT)
         Globals.camera.update()
+
+        // Combat
+        if (_iframes > 0) {
+            _iframes = _iframes - 1
+        }
+        _flicker = _flicker + 1
+        if (_flicker == 10) {
+            _flicker = 0
+        }
+
+        var enemy = level.entity_collision(this, Enemy)
+        if (enemy != null && _iframes == 0) {
+            take_damage(3)
+        }
     }
 
     draw(level) {
-        Renderer.set_colour_mod([0, 0.5, 1, 1])
-        Renderer.draw_rectangle_outline(x + 1, y, 6, 12, 0, 0, 0, 1)
-        Renderer.set_colour_mod([1, 1, 1, 1])
+        if (_iframes == 0 || (_iframes > 0 && _flicker > 4)) {
+            Renderer.set_colour_mod([0, 0.5, 1, 1])
+            Renderer.draw_rectangle_outline(x + 1, y, 6, 12, 0, 0, 0, 1)
+            Renderer.set_colour_mod([1, 1, 1, 1])
+        }
+
+        // Draw player health/mana bar
+        Renderer.set_texture_camera(false)
+        Renderer.draw_texture(Assets.tex_status_back, 2, 2)
+        Renderer.draw_texture_part(Assets.tex_health, 13, 2, 0, 0, Assets.tex_health.width * (_hp / _max_hp), Assets.tex_health.height)
+        Renderer.draw_texture_part(Assets.tex_mana, 13, 2, 0, 0, Assets.tex_mana.width * (_mana / Balance.PLAYER_MANA), Assets.tex_mana.height)
+        Renderer.set_texture_camera(true)
     }
 }
