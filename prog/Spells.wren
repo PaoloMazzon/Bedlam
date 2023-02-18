@@ -27,6 +27,9 @@ class Spell is Entity {
     }
 
     update(level) {
+        if (level.is_paused) {
+            return
+        }
         super.update(level)
         _duration = _duration - 1
         x = x + Math.cast_x(_speed, _direction)
