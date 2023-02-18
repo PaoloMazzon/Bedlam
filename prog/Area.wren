@@ -41,6 +41,7 @@ class Area is Level {
 
         // Pre-load tilesets
         // Pre-load the image of the foreground tileset
+        Renderer.set_texture_camera(false)
         _collision_surface = Surface.new(_tileset.width, _tileset.height)
         Renderer.set_target(_collision_surface)
         _tileset.draw()
@@ -66,6 +67,7 @@ class Area is Level {
         pause(Balance.FADE_DURATION)
         _fade_out = -1
         _next_area = ""
+        Renderer.set_texture_camera(true)
     }
 
     update() {
@@ -73,11 +75,18 @@ class Area is Level {
 
         // Draw tilesets
         Renderer.lock_cameras(Globals.camera)
+        Renderer.set_target(Globals.game_surf)
+        Renderer.set_colour_mod([0, 0, 0, 1])
+        Renderer.clear()
+        Renderer.set_colour_mod([1, 1, 1, 1])
         // TODO: Draw a background
         Renderer.draw_texture(_background_surface, 0, 0)
         Renderer.draw_texture(_collision_surface, 0, 0)
         super.update()
         Renderer.draw_texture(_foreground_surface, 0, 0)
+        Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
+        Renderer.lock_cameras(Renderer.DEFAULT_CAMERA)
+        Util.draw_game_surface()
         Renderer.unlock_cameras()
 
         // Handle fading in and out

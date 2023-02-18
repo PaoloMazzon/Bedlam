@@ -11,7 +11,7 @@ var renderer_config = {
 	"window_width": Globals.scale * Constants.GAME_WIDTH,
 	"window_height": Globals.scale * Constants.GAME_HEIGHT,
 	"fullscreen": Globals.fullscreen,
-	"msaa": Renderer.MSAA_32X,
+	"msaa": Renderer.MSAA_1X,
 	"screen_mode": Renderer.SCREEN_MODE_TRIPLE_BUFFER,
 	"filter_type": Renderer.FILTER_TYPE_NEAREST
 }

@@ -20,14 +20,21 @@ class Util {
         var conf = Renderer.get_config()
         var x = (conf["window_width"] - (Globals.scale * Constants.GAME_WIDTH)) / 2
         var y = (conf["window_height"] - (Globals.scale * Constants.GAME_HEIGHT)) / 2
-        Globals.camera.x_on_screen = x
-        Globals.camera.y_on_screen = y
-        Globals.camera.w_on_screen = Globals.scale * Constants.GAME_WIDTH
-        Globals.camera.h_on_screen = Globals.scale * Constants.GAME_HEIGHT
+        //Globals.camera.x_on_screen = x
+        //Globals.camera.y_on_screen = y
+        //Globals.camera.w_on_screen = Globals.scale * Constants.GAME_WIDTH
+        //Globals.camera.h_on_screen = Globals.scale * Constants.GAME_HEIGHT
         Globals.camera.width = Constants.GAME_WIDTH
         Globals.camera.height = Constants.GAME_HEIGHT
         Globals.camera.zoom = 1
         Globals.camera.update()
+    }
+
+    static draw_game_surface() {
+        var conf = Renderer.get_config()
+        var x = (conf["window_width"] - (Globals.scale * Constants.GAME_WIDTH)) / 2
+        var y = (conf["window_height"] - (Globals.scale * Constants.GAME_HEIGHT)) / 2
+        Renderer.draw_texture(Globals.game_surf, x, y, Globals.scale, Globals.scale, 0, 0, 0)
     }
 
     static change_area(new_area, level) {

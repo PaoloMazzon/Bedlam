@@ -13,6 +13,7 @@ class Menu is Level {
         super.create()
         Globals.camera = Camera.new()
         Util.maximize_scale()
+        Globals.game_surf = Surface.new(Constants.GAME_WIDTH, Constants.GAME_HEIGHT)
     }
 
     update() {
