@@ -2,7 +2,7 @@ import "lib/Renderer" for Renderer
 import "lib/Engine" for Engine
 import "State" for Globals, Constants
 import "Player" for Player
-import "LevelControl" for Marker
+import "LevelControl" for Marker, Transition
 
 class Util {
     static maximize_scale() {
@@ -55,6 +55,11 @@ class Util {
         }
         p.x = x
         p.y = y
+
+        // Setup camera initial position
+        Globals.camera.x = (p.x + 4) - (Constants.GAME_WIDTH / 2)
+        Globals.camera.y = (p.y + 6) - (Constants.GAME_HEIGHT / 2)
+        Globals.camera.update()
         return ret
     }
 }

@@ -3,6 +3,8 @@ import "lib/Drawing" for Surface
 import "lib/Engine" for Level, Engine, Entity
 import "Util" for Util
 import "State" for Globals, Constants
+import "Player" for Player
+import "LevelControl" for Transition
 
 class Area is Level {
     construct new() {
@@ -51,6 +53,9 @@ class Area is Level {
         Renderer.set_target(_foreground_surface)
         _tilesets["foreground"].draw()
         Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
+
+        // Hold onto player handle
+        _player = get_entity(Player)
     }
 
     update() {
@@ -64,6 +69,12 @@ class Area is Level {
         super.update()
         Renderer.draw_texture(_foreground_surface, 0, 0)
         Renderer.unlock_cameras()
+
+        // Check for collisions between the player and transitions
+        var transition = entity_collision(_player, Transition)
+        if (transition != null) {
+            Util.change_area(transition.area, Area)
+        }
 
         // Handle pausing
         if (is_paused && _pause_timer != -1) {

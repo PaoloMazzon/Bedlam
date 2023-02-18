@@ -6,11 +6,12 @@ import "State" for Globals, Constants, Balance
 import "Assets" for Assets
 
 class Player is Entity {
-    construct new() {}
+    construct new() { super() }
 
     create(level, tiled_data) {
         super.create(level, tiled_data)
-        hitbox = Hitbox.new_rectangle(8, 12)
+        hitbox = Hitbox.new_rectangle(6, 12)
+        hitbox.x_offset = -1
         _speed = 1.2
         _hspeed = 0
         _vspeed = 0
@@ -25,8 +26,6 @@ class Player is Entity {
         }
         super.update(level)
 
-        //x = x + (Gamepad.left_stick_x(0) * 2)
-        //y = y + (Gamepad.left_stick_y(0) * 2)
         _hspeed = 0
 
         // Left/right
@@ -74,7 +73,7 @@ class Player is Entity {
 
     draw(level) {
         Renderer.set_colour_mod([0, 0.5, 1, 1])
-        Renderer.draw_rectangle_outline(x, y, 8, 12, 0, 0, 0, 1)
+        Renderer.draw_rectangle_outline(x + 1, y, 6, 12, 0, 0, 0, 1)
         Renderer.set_colour_mod([1, 1, 1, 1])
     }
 }

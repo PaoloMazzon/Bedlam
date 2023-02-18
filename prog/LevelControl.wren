@@ -1,28 +1,26 @@
 import "lib/Engine" for Entity
+import "lib/Util" for Hitbox
 
 class Marker is Entity {
     construct new() {}
 
-    id { __id }
+    id { _id }
 
     create(level, tiled_data) {
         super.create(level, tiled_data)
-        __id = tiled_data["properties"]["id"]
+        _id = tiled_data["properties"]["id"]
     }
 }
 
+// Collisions handled by Area
 class Transition is Entity {
     construct new() {}
 
-    area { __area }
+    area { _area }
 
     create(level, tiled_data) {
         super.create(level, tiled_data)
-        __area = tiled_data["properties"]["area"]
-    }
-
-    update(level) {
-        super.update(level)
-        // TODO: Wait for the player to collide with this and switch
+        _area = tiled_data["properties"]["area"]
+        hitbox = Hitbox.new_rectangle(8, 16)
     }
 }

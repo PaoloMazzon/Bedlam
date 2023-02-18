@@ -7,6 +7,8 @@ class Constants {
 
 class Balance {
     static GRAVITY { 0.1 }
+    static BASE_ENEMY_HP { 100 }
+    static HIT_FREEZE_DELAY { 0.1 }
 }
 
 class Globals {
@@ -29,4 +31,10 @@ class Globals {
     static fullscreen=(s) { __fullscreen = s }
     static area { __area }
     static area=(s) { __area = s }
+
+    static move_camera(x, y) {
+        camera.x = camera.x + x
+        camera.y = camera.y + y
+        camera.update()
+    }
 }

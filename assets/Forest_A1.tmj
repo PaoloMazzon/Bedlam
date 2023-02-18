@@ -125,6 +125,41 @@
                  "width":8,
                  "x":37.6590909090909,
                  "y":171.166666666667
+                }, 
+                {
+                 "class":"LevelControl::Transition",
+                 "height":16,
+                 "id":4,
+                 "name":"forest b1",
+                 "properties":[
+                        {
+                         "name":"area",
+                         "type":"string",
+                         "value":"Forest_B1#1"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":312,
+                 "y":165
+                }, 
+                {
+                 "class":"LevelControl::Marker",
+                 "height":0,
+                 "id":5,
+                 "name":"forest b2",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"id",
+                         "type":"int",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":293.271739130435,
+                 "y":169.239130434783
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -184,7 +219,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":4,
+ "nextobjectid":6,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
