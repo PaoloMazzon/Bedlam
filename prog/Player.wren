@@ -5,20 +5,35 @@ import "lib/Input" for Gamepad, Keyboard
 import "State" for Globals, Constants, Balance
 import "Enemy" for Enemy
 import "Assets" for Assets
+import "Spells" for Bolt
 
 class Player is Entity {
     construct new() { super() }
 
     take_damage(damage) {
         _hp = Math.clamp(_hp - damage, 0, _hp)
-        Globals.player_hp = _hp
         _level.pause(Balance.HIT_FREEZE_DELAY)
         _iframes = Balance.PLAYER_IFRAMES
     }
 
-    heal(hp) {
-        _hp = Math.clamp(_hp + hp, _hp, _max_hp)
-        Globals.player_hp = _hp
+    drain_health(damage) { _hp = Math.clamp(_hp - damage, 0, _hp) }
+
+    heal(hp) { _hp = Math.clamp(_hp + hp, _hp, _max_hp) }
+
+    restore_mana(mana) { _mana = Math.clamp(_mana + mana, _mana, Balance.PLAYER_MANA) }
+
+    // Returns true if the requested mana is available, false if not enough
+    spend_mana(mana) {
+        if (_mana >= mana) {
+            _mana = Math.clamp(_mana - mana, 0, _mana)
+            return true
+        } else {
+            return false
+        }
+    }
+
+    drain_mana(mana) {
+        _mana = Math.clamp(_mana - mana, 0, _mana)
     }
 
     is_dead { _hp == 0 }
@@ -38,6 +53,7 @@ class Player is Entity {
         _jumps = 0
         _max_jumps = 0
         _jump_height = 2
+        _facing = 1
 
         // Combat things
         _mana = Balance.PLAYER_MANA
@@ -45,6 +61,9 @@ class Player is Entity {
         _hp = Globals.player_hp
         _iframes = 0
         _flicker = 0
+
+        // Spells
+        _bolt = Globals.player_has_bolt
     }
 
     update(level) {
@@ -56,18 +75,20 @@ class Player is Entity {
         _hspeed = 0
 
         // Left/right
-        if (Keyboard.key(Keyboard.KEY_A) || Gamepad.button(0, Gamepad.BUTTON_DPAD_LEFT) || Gamepad.left_stick_x(0) < -0.3) {
+        if (Keyboard.key(Keyboard.KEY_LEFT) || Gamepad.button(0, Gamepad.BUTTON_DPAD_LEFT) || Gamepad.left_stick_x(0) < -0.3) {
             _hspeed = _hspeed - _speed
+            _facing = -1
         }
-        if (Keyboard.key(Keyboard.KEY_D) || Gamepad.button(0, Gamepad.BUTTON_DPAD_RIGHT) || Gamepad.left_stick_x(0) > 0.3) {
+        if (Keyboard.key(Keyboard.KEY_RIGHT) || Gamepad.button(0, Gamepad.BUTTON_DPAD_RIGHT) || Gamepad.left_stick_x(0) > 0.3) {
             _hspeed = _hspeed + _speed
+            _facing = 1
         }
 
         // Jumping
         if (level.tileset.collision(hitbox, x, y + 1) && _jumps < _max_jumps) {
             _jumps = _max_jumps
         }
-        if ((Keyboard.key_pressed(Keyboard.KEY_SPACE) || Gamepad.button_pressed(0, Gamepad.BUTTON_A)) && (_jumps > 0 || level.tileset.collision(hitbox, x, y + 1))) {
+        if ((Keyboard.key_pressed(Keyboard.KEY_Z) || (!Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button_pressed(0, Gamepad.BUTTON_A))) && (_jumps > 0 || level.tileset.collision(hitbox, x, y + 1))) {
             if (_jumps > 0) {
                 _jumps = _jumps - 1
             }
@@ -107,6 +128,22 @@ class Player is Entity {
             _flicker = 0
         }
 
+        // Mana & Spell casting
+        restore_mana(Balance.MANA_RESTORATION)
+        if (_mana < Balance.MANA_DAMAGE_THRESHHOLD) {
+            drain_health(Balance.MANA_BURN)
+        }
+        if ((Keyboard.key_pressed(Keyboard.KEY_A) || (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button_pressed(0, Gamepad.BUTTON_A))) && spend_mana(Balance.BOLT_COST)) {
+            var dir = 0
+            var xx = x + 8
+            if (_facing == -1) {
+                dir = 3.141592635
+                xx = x
+            }
+            Bolt.cast(level, xx, y + 6, dir)
+        }
+
+        // TODO: Enemies should do this, not the player
         var enemy = level.entity_collision(this, Enemy)
         if (enemy != null && _iframes == 0) {
             take_damage(3)
@@ -126,5 +163,12 @@ class Player is Entity {
         Renderer.draw_texture_part(Assets.tex_health, 13, 2, 0, 0, Assets.tex_health.width * (_hp / _max_hp), Assets.tex_health.height)
         Renderer.draw_texture_part(Assets.tex_mana, 13, 2, 0, 0, Assets.tex_mana.width * (_mana / Balance.PLAYER_MANA), Assets.tex_mana.height)
         Renderer.set_texture_camera(true)
+    }
+
+    destroy(level) {
+        super.destroy(level)
+        Globals.player_mana = _mana
+        Globals.player_hp = _hp
+        Globals.max_player_hp = _max_hp
     }
 }

@@ -12,9 +12,13 @@ class Balance {
     static BASE_ENEMY_HP { 100 }
     static HIT_FREEZE_DELAY { 0.25 }
     static FADE_DURATION { 0.25 }
-    static PLAYER_MANA { 30 }
+    static PLAYER_MANA { 60 }
     static PLAYER_MAX_BASE_HP { 30 }
     static PLAYER_IFRAMES { 60 }
+    static MANA_RESTORATION { Balance.PLAYER_MANA * 0.0003 } // per second
+    static MANA_DAMAGE_THRESHHOLD { Balance.PLAYER_MANA * 0.20 }
+    static MANA_BURN { Balance.PLAYER_MAX_BASE_HP * 0.0002 }
+    static BOLT_COST { Balance.PLAYER_MANA * 0.05 }
 }
 
 class Globals {
@@ -28,6 +32,8 @@ class Globals {
         __rng = Random.new()
         __max_player_hp = __config.get_num("game", "max_hp", Balance.PLAYER_MAX_BASE_HP)
         __player_hp = __config.get_num("game", "hp", Balance.PLAYER_MAX_BASE_HP)
+        __player_mana = __config.get_num("game", "mana", Balance.PLAYER_MANA)
+        __player_has_bolt = __config.get_bool("game", "bolt", true)
     }
 
     static game_surf { __game_surf }
@@ -42,6 +48,8 @@ class Globals {
     static area { __area }
     static max_player_hp { __max_player_hp }
     static player_hp { __player_hp }
+    static player_mana { __player_mana }
+    static player_has_bolt { __player_has_bolt }
     static scale=(s) {
         __scale = s
         __config.set_num("renderer", "scale", __scale)
@@ -65,6 +73,17 @@ class Globals {
     static player_hp=(s) {
         __player_hp = s
         __config.set_num("game", "hp", __player_hp)
+        __config.flush("config")
+    }
+    static player_mana=(s) {
+        __player_mana = s
+        __config.set_num("game", "mana", __player_mana)
+        __config.flush("config")
+    }
+    static player_has_bolt=(s) {
+        __player_has_bolt = s
+        __config.set_bool("game", "bolt", __player_has_bolt)
+        __config.flush("config")
     }
 
     static move_camera(x, y) {
