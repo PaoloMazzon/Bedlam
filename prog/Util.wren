@@ -4,6 +4,7 @@ import "State" for Globals, Constants
 import "Player" for Player
 import "LevelControl" for Marker, Transition
 import "Skeleton" for Skeleton
+import "Assets" for Assets
 
 class Util {
     static maximize_scale() {
@@ -34,6 +35,7 @@ class Util {
         var conf = Renderer.get_config()
         var x = (conf["window_width"] - (Globals.scale * Constants.GAME_WIDTH)) / 2
         var y = (conf["window_height"] - (Globals.scale * Constants.GAME_HEIGHT)) / 2
+        Renderer.draw_texture(Assets.tex_window_background, 0, 0, conf["window_width"] / 192, conf["window_height"] / 108, 0, 0, 0)
         Renderer.draw_texture(Globals.game_surf, x, y, Globals.scale, Globals.scale, 0, 0, 0)
     }
 

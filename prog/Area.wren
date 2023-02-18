@@ -2,6 +2,7 @@ import "lib/Renderer" for Renderer
 import "lib/Drawing" for Surface
 import "lib/Engine" for Level, Engine, Entity
 import "lib/Util" for Math
+import "lib/Input" for Keyboard
 import "Util" for Util
 import "State" for Globals, Constants, Balance
 import "Player" for Player
@@ -119,6 +120,22 @@ class Area is Level {
             if (_pause_timer == 0) {
                 unpause()
             }
+        }
+
+        // Hotkeys
+        if (Keyboard.key(Keyboard.KEY_LALT) && Keyboard.key_pressed(Keyboard.KEY_RETURN)) {
+            Globals.fullscreen = !Globals.fullscreen
+            var conf = Renderer.get_config()
+            conf["fullscreen"] = Globals.fullscreen
+
+            if (!Globals.fullscreen) {
+                Globals.scale = Constants.DEFAULT_SCALE
+                conf["window_width"] = Globals.scale * Constants.GAME_WIDTH
+                conf["window_height"] = Globals.scale * Constants.GAME_HEIGHT
+            }
+
+            Renderer.set_config(conf)
+            Util.maximize_scale()
         }
     }
 

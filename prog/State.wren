@@ -4,6 +4,7 @@ import "random" for Random
 class Constants {
     static GAME_WIDTH { 160 }
     static GAME_HEIGHT { 120 }
+    static DEFAULT_SCALE { 5 }
 }
 
 class Balance {
@@ -18,7 +19,7 @@ class Globals {
         __config = INI.open("config")
         __game_surf = null
         __camera = null
-        __scale = __config.get_num("renderer", "scale", 5)
+        __scale = __config.get_num("renderer", "scale", Constants.DEFAULT_SCALE)
         __fullscreen = __config.get_bool("renderer", "fullscreen", false)
         __area = __config.get_string("game", "area", "Forest_A1#1")
         __rng = Random.new()
