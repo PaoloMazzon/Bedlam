@@ -56,7 +56,7 @@ class Player is Entity {
         _facing = 1
 
         // Combat things
-        _mana = Balance.PLAYER_MANA
+        _mana = Globals.player_mana
         _max_hp = Globals.max_player_hp
         _hp = Globals.player_hp
         _iframes = 0
@@ -157,11 +157,19 @@ class Player is Entity {
             Renderer.set_colour_mod([1, 1, 1, 1])
         }
 
-        // Draw player health/mana bar
+        // Draw player-related UI
         Renderer.set_texture_camera(false)
         Renderer.draw_texture(Assets.tex_status_back, 2, 2)
         Renderer.draw_texture_part(Assets.tex_health, 13, 2, 0, 0, Assets.tex_health.width * (_hp / _max_hp), Assets.tex_health.height)
         Renderer.draw_texture_part(Assets.tex_mana, 13, 2, 0, 0, Assets.tex_mana.width * (_mana / Balance.PLAYER_MANA), Assets.tex_mana.height)
+        
+        if (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER)) {
+            Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)
+            if (_bolt) {
+                Renderer.draw_texture(Assets.tex_bolt_icon, 137, 26)
+            }
+        }
+
         Renderer.set_texture_camera(true)
     }
 

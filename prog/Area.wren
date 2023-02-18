@@ -1,12 +1,13 @@
 import "lib/Renderer" for Renderer
 import "lib/Drawing" for Surface
 import "lib/Engine" for Level, Engine, Entity
-import "lib/Util" for Math
+import "lib/Util" for Math, Tileset
 import "lib/Input" for Keyboard
 import "Util" for Util
 import "State" for Globals, Constants, Balance
 import "Player" for Player
 import "LevelControl" for Transition
+import "Assets" for Assets
 
 class Area is Level {
     construct new() {
@@ -80,7 +81,7 @@ class Area is Level {
         Renderer.set_colour_mod([0, 0, 0, 1])
         Renderer.clear()
         Renderer.set_colour_mod([1, 1, 1, 1])
-        // TODO: Draw a background
+        Tileset.draw_tiling_background(Assets.tex_forestbg, 0.8, Globals.camera)
         Renderer.draw_texture(_background_surface, 0, 0)
         Renderer.draw_texture(_collision_surface, 0, 0)
         super.update()
