@@ -9,6 +9,7 @@ class Balance {
     static GRAVITY { 0.1 }
     static BASE_ENEMY_HP { 100 }
     static HIT_FREEZE_DELAY { 0.1 }
+    static FADE_DURATION { 0.25 }
 }
 
 class Globals {

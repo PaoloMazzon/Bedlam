@@ -1,8 +1,9 @@
 import "lib/Renderer" for Renderer
 import "lib/Drawing" for Surface
 import "lib/Engine" for Level, Engine, Entity
+import "lib/Util" for Math
 import "Util" for Util
-import "State" for Globals, Constants
+import "State" for Globals, Constants, Balance
 import "Player" for Player
 import "LevelControl" for Transition
 
@@ -34,6 +35,9 @@ class Area is Level {
         super.create()
         _tilesets = Util.init_area(this)
         _tileset = _tilesets["collisions"]
+        Globals.camera.x = Math.clamp(Globals.camera.x, 0, tileset.width - Constants.GAME_WIDTH)
+        Globals.camera.y = Math.clamp(Globals.camera.y, 0, tileset.height - Constants.GAME_HEIGHT)
+        Globals.camera.update()
 
         // Pre-load tilesets
         // Pre-load the image of the foreground tileset
@@ -56,6 +60,12 @@ class Area is Level {
 
         // Hold onto player handle
         _player = get_entity(Player)
+
+        // For fading in/out
+        _fade_in = (Balance.FADE_DURATION * 60).round
+        pause(Balance.FADE_DURATION)
+        _fade_out = -1
+        _next_area = ""
     }
 
     update() {
@@ -70,10 +80,28 @@ class Area is Level {
         Renderer.draw_texture(_foreground_surface, 0, 0)
         Renderer.unlock_cameras()
 
+        // Handle fading in and out
+        if (_fade_in != -1) {
+            _fade_in = _fade_in - 1
+            Renderer.set_colour_mod([0, 0, 0, (_fade_in / 60) / Balance.FADE_DURATION])
+            Renderer.clear()
+            Renderer.set_colour_mod([1, 1, 1, 1])
+        } else if (_fade_out != -1) {
+            _fade_out = _fade_out - 1
+            Renderer.set_colour_mod([0, 0, 0, 1 - ((_fade_out / 60) / Balance.FADE_DURATION)])
+            Renderer.clear()
+            Renderer.set_colour_mod([1, 1, 1, 1])
+            if (_fade_out == 0) {
+                Util.change_area(_area, Area)
+            }
+        }
+
         // Check for collisions between the player and transitions
         var transition = entity_collision(_player, Transition)
-        if (transition != null) {
-            Util.change_area(transition.area, Area)
+        if (transition != null && _fade_out == -1) {
+            _fade_out = (Balance.FADE_DURATION * 60).round
+            _area = transition.area
+            pause()
         }
 
         // Handle pausing

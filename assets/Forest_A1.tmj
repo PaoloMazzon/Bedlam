@@ -145,10 +145,9 @@
                 }, 
                 {
                  "class":"LevelControl::Marker",
-                 "height":0,
-                 "id":5,
+                 "height":12,
+                 "id":6,
                  "name":"forest b2",
-                 "point":true,
                  "properties":[
                         {
                          "name":"id",
@@ -157,9 +156,9 @@
                         }],
                  "rotation":0,
                  "visible":true,
-                 "width":0,
-                 "x":293.271739130435,
-                 "y":169.239130434783
+                 "width":8,
+                 "x":296,
+                 "y":171
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -219,7 +218,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":6,
+ "nextobjectid":7,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
