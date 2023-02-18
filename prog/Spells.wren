@@ -61,6 +61,6 @@ class Bolt is Spell {
         bolt.y = y
         bolt.sprite.rotation = dir
         bolt.set_velocity(dir, 3)
-        bolt.set_duration(3)
+        bolt.set_duration(1.5)
     }
 }

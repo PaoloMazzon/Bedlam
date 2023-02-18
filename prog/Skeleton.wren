@@ -14,6 +14,7 @@ class Skeleton is Enemy {
         hitbox = Hitbox.new_rectangle(8, 12)
         _walk_delay = Globals.rng.int(1 * 60, 4 * 60)
         _stand_delay = -1
+        hp = 20
     }
 
     update(level) {

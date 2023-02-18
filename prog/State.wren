@@ -9,7 +9,7 @@ class Constants {
 
 class Balance {
     static GRAVITY { 0.1 }
-    static BASE_ENEMY_HP { 100 }
+    static BASE_ENEMY_HP { 50 }
     static HIT_FREEZE_DELAY { 0.25 }
     static FADE_DURATION { 0.25 }
     static PLAYER_MANA { 60 }
@@ -19,6 +19,7 @@ class Balance {
     static MANA_DAMAGE_THRESHHOLD { Balance.PLAYER_MANA * 0.20 }
     static MANA_BURN { Balance.PLAYER_MAX_BASE_HP * 0.0002 }
     static BOLT_COST { Balance.PLAYER_MANA * 0.05 }
+    static ENEMY_IFRAMES { 60 }
 }
 
 class Globals {

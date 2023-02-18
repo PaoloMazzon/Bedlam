@@ -1,6 +1,9 @@
 import "lib/Engine" for Engine, Entity, Level
 import "lib/Util" for Math
+import "lib/Renderer" for Renderer
 import "State" for Balance
+import "Spells" for Spell
+import "MinorEntities" for Death
 
 // Enemies handle their own physics here, nearly identical to the players
 class Enemy is Entity {
@@ -10,10 +13,13 @@ class Enemy is Entity {
     vspeed { _vspeed }
     hspeed=(s) { _hspeed = s }
     vspeed=(s) { _vspeed = s }
+    hp=(s) { _hp = s }
 
     take_damage(dmg) {
-        Math.clamp(_hp = _hp - dmg, 0, hp)
-        level.pause(Balance.HIT_FREEZE_DELAY)
+        _hp = Math.clamp(_hp - dmg, 0, hp)
+        _level.pause(Balance.HIT_FREEZE_DELAY)
+        _iframes = Balance.ENEMY_IFRAMES
+        _alternator = 5
     }
 
     construct new() {
@@ -21,6 +27,8 @@ class Enemy is Entity {
         _hp = Balance.BASE_ENEMY_HP
         _hspeed = 0
         _vspeed = 0
+        _iframes = 0
+        _alternator = 0
     }
 
     create(level, tiled_data) {
@@ -50,9 +58,34 @@ class Enemy is Entity {
         x = x + hspeed
         y = y + vspeed
 
+        // Get hit by spells
+        var spell = level.entity_collision(this, Spell)
+        if (spell != null && _iframes == 0) {
+            spell.hit_effect(level, this)
+        }
+
         // Death (Skull emoji)
         if (is_dead) {
             level.remove_entity(this)
+            var d = level.add_entity(Death)
+            d.x = x + (sprite.width / 2) - (d.sprite.width / 2)
+            d.y = y + (sprite.height / 2) - (d.sprite.height / 2)
         }
+
+        _alternator = _alternator + 1
+        if (_alternator == 10) {
+            _alternator = 0
+        }
+        if (_iframes > 0) {
+            _iframes = _iframes - 1
+        }
+    }
+
+    draw(level) {
+        if ((_alternator > 4 && _iframes > 0)) {
+            Renderer.set_colour_mod([0, 0, 0, 1])
+        }
+        super.draw(level)
+        Renderer.set_colour_mod([1, 1, 1, 1])
     }
 }
