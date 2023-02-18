@@ -193,6 +193,39 @@
                  "width":8,
                  "x":12,
                  "y":19
+                }, 
+                {
+                 "class":"Skeleton::Skeleton",
+                 "height":12,
+                 "id":4,
+                 "name":"skelly",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":166.5,
+                 "y":143.25
+                }, 
+                {
+                 "class":"Skeleton::Skeleton",
+                 "height":12,
+                 "id":7,
+                 "name":"skelly",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":103.75,
+                 "y":145.5
+                }, 
+                {
+                 "class":"Skeleton::Skeleton",
+                 "height":12,
+                 "id":8,
+                 "name":"skelly",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":155.75,
+                 "y":50.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -252,7 +285,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":4,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

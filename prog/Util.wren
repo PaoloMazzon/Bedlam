@@ -3,6 +3,7 @@ import "lib/Engine" for Engine
 import "State" for Globals, Constants
 import "Player" for Player
 import "LevelControl" for Marker, Transition
+import "Skeleton" for Skeleton
 
 class Util {
     static maximize_scale() {
