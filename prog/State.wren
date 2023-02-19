@@ -40,8 +40,8 @@ class Globals {
         __player_has_bolt = __config.get_bool("game", "bolt", true)
         __post_shader = null
         __shader_buffer = Buffer.new(12)
-        __health_potions = __config.get_num("game", "health_potions", 50)
-        __mana_potions = __config.get_num("game", "mana_potions", 50)
+        __health_potions = __config.get_num("game", "health_potions", 0)
+        __mana_potions = __config.get_num("game", "mana_potions", 0)
     }
 
     static game_surf { __game_surf }

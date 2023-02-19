@@ -37,6 +37,7 @@ class Area is Level {
         super.create()
         _tilesets = Util.init_area(this)
         _tileset = _tilesets["collisions"]
+        _hidden_tileset = _tilesets["hidden"]
         Globals.camera.x = Math.clamp(Globals.camera.x, 0, tileset.width - Constants.GAME_WIDTH)
         Globals.camera.y = Math.clamp(Globals.camera.y, 0, tileset.height - Constants.GAME_HEIGHT)
         Globals.camera.update()
@@ -59,6 +60,12 @@ class Area is Level {
         _foreground_surface = Surface.new(_tilesets["foreground"].width, _tilesets["foreground"].height)
         Renderer.set_target(_foreground_surface)
         _tilesets["foreground"].draw()
+        Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
+
+        // Pre-load the image of the hidden tileset
+        _hidden_surface = Surface.new(_tilesets["hidden"].width, _tilesets["hidden"].height)
+        Renderer.set_target(_hidden_surface)
+        _tilesets["hidden"].draw()
         Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
 
         // Hold onto player handle
@@ -86,6 +93,9 @@ class Area is Level {
         Renderer.draw_texture(_collision_surface, 0, 0)
         super.update()
         Renderer.draw_texture(_foreground_surface, 0, 0)
+        if (!_hidden_tileset.collision(_player.hitbox, _player.x, _player.y)) {
+            Renderer.draw_texture(_hidden_surface, 0, 0)
+        }
         Util.draw_player_ui(_player)
         Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
         Renderer.lock_cameras(Renderer.DEFAULT_CAMERA)
