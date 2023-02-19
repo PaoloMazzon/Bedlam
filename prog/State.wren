@@ -1,4 +1,5 @@
 import "lib/File" for INI
+import "lib/Util" for Buffer
 import "random" for Random
 
 class Constants {
@@ -35,12 +36,18 @@ class Globals {
         __player_hp = __config.get_num("game", "hp", Balance.PLAYER_MAX_BASE_HP)
         __player_mana = __config.get_num("game", "mana", Balance.PLAYER_MANA)
         __player_has_bolt = __config.get_bool("game", "bolt", true)
+        __post_shader = null
+        __shader_buffer = Buffer.new(12)
     }
 
     static game_surf { __game_surf }
     static game_surf=(s) { __game_surf = s }
     static camera { __camera }
     static camera=(s) { __camera = s }
+    static post_shader { __post_shader }
+    static post_shader=(s) { __post_shader = s }
+    static shader_buffer { __shader_buffer }
+    static shader_buffer=(s) { __shader_buffer = s }
     static rng { __rng }
 
     // Things that go in the ini automatically

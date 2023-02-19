@@ -1,5 +1,5 @@
 import "lib/Engine" for Level
-import "lib/Renderer" for Renderer, Camera
+import "lib/Renderer" for Renderer, Camera, Shader
 import "lib/Drawing" for Surface
 import "lib/Input" for Gamepad
 import "State" for Globals, Constants
@@ -14,6 +14,7 @@ class Menu is Level {
         Globals.camera = Camera.new()
         Util.maximize_scale()
         Globals.game_surf = Surface.new(Constants.GAME_WIDTH, Constants.GAME_HEIGHT)
+        Globals.post_shader = Shader.load("assets/post.vert.spv", "assets/post.frag.spv", 12)
     }
 
     update() {
