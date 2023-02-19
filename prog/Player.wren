@@ -47,6 +47,13 @@ class Player is Entity {
 
     create(level, tiled_data) {
         super.create(level, tiled_data)
+        // Sprite
+        Assets.spr_player_fall.origin_x = 2
+        Assets.spr_player_fall.origin_y = 2
+        Assets.spr_player_run.origin_x = 2
+        sprite = Assets.spr_player_idle
+
+        // Hitbox
         hitbox = Hitbox.new_rectangle(6, 12)
         hitbox.x_offset = -1
 
@@ -120,6 +127,18 @@ class Player is Entity {
         x = x + _hspeed
         y = y + _vspeed
 
+        // Animations
+        if (_hspeed != 0) {
+            sprite = Assets.spr_player_run
+        } else {
+            sprite = Assets.spr_player_idle
+        }
+        if (_vspeed > 0 && !level.tileset.collision(hitbox, x, y + 1)) {
+            sprite = Assets.spr_player_fall
+        } else if (_vspeed < 0) {
+            sprite = Assets.spr_player_jump
+        }
+
         /****************** Camera ******************/
         var diff_x = ((x + 4) - (Constants.GAME_WIDTH / 2)) - Globals.camera.x
         var diff_y = ((y + 6) - (Constants.GAME_HEIGHT / 2)) - Globals.camera.y
@@ -174,9 +193,10 @@ class Player is Entity {
 
     draw(level) {
         if (_iframes == 0 || (_iframes > 0 && _flicker > 4)) {
-            Renderer.set_colour_mod([0, 0.5, 1, 1])
-            Renderer.draw_rectangle_outline(x + 1, y, 6, 12, 0, 0, 0, 1)
-            Renderer.set_colour_mod([1, 1, 1, 1])
+            sprite.scale_x = _facing
+            var draw_x = x + 1
+            if (_facing == -1) { draw_x = draw_x + 8 }
+            Renderer.draw_sprite(sprite, draw_x, y)
         }
     }
 
