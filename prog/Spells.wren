@@ -1,6 +1,7 @@
 import "lib/Engine" for Engine, Level, Entity
 import "lib/Util" for Math, Hitbox
 import "Assets" for Assets
+import "MinorEntities" for Hit
 
 class Spell is Entity {
     set_velocity(dir, speed) {
@@ -17,6 +18,10 @@ class Spell is Entity {
         if (!_penetrates) {
             level.remove_entity(this)
         }
+        var hit = level.add_entity(Hit)
+        hit.x = x
+        hit.y = y
+        hit.sprite.rotation = _direction
     }
 
     construct new() {
@@ -36,6 +41,10 @@ class Spell is Entity {
         y = y + Math.cast_y(_speed, _direction)
         if (_duration <= 0 || level.tileset.collision(hitbox, x, y)) {
             level.remove_entity(this)
+            var hit = level.add_entity(Hit)
+            hit.x = x
+            hit.y = y
+            hit.sprite.rotation = _direction
         }
     }
 }

@@ -133,7 +133,7 @@ class Player is Entity {
         if (_mana < Balance.MANA_DAMAGE_THRESHHOLD) {
             drain_health(Balance.MANA_BURN)
         }
-        if ((Keyboard.key_pressed(Keyboard.KEY_A) || (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button_pressed(0, Gamepad.BUTTON_A))) && spend_mana(Balance.BOLT_COST)) {
+        if ((Keyboard.key_pressed(Keyboard.KEY_A) || (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button_pressed(0, Gamepad.BUTTON_A))) && spend_mana(Balance.BOLT_COST) && _bolt) {
             var dir = 0
             var xx = x + 8
             if (_facing == -1) {
