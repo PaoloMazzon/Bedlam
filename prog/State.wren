@@ -21,6 +21,8 @@ class Balance {
     static MANA_BURN { Balance.PLAYER_MAX_BASE_HP * 0.0002 }
     static BOLT_COST { Balance.PLAYER_MANA * 0.05 }
     static ENEMY_IFRAMES { 60 }
+    static MANA_POTION { 0.3 }
+    static HEALTH_POTION { 0.3 }
 }
 
 class Globals {
@@ -38,6 +40,8 @@ class Globals {
         __player_has_bolt = __config.get_bool("game", "bolt", true)
         __post_shader = null
         __shader_buffer = Buffer.new(12)
+        __health_potions = __config.get_num("game", "health_potions", 50)
+        __mana_potions = __config.get_num("game", "mana_potions", 50)
     }
 
     static game_surf { __game_surf }
@@ -58,6 +62,8 @@ class Globals {
     static player_hp { __player_hp }
     static player_mana { __player_mana }
     static player_has_bolt { __player_has_bolt }
+    static health_potions { __health_potions }
+    static mana_potions { __mana_potions }
     static scale=(s) {
         __scale = s
         __config.set_num("renderer", "scale", __scale)
@@ -91,6 +97,16 @@ class Globals {
     static player_has_bolt=(s) {
         __player_has_bolt = s
         __config.set_bool("game", "bolt", __player_has_bolt)
+        __config.flush("config")
+    }
+    static health_potions=(s) {
+        __health_potions = s
+        __config.set_num("game", "health_potions", __health_potions)
+        __config.flush("config")
+    }
+    static mana_potions=(s) {
+        __mana_potions = s
+        __config.set_num("game", "mana_potions", __mana_potions)
         __config.flush("config")
     }
 

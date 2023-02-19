@@ -86,6 +86,7 @@ class Area is Level {
         Renderer.draw_texture(_collision_surface, 0, 0)
         super.update()
         Renderer.draw_texture(_foreground_surface, 0, 0)
+        Util.draw_player_ui(_player)
         Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
         Renderer.lock_cameras(Renderer.DEFAULT_CAMERA)
         Util.draw_game_surface()

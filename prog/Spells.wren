@@ -41,10 +41,13 @@ class Spell is Entity {
         y = y + Math.cast_y(_speed, _direction)
         if (_duration <= 0 || level.tileset.collision(hitbox, x, y)) {
             level.remove_entity(this)
-            var hit = level.add_entity(Hit)
-            hit.x = x
-            hit.y = y
-            hit.sprite.rotation = _direction
+            
+            if (_duration > 0) {
+                var hit = level.add_entity(Hit)
+                hit.x = x
+                hit.y = y
+                hit.sprite.rotation = _direction
+            }
         }
     }
 }
@@ -73,6 +76,6 @@ class Bolt is Spell {
         bolt.y = y
         bolt.sprite.rotation = dir
         bolt.set_velocity(dir, 3)
-        bolt.set_duration(1.5)
+        bolt.set_duration(0.5)
     }
 }

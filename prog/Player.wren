@@ -38,6 +38,13 @@ class Player is Entity {
 
     is_dead { _hp == 0 }
 
+    mana { _mana }
+    hp { _hp }
+    max_hp { _max_hp }
+    health_potions { _health_potions }
+    mana_potions { _mana_potions }
+    has_bolt { _bolt }
+
     create(level, tiled_data) {
         super.create(level, tiled_data)
         hitbox = Hitbox.new_rectangle(6, 12)
@@ -62,8 +69,10 @@ class Player is Entity {
         _iframes = 0
         _flicker = 0
 
-        // Spells
+        // Spells & potions
         _bolt = Globals.player_has_bolt
+        _health_potions = Globals.health_potions
+        _mana_potions = Globals.mana_potions
     }
 
     update(level) {
@@ -72,9 +81,8 @@ class Player is Entity {
         }
         super.update(level)
 
+        /****************** Platforming ******************/
         _hspeed = 0
-
-        // Left/right
         if (Keyboard.key(Keyboard.KEY_LEFT) || Gamepad.button(0, Gamepad.BUTTON_DPAD_LEFT) || Gamepad.left_stick_x(0) < -0.3) {
             _hspeed = _hspeed - _speed
             _facing = -1
@@ -96,7 +104,7 @@ class Player is Entity {
         }
         _vspeed = _vspeed + Balance.GRAVITY
 
-        // Handle collisions
+        /****************** Collisions ******************/
         if (level.tileset.collision(hitbox, x + _hspeed, y)) {
             while (!level.tileset.collision(hitbox, x + _hspeed.sign, y)) {
                 x = x + _hspeed.sign
@@ -112,14 +120,14 @@ class Player is Entity {
         x = x + _hspeed
         y = y + _vspeed
 
-        // Move camera to player
+        /****************** Camera ******************/
         var diff_x = ((x + 4) - (Constants.GAME_WIDTH / 2)) - Globals.camera.x
         var diff_y = ((y + 6) - (Constants.GAME_HEIGHT / 2)) - Globals.camera.y
         Globals.camera.x = Math.clamp(Globals.camera.x + (diff_x * 0.1), 0, level.tileset.width - Constants.GAME_WIDTH)
         Globals.camera.y = Math.clamp(Globals.camera.y + (diff_y * 0.1), 0, level.tileset.height - Constants.GAME_HEIGHT)
         Globals.camera.update()
 
-        // Combat
+        /****************** Combat ******************/
         if (_iframes > 0) {
             _iframes = _iframes - 1
         }
@@ -128,12 +136,12 @@ class Player is Entity {
             _flicker = 0
         }
 
-        // Mana & Spell casting
+        /****************** Mana/Spell casting ******************/
         restore_mana(Balance.MANA_RESTORATION)
         if (_mana < Balance.MANA_DAMAGE_THRESHHOLD) {
             drain_health(Balance.MANA_BURN)
         }
-        if ((Keyboard.key_pressed(Keyboard.KEY_A) || (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button_pressed(0, Gamepad.BUTTON_A))) && spend_mana(Balance.BOLT_COST) && _bolt) {
+        if ((Keyboard.key_pressed(Keyboard.KEY_A) || (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && !Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER) && Gamepad.button_pressed(0, Gamepad.BUTTON_A))) && spend_mana(Balance.BOLT_COST) && _bolt) {
             var dir = 0
             var xx = x + 8
             if (_facing == -1) {
@@ -141,6 +149,20 @@ class Player is Entity {
                 xx = x
             }
             Bolt.cast(level, xx, y + 6, dir)
+        }
+
+        /****************** Potions ******************/
+        if (Keyboard.key_pressed(Keyboard.KEY_Q) || (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER) && Gamepad.button_pressed(0, Gamepad.BUTTON_Y))) {
+            if (_mana_potions > 0) {
+                _mana_potions = _mana_potions - 1
+                restore_mana(Balance.PLAYER_MANA * Balance.MANA_POTION)
+            }
+        }
+        if (Keyboard.key_pressed(Keyboard.KEY_W) || (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER) && Gamepad.button_pressed(0, Gamepad.BUTTON_A))) {
+            if (_health_potions > 0) {
+                _health_potions = _health_potions - 1
+                heal(_max_hp * Balance.HEALTH_POTION)
+            }
         }
 
         // TODO: Enemies should do this, not the player
@@ -156,21 +178,6 @@ class Player is Entity {
             Renderer.draw_rectangle_outline(x + 1, y, 6, 12, 0, 0, 0, 1)
             Renderer.set_colour_mod([1, 1, 1, 1])
         }
-
-        // Draw player-related UI
-        Renderer.set_texture_camera(false)
-        Renderer.draw_texture(Assets.tex_status_back, 2, 2)
-        Renderer.draw_texture_part(Assets.tex_health, 13, 2, 0, 0, Assets.tex_health.width * (_hp / _max_hp), Assets.tex_health.height)
-        Renderer.draw_texture_part(Assets.tex_mana, 13, 2, 0, 0, Assets.tex_mana.width * (_mana / Balance.PLAYER_MANA), Assets.tex_mana.height)
-        
-        if (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER)) {
-            Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)
-            if (_bolt) {
-                Renderer.draw_texture(Assets.tex_bolt_icon, 137, 26)
-            }
-        }
-
-        Renderer.set_texture_camera(true)
     }
 
     destroy(level) {
@@ -178,5 +185,7 @@ class Player is Entity {
         Globals.player_mana = _mana
         Globals.player_hp = _hp
         Globals.max_player_hp = _max_hp
+        Globals.health_potions = _health_potions
+        Globals.mana_potions = _mana_potions
     }
 }

@@ -1,6 +1,7 @@
 import "lib/Renderer" for Renderer
 import "lib/Engine" for Engine
-import "State" for Globals, Constants
+import "State" for Globals, Constants, Balance
+import "lib/Input" for Gamepad, Keyboard
 import "Player" for Player
 import "LevelControl" for Marker, Transition
 import "Skeleton" for Skeleton
@@ -86,5 +87,34 @@ class Util {
         Globals.camera.y = (p.y + 6) - (Constants.GAME_HEIGHT / 2)
         Globals.camera.update()
         return ret
+    }
+
+    static draw_player_ui(player) {
+        Renderer.set_texture_camera(false)
+        Renderer.draw_texture(Assets.tex_status_back, 2, 2)
+        Renderer.draw_texture_part(Assets.tex_health, 13, 2, 0, 0, Assets.tex_health.width * (player.hp / player.max_hp), Assets.tex_health.height)
+        Renderer.draw_texture_part(Assets.tex_mana, 13, 2, 0, 0, Assets.tex_mana.width * (player.mana / Balance.PLAYER_MANA), Assets.tex_mana.height)
+        
+        if (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && !Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
+            // Spell wheel
+            Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)
+            if (player.has_bolt) {
+                Renderer.draw_texture(Assets.tex_bolt_icon, 137, 26)
+            }
+        } else if (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
+            // Mixed wheel
+            Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)
+            Renderer.draw_texture(Assets.tex_health_potion, 137, 26)
+            Renderer.draw_texture(Assets.tex_mana_potion, 137, 4)
+        } else if (!Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
+            // Weapon wheel
+            Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)
+        }
+
+        Renderer.draw_texture(Assets.tex_potionbg, 2, 96)
+        Renderer.draw_font(Assets.fnt_font, player.health_potions.toString, 13, 98)
+        Renderer.draw_font(Assets.fnt_font, player.mana_potions.toString, 13, 108)
+
+        Renderer.set_texture_camera(true)
     }
 }
