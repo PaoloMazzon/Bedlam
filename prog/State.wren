@@ -16,7 +16,9 @@ class Balance {
     static HIT_FREEZE_DELAY { 0.25 }
     static FADE_DURATION { 0.25 }
     static PLAYER_MANA { 60 }
-    static PLAYER_MAX_BASE_HP { 30 }
+    static PLAYER_MAX_BASE_HP { 40 }
+    static PLAYER_HP_BOOSTS { 10 }
+    static PLAYER_POSSIBLE_HP { 70 }
     static PLAYER_IFRAMES { 60 }
     static MANA_RESTORATION { Balance.PLAYER_MANA * 0.0003 } // per second
     static MANA_DAMAGE_THRESHHOLD { Balance.PLAYER_MANA * 0.20 }
@@ -36,7 +38,7 @@ class Globals {
         __camera = null
         __scale = __config.get_num("renderer", "scale", Constants.DEFAULT_SCALE)
         __fullscreen = __config.get_bool("renderer", "fullscreen", false)
-        __area = __config.get_string("game", "area", "Forest_A1#1")
+        __area = __config.get_string("game", "area", "Map_A1#1")
         __rng = Random.new()
         __max_player_hp = __config.get_num("game", "max_hp", Balance.PLAYER_MAX_BASE_HP)
         __player_hp = __config.get_num("game", "hp", Balance.PLAYER_MAX_BASE_HP)

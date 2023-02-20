@@ -93,8 +93,15 @@ class Util {
     static draw_player_ui(player) {
         Renderer.set_texture_camera(false)
         Renderer.draw_texture(Assets.tex_status_back, 2, 2)
-        Renderer.draw_texture_part(Assets.tex_health, 13, 2, 0, 0, Assets.tex_health.width * (player.hp / player.max_hp), Assets.tex_health.height)
+        Renderer.draw_texture_part(Assets.tex_health, 13, 2, 0, 0, Assets.tex_health.width * (player.hp / Balance.PLAYER_POSSIBLE_HP), Assets.tex_health.height)
         Renderer.draw_texture_part(Assets.tex_mana, 13, 2, 0, 0, Assets.tex_mana.width * (player.mana / Balance.PLAYER_MANA), Assets.tex_mana.height)
+
+        // HP cap display
+        if (player.max_hp != Balance.PLAYER_POSSIBLE_HP) {
+            Renderer.set_colour_mod([0, 0, 0, 1])
+            Renderer.draw_line(13 + (50 * (player.max_hp / Balance.PLAYER_POSSIBLE_HP)), 4, 13 + (49 * (player.max_hp / Balance.PLAYER_POSSIBLE_HP)), 10)
+            Renderer.set_colour_mod([1, 1, 1, 1])
+        }
         
         if (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && !Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
             // Spell wheel
