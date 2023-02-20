@@ -1,5 +1,5 @@
 import "lib/Engine" for Entity
-import "lib/Util" for Hitbox
+import "lib/Util" for Hitbox, Math
 import "State" for Constants, Balance
 import "Assets" for Assets
 
@@ -35,11 +35,13 @@ class Weapon is Entity {
     }
 
     // Return's the weapons duration
-    set_weapon(s, alt) {
+    set_weapon(s, alt, player) {
         _weapon = s
         var spr = Weapon.weapon_sprite(s, alt)
         _duration = ((spr.frame_count) * spr.delay * 60).round
         get_hitbox(s, alt)
+        _alt = alt
+        _player = player
         return _duration
     }
 
@@ -49,7 +51,7 @@ class Weapon is Entity {
                 enemy.take_damage(Balance.SHORTSWORD_DAMAGE)
             } else {
                 enemy.take_damage(Balance.SHORTSWORD_DAMAGE / 2)
-                // TODO: Knockback
+                enemy.knockback((enemy.x - _player.x).sign * 1, -2)
             }
         }
         _duration = 0
@@ -62,6 +64,7 @@ class Weapon is Entity {
         _duration = 0
         _weapon = 0
         _alt = false
+        _player = null
     }
 
     update(level) {

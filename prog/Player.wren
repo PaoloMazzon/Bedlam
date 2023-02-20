@@ -231,7 +231,7 @@ class Player is Entity {
         }
         if ((weapon_swing || weapon_alt) && _equipped_weapon != 0) {
             var w = level.add_entity(Weapon)
-            _weapon_frames = w.set_weapon(_equipped_weapon, weapon_alt)
+            _weapon_frames = w.set_weapon(_equipped_weapon, weapon_alt, this)
             sprite = Weapon.weapon_sprite(_equipped_weapon, weapon_alt)
             w.x = x + 8 + (w.hitbox.w / 2)
             w.y = y + 6

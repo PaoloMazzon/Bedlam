@@ -18,10 +18,10 @@ class Enemy is Entity {
     stun(frames) { _stun_timer = frames }
     is_stunned { _stun_timer > 0 }
     
-    knockback(power, direction) {
+    knockback(x, y) {
         _stun_timer = Balance.KNOCKBACK_STUN_FRAMES
-        hspeed = Math.cast_x(power, direction)
-        vspeed = Math.cast_y(power, direction)
+        hspeed = x
+        vspeed = y
     }
 
     take_damage(dmg) {
