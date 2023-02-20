@@ -30,6 +30,8 @@ class Enemy is Entity {
         _iframes = Balance.ENEMY_IFRAMES
     }
 
+    hit_effect(player) { } // called when the player touches this enemy
+
     construct new() {
         super()
         _hp = Balance.BASE_ENEMY_HP

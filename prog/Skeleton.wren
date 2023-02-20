@@ -7,6 +7,10 @@ import "State" for Globals
 class Skeleton is Enemy {
     construct new() { super() }
 
+    hit_effect(player) {
+        player.take_damage(3)
+    }
+
     create(level, tiled_data) {
         super.create(level, tiled_data)
         sprite = Assets.spr_skeleton.copy()
