@@ -3,6 +3,7 @@ import "lib/Util" for Math
 import "lib/Renderer" for Renderer
 import "State" for Balance
 import "Spells" for Spell
+import "Weapon" for Weapon
 import "MinorEntities" for Death
 
 // Enemies handle their own physics here, nearly identical to the players
@@ -65,10 +66,14 @@ class Enemy is Entity {
         x = x + hspeed
         y = y + vspeed
 
-        // Get hit by spells
+        // Get hit by spells & weapons
         var spell = level.entity_collision(this, Spell)
         if (spell != null && _iframes == 0) {
             spell.hit_effect(level, this)
+        }
+        var wep = level.entity_collision(this, Weapon)
+        if (wep != null && _iframes == 0) {
+            wep.hit_effect(level, this)
         }
 
         // Death (Skull emoji)

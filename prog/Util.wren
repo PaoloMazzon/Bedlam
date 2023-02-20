@@ -6,6 +6,7 @@ import "Player" for Player
 import "LevelControl" for Marker, Transition
 import "Skeleton" for Skeleton
 import "Assets" for Assets
+import "Weapon" for Weapon
 
 class Util {
     static maximize_scale() {
@@ -109,6 +110,15 @@ class Util {
         } else if (!Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
             // Weapon wheel
             Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)
+            if (player.has_shortsword) {
+                Renderer.draw_texture(Weapon.weapon_icon(Constants.WEAPON_SHORTSWORD), 137, 26)
+            }
+        } else {
+            // Equipped weapon
+            Renderer.draw_texture(Assets.tex_weapon_box, 146, 2)
+            if (player.equipped_weapon != 0) {
+                Renderer.draw_texture(Weapon.weapon_icon(player.equipped_weapon), 148, 4)
+            }
         }
 
         Renderer.draw_texture(Assets.tex_potionbg, 2, 96)

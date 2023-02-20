@@ -46,6 +46,7 @@ class Globals {
         __shader_buffer = Buffer.new(12)
         __health_potions = __config.get_num("game", "health_potions", 0)
         __mana_potions = __config.get_num("game", "mana_potions", 0)
+        __equipped_weapon = __config.get_num("game", "weapon", 0)
     }
 
     static game_surf { __game_surf }
@@ -69,6 +70,7 @@ class Globals {
     static player_has_shortsword { __player_has_shortsword }
     static health_potions { __health_potions }
     static mana_potions { __mana_potions }
+    static equipped_weapon { __equipped_weapon }
     static scale=(s) {
         __scale = s
         __config.set_num("renderer", "scale", __scale)
@@ -117,6 +119,11 @@ class Globals {
     static mana_potions=(s) {
         __mana_potions = s
         __config.set_num("game", "mana_potions", __mana_potions)
+        __config.flush("config")
+    }
+    static equipped_weapon=(s) {
+        __equipped_weapon = s
+        __config.set_num("game", "weapon", __equipped_weapon)
         __config.flush("config")
     }
 

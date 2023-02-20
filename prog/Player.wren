@@ -6,6 +6,7 @@ import "State" for Globals, Constants, Balance
 import "Enemy" for Enemy
 import "Assets" for Assets
 import "Spells" for Bolt
+import "Weapon" for Weapon
 
 class Player is Entity {
     construct new() { super() }
@@ -43,7 +44,9 @@ class Player is Entity {
     max_hp { _max_hp }
     health_potions { _health_potions }
     mana_potions { _mana_potions }
-    has_bolt { _bolt }
+    has_bolt { _has_bolt }
+    has_shortsword { _has_shortsword }
+    equipped_weapon { _equipped_weapon }
 
     create(level, tiled_data) {
         super.create(level, tiled_data)
@@ -77,13 +80,14 @@ class Player is Entity {
         _flicker = 0
 
         // Spells & potions
-        _bolt = Globals.player_has_bolt
+        _has_bolt = Globals.player_has_bolt
         _health_potions = Globals.health_potions
         _mana_potions = Globals.mana_potions
 
         // Weapons
-        _shortsword = Globals.player_has_shortsword
-        _weapon_frames = 0
+        _has_shortsword = Globals.player_has_shortsword
+        _weapon_frames = Globals.equipped_weapon
+        _equipped_weapon = Globals.equipped_weapon
     }
 
     update(level) {
@@ -101,7 +105,7 @@ class Player is Entity {
         var weapon_alt = false
         var health_potion = false
         var mana_potion = false
-        var shortsword = false
+        var equip_shortsword = false
 
         if (_weapon_frames == 0) {
             var lshoulder = Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER)
@@ -110,11 +114,11 @@ class Player is Entity {
             right = Keyboard.key(Keyboard.KEY_RIGHT) || Gamepad.button(0, Gamepad.BUTTON_DPAD_RIGHT) || Gamepad.left_stick_x(0) > 0.3
             jump = (Keyboard.key_pressed(Keyboard.KEY_Z) || (!lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_A)))
             bolt_cast = (Keyboard.key_pressed(Keyboard.KEY_A) || (lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_A)))
-            weapon_swing = Keyboard.key_pressed(Keyboard.KEY_X) || (!lshoulder && !rshoulder && Gamepad.button(0, Gamepad.BUTTON_X))
-            weapon_alt = Keyboard.key_pressed(Keyboard.KEY_C) || (!lshoulder && !rshoulder && Gamepad.button(0, Gamepad.BUTTON_Y))
+            weapon_swing = Keyboard.key_pressed(Keyboard.KEY_X) || (!lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_X))
+            weapon_alt = Keyboard.key_pressed(Keyboard.KEY_C) || (!lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_Y))
             health_potion = Keyboard.key_pressed(Keyboard.KEY_W) || (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER) && Gamepad.button_pressed(0, Gamepad.BUTTON_A))
             mana_potion = Keyboard.key_pressed(Keyboard.KEY_Q) || (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER) && Gamepad.button_pressed(0, Gamepad.BUTTON_Y))
-            shortsword = Keyboard.key_pressed(Keyboard.KEY_1) || (rshoulder && !lshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_A))
+            equip_shortsword = Keyboard.key_pressed(Keyboard.KEY_1) || (rshoulder && !lshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_A))
         }
 
         /****************** Platforming ******************/
@@ -157,15 +161,17 @@ class Player is Entity {
         y = y + _vspeed
 
         // Animations
-        if (_hspeed != 0) {
-            sprite = Assets.spr_player_run
-        } else {
-            sprite = Assets.spr_player_idle
-        }
-        if (_vspeed > 0 && !level.tileset.collision(hitbox, x, y + 1)) {
-            sprite = Assets.spr_player_fall
-        } else if (_vspeed < 0) {
-            sprite = Assets.spr_player_jump
+        if (_weapon_frames == 0) {
+            if (_hspeed != 0) {
+                sprite = Assets.spr_player_run
+            } else {
+                sprite = Assets.spr_player_idle
+            }
+            if (_vspeed > 0 && !level.tileset.collision(hitbox, x, y + 1)) {
+                sprite = Assets.spr_player_fall
+            } else if (_vspeed < 0) {
+                sprite = Assets.spr_player_jump
+            }
         }
 
         /****************** Camera ******************/
@@ -189,7 +195,7 @@ class Player is Entity {
         if (_mana < Balance.MANA_DAMAGE_THRESHHOLD) {
             drain_health(Balance.MANA_BURN)
         }
-        if (bolt_cast && spend_mana(Balance.BOLT_COST) && _bolt) {
+        if (bolt_cast && spend_mana(Balance.BOLT_COST) && _has_bolt) {
             var dir = 0
             var xx = x + 8
             if (_facing == -1) {
@@ -212,6 +218,28 @@ class Player is Entity {
                 heal(_max_hp * Balance.HEALTH_POTION)
             }
         }
+
+        /****************** Weapons ******************/
+        if (_weapon_frames > 0) {
+            _weapon_frames = _weapon_frames - 1
+            if (_weapon_frames == 0) {
+                sprite = Assets.spr_player_idle
+            }
+        }
+        if (equip_shortsword && _has_shortsword) {
+            _equipped_weapon = Constants.WEAPON_SHORTSWORD
+        }
+        if ((weapon_swing || weapon_alt) && _equipped_weapon != 0) {
+            var w = level.add_entity(Weapon)
+            _weapon_frames = w.set_weapon(_equipped_weapon, weapon_alt)
+            sprite = Weapon.weapon_sprite(_equipped_weapon, weapon_alt)
+            w.x = x + 8 + (w.hitbox.w / 2)
+            w.y = y + 6
+            if (_facing == -1) {
+                w.x = x - (w.hitbox.w / 2)
+            }
+        }
+
 
         // TODO: Enemies should do this, not the player
         var enemy = level.entity_collision(this, Enemy)
@@ -236,5 +264,8 @@ class Player is Entity {
         Globals.max_player_hp = _max_hp
         Globals.health_potions = _health_potions
         Globals.mana_potions = _mana_potions
+        Globals.player_has_bolt = _has_bolt
+        Globals.player_has_shortsword = _has_shortsword
+        Globals.equipped_weapon = _equipped_weapon
     }
 }
