@@ -7,6 +7,7 @@ import "Enemy" for Enemy
 import "Assets" for Assets
 import "Spells" for Bolt
 import "Weapon" for Weapon
+import "Item" for Item
 
 class Player is Entity {
     construct new() { super() }
@@ -46,6 +47,8 @@ class Player is Entity {
     mana_potions { _mana_potions }
     has_bolt { _has_bolt }
     has_shortsword { _has_shortsword }
+    unlock_bolt() { _has_bolt = true }
+    unlock_shortsword() { _has_shortsword = true }
     equipped_weapon { _equipped_weapon }
 
     create(level, tiled_data) {
@@ -210,7 +213,7 @@ class Player is Entity {
         if (_mana < Balance.MANA_DAMAGE_THRESHHOLD) {
             drain_health(Balance.MANA_BURN)
         }
-        if (bolt_cast && spend_mana(Balance.BOLT_COST) && _has_bolt) {
+        if (bolt_cast && _has_bolt && spend_mana(Balance.BOLT_COST)) {
             var dir = 0
             var xx = x + 8
             if (_facing == -1) {
@@ -255,6 +258,13 @@ class Player is Entity {
         }
     }
 
+    pickups(level) {
+        var item = level.entity_collision(this, Item)
+        if (item != null) {
+            item.pickup_effect(level, this)
+        }
+    }
+
     update(level) {
         if (level.is_paused) {
             return
@@ -267,6 +277,7 @@ class Player is Entity {
         potions(level)
         spells(level)
         weapons(level)
+        pickups(level)
 
         // Camera
         var diff_x = ((x + 4) - (Constants.GAME_WIDTH / 2)) - Globals.camera.x

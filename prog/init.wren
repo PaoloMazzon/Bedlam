@@ -3,6 +3,7 @@ import "lib/Engine" for Engine
 import "State" for Constants, Globals
 import "Menu" for Menu
 import "LevelControl" for Marker
+import "Item" for Item
 
 Globals.init()
 

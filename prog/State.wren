@@ -40,13 +40,20 @@ class Globals {
         __max_player_hp = __config.get_num("game", "max_hp", Balance.PLAYER_MAX_BASE_HP)
         __player_hp = __config.get_num("game", "hp", Balance.PLAYER_MAX_BASE_HP)
         __player_mana = __config.get_num("game", "mana", Balance.PLAYER_MANA)
-        __player_has_bolt = __config.get_bool("game", "bolt", true)
-        __player_has_shortsword = __config.get_bool("game", "shortsword", true)
+        __player_has_bolt = __config.get_bool("game", "bolt", false)
+        __player_has_shortsword = __config.get_bool("game", "shortsword", false)
         __post_shader = null
         __shader_buffer = Buffer.new(12)
         __health_potions = __config.get_num("game", "health_potions", 0)
         __mana_potions = __config.get_num("game", "mana_potions", 0)
         __equipped_weapon = __config.get_num("game", "weapon", 0)
+
+        // Load unlocked items
+        var str = __config.get_string("game", "unlocked_items", "")
+        __unlocked_items = []
+        if (str != "") {
+            __unlocked_items = str.split(",")
+        }
     }
 
     static game_surf { __game_surf }
@@ -71,6 +78,7 @@ class Globals {
     static health_potions { __health_potions }
     static mana_potions { __mana_potions }
     static equipped_weapon { __equipped_weapon }
+    static item_unlocked(item) { __unlocked_items.indexOf(item) != -1 }
     static scale=(s) {
         __scale = s
         __config.set_num("renderer", "scale", __scale)
@@ -125,6 +133,19 @@ class Globals {
         __equipped_weapon = s
         __config.set_num("game", "weapon", __equipped_weapon)
         __config.flush("config")
+    }
+    static unlock_item(item) {
+        if (!Globals.item_unlocked(item)) {
+            __unlocked_items.add(item)
+            var str = ""
+            for (i in __unlocked_items) {
+                if (i != "") {
+                    str = str + i + ","
+                }
+            }
+            __config.set_string("game", "unlocked_items", str)
+            __config.flush("config")
+        }
     }
 
     static move_camera(x, y) {

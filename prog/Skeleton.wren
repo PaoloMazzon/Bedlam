@@ -19,6 +19,7 @@ class Skeleton is Enemy {
         _walk_delay = Globals.rng.int(1 * 60, 4 * 60)
         _stand_delay = -1
         hp = 20
+        _on_ground_last_frame = true
     }
 
     update(level) {
@@ -31,6 +32,10 @@ class Skeleton is Enemy {
         }
 
         // Walk and stand around
+        var on_ground = level.tileset.collision(hitbox, x, y + 1)
+        if (on_ground && !_on_ground_last_frame) {
+            hspeed = 0
+        }
         if (level.tileset.collision(hitbox, x, y + 1)) {
             if (_walk_delay != -1) {
                 _walk_delay = _walk_delay - 1
@@ -57,6 +62,7 @@ class Skeleton is Enemy {
                 hspeed = 0
             }
         }
+        _on_ground_last_frame = on_ground
 
         // Animation
         if (hspeed > 0) {

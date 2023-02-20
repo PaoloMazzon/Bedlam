@@ -175,6 +175,40 @@
                  "width":8,
                  "x":155.75,
                  "y":50.5
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":2,
+                 "id":9,
+                 "name":"shortsword pickup",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"shortsword"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":10,
+                 "x":281.666666666667,
+                 "y":56
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":2,
+                 "id":10,
+                 "name":"bolt pickup",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"bolt"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":10,
+                 "x":169,
+                 "y":251.66406455863
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -285,7 +319,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":9,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
