@@ -1,10 +1,11 @@
 import "lib/Engine" for Engine, Entity, Level
 import "lib/Util" for Math
 import "lib/Renderer" for Renderer
-import "State" for Balance
+import "State" for Balance, Globals
 import "Spells" for Spell
 import "Weapon" for Weapon
 import "MinorEntities" for Death
+import "Item" for Item
 
 // Enemies handle their own physics here, nearly identical to the players
 class Enemy is Entity {
@@ -100,5 +101,17 @@ class Enemy is Entity {
         }
         super.draw(level)
         Renderer.set_colour_mod([1, 1, 1, 1])
+    }
+
+    destroy(level) {
+        super.destroy(level)
+
+        // Chance to get a potion
+        var n = Globals.rng.int(20)
+        if (n == 0) {
+            Item.create_item(level, "health", x, y)
+        } else if (n == 1) {
+            Item.create_item(level, "mana", x, y)
+        }
     }
 }

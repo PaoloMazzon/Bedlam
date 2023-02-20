@@ -50,6 +50,8 @@ class Player is Entity {
     unlock_bolt() { _has_bolt = true }
     unlock_shortsword() { _has_shortsword = true }
     equipped_weapon { _equipped_weapon }
+    get_health_potion() { _health_potions = _health_potions + 1 }
+    get_mana_potion() { _mana_potions = _mana_potions + 1 }
 
     create(level, tiled_data) {
         super.create(level, tiled_data)

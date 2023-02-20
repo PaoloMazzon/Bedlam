@@ -7,6 +7,7 @@ class Constants {
     static GAME_HEIGHT { 120 }
     static DEFAULT_SCALE { 5 }
     static WEAPON_SHORTSWORD { 1 }
+    static FLOATING_TEXT_DURATION_FRAMES { 60 }
 }
 
 class Balance {
@@ -135,7 +136,7 @@ class Globals {
         __config.flush("config")
     }
     static unlock_item(item) {
-        if (!Globals.item_unlocked(item)) {
+        if (!Globals.item_unlocked(item) && item != "health" && item != "mana") {
             __unlocked_items.add(item)
             var str = ""
             for (i in __unlocked_items) {
