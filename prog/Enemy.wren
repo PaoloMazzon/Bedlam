@@ -14,12 +14,19 @@ class Enemy is Entity {
     hspeed=(s) { _hspeed = s }
     vspeed=(s) { _vspeed = s }
     hp=(s) { _hp = s }
+    stun(frames) { _stun_timer = frames }
+    is_stunned { _stun_timer > 0 }
+    
+    knockback(power, direction) {
+        _stun_timer = Balance.KNOCKBACK_STUN_FRAMES
+        hspeed = Math.cast_x(power, direction)
+        vspeed = Math.cast_y(power, direction)
+    }
 
     take_damage(dmg) {
         _hp = Math.clamp(_hp - dmg, 0, hp)
         _level.pause(Balance.HIT_FREEZE_DELAY)
         _iframes = Balance.ENEMY_IFRAMES
-        _alternator = 5
     }
 
     construct new() {
@@ -28,7 +35,7 @@ class Enemy is Entity {
         _hspeed = 0
         _vspeed = 0
         _iframes = 0
-        _alternator = 0
+        _stun_timer = 0
     }
 
     create(level, tiled_data) {
@@ -72,17 +79,16 @@ class Enemy is Entity {
             d.y = y + (sprite.height / 2) - (d.sprite.height / 2)
         }
 
-        _alternator = _alternator + 1
-        if (_alternator == 10) {
-            _alternator = 0
-        }
         if (_iframes > 0) {
             _iframes = _iframes - 1
+        }
+        if (_stun_timer > 0) {
+            _stun_timer = _stun_timer - 1
         }
     }
 
     draw(level) {
-        if ((_alternator > 4 && _iframes > 0)) {
+        if (_iframes > 0) {
             Renderer.set_colour_mod([0, 0, 0, 1])
         }
         super.draw(level)

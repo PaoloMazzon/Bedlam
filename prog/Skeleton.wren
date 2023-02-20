@@ -22,6 +22,9 @@ class Skeleton is Enemy {
             return
         }
         super.update(level)
+        if (is_stunned) {
+            return
+        }
 
         // Walk and stand around
         if (_walk_delay != -1) {

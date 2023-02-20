@@ -80,6 +80,10 @@ class Player is Entity {
         _bolt = Globals.player_has_bolt
         _health_potions = Globals.health_potions
         _mana_potions = Globals.mana_potions
+
+        // Weapons
+        _shortsword = Globals.player_has_shortsword
+        _weapon_frames = 0
     }
 
     update(level) {
@@ -88,13 +92,38 @@ class Player is Entity {
         }
         super.update(level)
 
+        /****************** Input ******************/
+        var left = false
+        var right = false
+        var jump = false
+        var bolt_cast = false
+        var weapon_swing = false
+        var weapon_alt = false
+        var health_potion = false
+        var mana_potion = false
+        var shortsword = false
+
+        if (_weapon_frames == 0) {
+            var lshoulder = Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER)
+            var rshoulder = Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)
+            left = Keyboard.key(Keyboard.KEY_LEFT) || Gamepad.button(0, Gamepad.BUTTON_DPAD_LEFT) || Gamepad.left_stick_x(0) < -0.3
+            right = Keyboard.key(Keyboard.KEY_RIGHT) || Gamepad.button(0, Gamepad.BUTTON_DPAD_RIGHT) || Gamepad.left_stick_x(0) > 0.3
+            jump = (Keyboard.key_pressed(Keyboard.KEY_Z) || (!lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_A)))
+            bolt_cast = (Keyboard.key_pressed(Keyboard.KEY_A) || (lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_A)))
+            weapon_swing = Keyboard.key_pressed(Keyboard.KEY_X) || (!lshoulder && !rshoulder && Gamepad.button(0, Gamepad.BUTTON_X))
+            weapon_alt = Keyboard.key_pressed(Keyboard.KEY_C) || (!lshoulder && !rshoulder && Gamepad.button(0, Gamepad.BUTTON_Y))
+            health_potion = Keyboard.key_pressed(Keyboard.KEY_W) || (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER) && Gamepad.button_pressed(0, Gamepad.BUTTON_A))
+            mana_potion = Keyboard.key_pressed(Keyboard.KEY_Q) || (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER) && Gamepad.button_pressed(0, Gamepad.BUTTON_Y))
+            shortsword = Keyboard.key_pressed(Keyboard.KEY_1) || (rshoulder && !lshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_A))
+        }
+
         /****************** Platforming ******************/
         _hspeed = 0
-        if (Keyboard.key(Keyboard.KEY_LEFT) || Gamepad.button(0, Gamepad.BUTTON_DPAD_LEFT) || Gamepad.left_stick_x(0) < -0.3) {
+        if (left) {
             _hspeed = _hspeed - _speed
             _facing = -1
         }
-        if (Keyboard.key(Keyboard.KEY_RIGHT) || Gamepad.button(0, Gamepad.BUTTON_DPAD_RIGHT) || Gamepad.left_stick_x(0) > 0.3) {
+        if (right) {
             _hspeed = _hspeed + _speed
             _facing = 1
         }
@@ -103,7 +132,7 @@ class Player is Entity {
         if (level.tileset.collision(hitbox, x, y + 1) && _jumps < _max_jumps) {
             _jumps = _max_jumps
         }
-        if ((Keyboard.key_pressed(Keyboard.KEY_Z) || (!Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button_pressed(0, Gamepad.BUTTON_A))) && (_jumps > 0 || level.tileset.collision(hitbox, x, y + 1))) {
+        if (jump && (_jumps > 0 || level.tileset.collision(hitbox, x, y + 1))) {
             if (_jumps > 0) {
                 _jumps = _jumps - 1
             }
@@ -160,7 +189,7 @@ class Player is Entity {
         if (_mana < Balance.MANA_DAMAGE_THRESHHOLD) {
             drain_health(Balance.MANA_BURN)
         }
-        if ((Keyboard.key_pressed(Keyboard.KEY_A) || (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && !Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER) && Gamepad.button_pressed(0, Gamepad.BUTTON_A))) && spend_mana(Balance.BOLT_COST) && _bolt) {
+        if (bolt_cast && spend_mana(Balance.BOLT_COST) && _bolt) {
             var dir = 0
             var xx = x + 8
             if (_facing == -1) {
@@ -171,13 +200,13 @@ class Player is Entity {
         }
 
         /****************** Potions ******************/
-        if (Keyboard.key_pressed(Keyboard.KEY_Q) || (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER) && Gamepad.button_pressed(0, Gamepad.BUTTON_Y))) {
+        if (mana_potion) {
             if (_mana_potions > 0) {
                 _mana_potions = _mana_potions - 1
                 restore_mana(Balance.PLAYER_MANA * Balance.MANA_POTION)
             }
         }
-        if (Keyboard.key_pressed(Keyboard.KEY_W) || (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER) && Gamepad.button_pressed(0, Gamepad.BUTTON_A))) {
+        if (health_potion) {
             if (_health_potions > 0) {
                 _health_potions = _health_potions - 1
                 heal(_max_hp * Balance.HEALTH_POTION)

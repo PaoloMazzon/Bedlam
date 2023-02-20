@@ -6,6 +6,7 @@ class Constants {
     static GAME_WIDTH { 160 }
     static GAME_HEIGHT { 120 }
     static DEFAULT_SCALE { 5 }
+    static WEAPON_SHORTSWORD { 1 }
 }
 
 class Balance {
@@ -20,9 +21,11 @@ class Balance {
     static MANA_DAMAGE_THRESHHOLD { Balance.PLAYER_MANA * 0.20 }
     static MANA_BURN { Balance.PLAYER_MAX_BASE_HP * 0.0002 }
     static BOLT_COST { Balance.PLAYER_MANA * 0.05 }
-    static ENEMY_IFRAMES { 60 }
+    static ENEMY_IFRAMES { 5 }
     static MANA_POTION { 0.3 }
     static HEALTH_POTION { 0.3 }
+    static KNOCKBACK_STUN_FRAMES { 10 }
+    static SHORTSWORD_DAMAGE { 8 }
 }
 
 class Globals {
@@ -38,6 +41,7 @@ class Globals {
         __player_hp = __config.get_num("game", "hp", Balance.PLAYER_MAX_BASE_HP)
         __player_mana = __config.get_num("game", "mana", Balance.PLAYER_MANA)
         __player_has_bolt = __config.get_bool("game", "bolt", true)
+        __player_has_shortsword = __config.get_bool("game", "shortsword", true)
         __post_shader = null
         __shader_buffer = Buffer.new(12)
         __health_potions = __config.get_num("game", "health_potions", 0)
@@ -62,6 +66,7 @@ class Globals {
     static player_hp { __player_hp }
     static player_mana { __player_mana }
     static player_has_bolt { __player_has_bolt }
+    static player_has_shortsword { __player_has_shortsword }
     static health_potions { __health_potions }
     static mana_potions { __mana_potions }
     static scale=(s) {
@@ -97,6 +102,11 @@ class Globals {
     static player_has_bolt=(s) {
         __player_has_bolt = s
         __config.set_bool("game", "bolt", __player_has_bolt)
+        __config.flush("config")
+    }
+    static player_has_shortsword=(s) {
+        __player_has_shortsword = s
+        __config.set_bool("game", "shortsword", __player_has_shortsword)
         __config.flush("config")
     }
     static health_potions=(s) {
