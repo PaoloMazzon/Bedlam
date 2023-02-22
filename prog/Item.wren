@@ -43,7 +43,7 @@ class Item is Entity {
         } else if (_item_id == "walljump") {
             player.unlock_walljump()
             FloatingText.create_floating_text(level, "Walljump", x + 5, y - 20)
-        } else if (_item_id == "heart") {
+        } else if (split == "heart") {
             player.unlock_health_heart()
             FloatingText.create_floating_text(level, "Health Up", x + 5, y - 20)
         }
@@ -79,7 +79,7 @@ class Item is Entity {
             _texture = Assets.tex_teleport_icon
         } else if (_item_id == "double_jump") {
             _texture = Assets.tex_doublejump_icon
-        } else if (_item_id == "heart") {
+        } else if (split == "heart") {
             _texture = Assets.tex_health_up_icon
         }
     }

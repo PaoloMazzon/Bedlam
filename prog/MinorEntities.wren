@@ -18,6 +18,13 @@ class Death is Entity { // death animations
 }
 
 class Hit is Entity { // hitting animations
+    static create_hit_effect(level, x, y, rotation) {
+        var h = level.add_entity(Hit)
+        h.x = x
+        h.y = y
+        h.sprite.rotation = rotation
+    }
+
     construct new() { super() }
 
     create(level, tiled_data) {

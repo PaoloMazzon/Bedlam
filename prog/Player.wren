@@ -8,7 +8,7 @@ import "Assets" for Assets
 import "Spells" for Bolt
 import "Weapon" for Weapon
 import "Item" for Item
-import "MinorEntities" for TeleportSilhouette
+import "MinorEntities" for TeleportSilhouette, Hit
 
 class Player is Entity {
     construct new() { super() }
@@ -87,6 +87,7 @@ class Player is Entity {
         _facing = 1
         _walljump = Globals.walljump
         _teleport = Globals.teleport
+        _walljump_side = 0
 
         // Combat things
         _mana = Globals.player_mana
@@ -134,14 +135,37 @@ class Player is Entity {
         // Jumping
         if (level.tileset.collision(hitbox, x, y + 1) && _jumps < _max_jumps) {
             _jumps = _max_jumps
+            _walljump_side = 0
         }
         if (jump && (_jumps > 0 || level.tileset.collision(hitbox, x, y + 1))) {
             if (_jumps > 0 && !level.tileset.collision(hitbox, x, y + 1)) {
                 _jumps = _jumps - 1
+                Hit.create_hit_effect(level, x + 4, y + 12, -Num.pi / 2)
             }
             _vspeed = -_jump_height
         }
         _vspeed = _vspeed + Balance.GRAVITY
+
+        // Wall jump
+        if (_walljump && _weapon_frames == 0) {
+            // Slow down when clutching to wall
+            if (level.tileset.collision(hitbox, x + _facing, y) && (left || right)) {
+                if (_vspeed > 0) {
+                    _vspeed = _vspeed / 2
+                    if (jump && _walljump_side != _facing) {
+                        _walljump_side = _facing
+                        _vspeed = -_jump_height
+                        _hspeed = _facing * -2
+                        _facing = -_facing
+                        if (_facing == 1) {
+                            Hit.create_hit_effect(level, x + 4, y + 12, Num.pi / -4)
+                        } else {
+                            Hit.create_hit_effect(level, x + 4, y + 12, Num.pi / 4)
+                        }
+                    }
+                }
+            }
+        }
 
         // Teleport
         if (!level.tileset.collision(hitbox, x + (Balance.TELEPORT_RANGE * _facing), y) && teleport && _teleport && x + (Balance.TELEPORT_RANGE * _facing) < level.tileset.width && x + (Balance.TELEPORT_RANGE * _facing) > 0) {
