@@ -8,6 +8,7 @@ class Constants {
     static DEFAULT_SCALE { 5 }
     static WEAPON_SHORTSWORD { 1 }
     static FLOATING_TEXT_DURATION_FRAMES { 60 }
+    static SILHOUETTE_DURATION_FRAMES { 60 }
 }
 
 class Balance {
@@ -29,6 +30,7 @@ class Balance {
     static HEALTH_POTION { 0.3 }
     static KNOCKBACK_STUN_FRAMES { 10 }
     static SHORTSWORD_DAMAGE { 8 }
+    static TELEPORT_RANGE { 40 }
 }
 
 class Globals {
@@ -50,6 +52,9 @@ class Globals {
         __health_potions = __config.get_num("game", "health_potions", 0)
         __mana_potions = __config.get_num("game", "mana_potions", 0)
         __equipped_weapon = __config.get_num("game", "weapon", 0)
+        __max_jumps = __config.get_num("game", "jumps", 0)
+        __walljump = __config.get_bool("game", "walljump", false)
+        __teleport = __config.get_bool("game", "teleport", false)
 
         // Load unlocked items
         var str = __config.get_string("game", "unlocked_items", "")
@@ -81,6 +86,9 @@ class Globals {
     static health_potions { __health_potions }
     static mana_potions { __mana_potions }
     static equipped_weapon { __equipped_weapon }
+    static max_jumps { __max_jumps }
+    static walljump { __walljump }
+    static teleport { __teleport }
     static item_unlocked(item) { __unlocked_items.indexOf(item) != -1 }
     static scale=(s) {
         __scale = s
@@ -135,6 +143,21 @@ class Globals {
     static equipped_weapon=(s) {
         __equipped_weapon = s
         __config.set_num("game", "weapon", __equipped_weapon)
+        __config.flush("config")
+    }
+    static max_jumps=(s) {
+        __max_jumps = s
+        __config.set_num("game", "jumps", __max_jumps)
+        __config.flush("config")
+    }
+    static walljump=(s) {
+        __walljump = s
+        __config.set_bool("game", "walljump", __walljump)
+        __config.flush("config")
+    }
+    static teleport=(s) {
+        __teleport = s
+        __config.set_bool("game", "teleport", __teleport)
         __config.flush("config")
     }
     static unlock_item(item) {

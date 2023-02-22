@@ -67,3 +67,45 @@ class FloatingText is Entity {
         Renderer.set_colour_mod([1, 1, 1, 1])
     }
 }
+
+class TeleportSilhouette is Entity {
+    
+    static create_teleport_silhouette(level, x, y, spr, facing, frame) {
+        var t = level.add_entity(TeleportSilhouette)
+        t.sprite = spr.copy()
+        t.facing = facing
+        t.frame = frame
+        t.x = x
+        t.y = y
+    }
+    
+    facing=(s) { _facing = s }
+    frame=(s) { _frame = s }
+
+    construct new() { super() }
+
+    create(level, tiled_data) {
+        super.create(level, tiled_data)
+        _duration = Constants.SILHOUETTE_DURATION_FRAMES
+        _frame = 0
+        _facing = 0
+    }
+
+    update(level) {
+        if (_duration <= 0) {
+            level.remove_entity(this)
+        }
+        _duration = _duration - 1
+    }
+
+    draw(level) {
+        Renderer.set_colour_mod([0, 0, 0, _duration / Constants.SILHOUETTE_DURATION_FRAMES])
+        sprite.scale_x = _facing
+        if (_facing == -1) {
+            Renderer.draw_sprite(sprite, _frame, x + 8, y)
+        } else {
+            Renderer.draw_sprite(sprite, _frame, x, y)
+        }
+        Renderer.set_colour_mod([1, 1, 1, 1])
+    }
+}

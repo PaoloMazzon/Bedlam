@@ -159,6 +159,114 @@
                  "width":8,
                  "x":296,
                  "y":171
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":0,
+                 "id":8,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"teleport"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":200.666666666667,
+                 "y":171
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":0,
+                 "id":9,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"double_jump"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":225,
+                 "y":173
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":0,
+                 "id":10,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"walljump"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":259.666666666667,
+                 "y":172
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":0,
+                 "id":11,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"heart"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":281.333333333333,
+                 "y":173.666666666667
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":0,
+                 "id":12,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"health_1"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":162.333333333333,
+                 "y":173.666666666667
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":0,
+                 "id":13,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"mana_1"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":130,
+                 "y":171.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -269,7 +377,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":8,
+ "nextobjectid":14,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

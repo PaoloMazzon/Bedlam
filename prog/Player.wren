@@ -8,6 +8,7 @@ import "Assets" for Assets
 import "Spells" for Bolt
 import "Weapon" for Weapon
 import "Item" for Item
+import "MinorEntities" for TeleportSilhouette
 
 class Player is Entity {
     construct new() { super() }
@@ -52,6 +53,14 @@ class Player is Entity {
     equipped_weapon { _equipped_weapon }
     get_health_potion() { _health_potions = _health_potions + 1 }
     get_mana_potion() { _mana_potions = _mana_potions + 1 }
+    unlock_double_jump() { _max_jumps = _max_jumps + 1 }
+    unlock_teleport() { _teleport = true }
+    unlock_walljump() { _walljump = true }
+    unlock_health_heart() {
+        _max_hp = _max_hp + Balance.PLAYER_HP_BOOSTS
+        _hp = _max_hp
+    }
+
 
     create(level, tiled_data) {
         super.create(level, tiled_data)
@@ -72,10 +81,12 @@ class Player is Entity {
         _speed = 1.2
         _hspeed = 0
         _vspeed = 0
-        _jumps = 0
-        _max_jumps = 0
+        _max_jumps = Globals.max_jumps
+        _jumps = _max_jumps
         _jump_height = 2
         _facing = 1
+        _walljump = Globals.walljump
+        _teleport = Globals.teleport
 
         // Combat things
         _mana = Globals.player_mana
@@ -99,6 +110,7 @@ class Player is Entity {
         var left = false
         var right = false
         var jump = false
+        var teleport = false
 
         if (_weapon_frames == 0) {
             var lshoulder = Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER)
@@ -106,6 +118,7 @@ class Player is Entity {
             left = Keyboard.key(Keyboard.KEY_LEFT) || Gamepad.button(0, Gamepad.BUTTON_DPAD_LEFT) || Gamepad.left_stick_x(0) < -0.3
             right = Keyboard.key(Keyboard.KEY_RIGHT) || Gamepad.button(0, Gamepad.BUTTON_DPAD_RIGHT) || Gamepad.left_stick_x(0) > 0.3
             jump = (Keyboard.key_pressed(Keyboard.KEY_Z) || (!lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_A)))
+            teleport = Keyboard.key_pressed(Keyboard.KEY_LSHIFT) || (!lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_B))
         }
 
         _hspeed = 0
@@ -123,12 +136,23 @@ class Player is Entity {
             _jumps = _max_jumps
         }
         if (jump && (_jumps > 0 || level.tileset.collision(hitbox, x, y + 1))) {
-            if (_jumps > 0) {
+            if (_jumps > 0 && !level.tileset.collision(hitbox, x, y + 1)) {
                 _jumps = _jumps - 1
             }
             _vspeed = -_jump_height
         }
         _vspeed = _vspeed + Balance.GRAVITY
+
+        // Teleport
+        if (!level.tileset.collision(hitbox, x + (Balance.TELEPORT_RANGE * _facing), y) && teleport && _teleport && x + (Balance.TELEPORT_RANGE * _facing) < level.tileset.width && x + (Balance.TELEPORT_RANGE * _facing) > 0) {
+            TeleportSilhouette.create_teleport_silhouette(level, x, y, sprite, _facing, sprite.frame)
+            x = x + (Balance.TELEPORT_RANGE * _facing)
+        } else if (x + (Balance.TELEPORT_RANGE * _facing) < level.tileset.width && x + (Balance.TELEPORT_RANGE * _facing) > 0 && teleport && _teleport) {
+            TeleportSilhouette.create_teleport_silhouette(level, x, y, sprite, _facing, sprite.frame)
+            while (!level.tileset.collision(hitbox, x + _facing, y)) {
+                x = x + _facing
+            }
+        }
     }
 
     collisions(level) {
@@ -308,5 +332,8 @@ class Player is Entity {
         Globals.player_has_bolt = _has_bolt
         Globals.player_has_shortsword = _has_shortsword
         Globals.equipped_weapon = _equipped_weapon
+        Globals.max_jumps = _max_jumps
+        Globals.walljump = _walljump
+        Globals.teleport = _teleport
     }
 }
