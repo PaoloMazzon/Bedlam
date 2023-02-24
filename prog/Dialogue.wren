@@ -86,6 +86,10 @@ class Dialogue {
         }
     }
 
+    queue(message, x, y) {
+        this.queue(message, [x, y])
+    }
+
     // Returns true if there are messages at the moment
     update(level) {
         Renderer.set_texture_camera(false)

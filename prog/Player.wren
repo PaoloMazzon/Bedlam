@@ -172,7 +172,7 @@ class Player is Entity {
         if (!level.tileset.collision(hitbox, x + (Balance.TELEPORT_RANGE * _facing), y) && teleport && _teleport && x + (Balance.TELEPORT_RANGE * _facing) < (level.tileset.width - 8) && x + (Balance.TELEPORT_RANGE * _facing) > 8) {
             TeleportSilhouette.create_teleport_silhouette(level, x, y, sprite, _facing, sprite.frame)
             x = x + (Balance.TELEPORT_RANGE * _facing)
-        } else if (x + (Balance.TELEPORT_RANGE * _facing) < level.tileset.width && x + (Balance.TELEPORT_RANGE * _facing) > 0 && teleport && _teleport) {
+        } else if (x + (Balance.TELEPORT_RANGE * _facing) < level.tileset.width - 8 && x + (Balance.TELEPORT_RANGE * _facing) > 8 && teleport && _teleport) {
             TeleportSilhouette.create_teleport_silhouette(level, x, y, sprite, _facing, sprite.frame)
             while (!level.tileset.collision(hitbox, x + _facing, y)) {
                 x = x + _facing

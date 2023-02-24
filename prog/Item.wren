@@ -4,6 +4,7 @@ import "lib/Util" for Hitbox
 import "State" for Globals
 import "Assets" for Assets
 import "MinorEntities" for FloatingText
+import "Dialogue" for Dialogue
 
 class Item is Entity {
     construct new() { super() }
@@ -25,6 +26,12 @@ class Item is Entity {
         if (_item_id == "shortsword") {
             player.unlock_shortsword()
             FloatingText.create_floating_text(level, "Shortsword", x + 5, y - 20)
+            level.dialogue.queue("Hold " + Dialogue.CHAR_GAMEPAD_RBUMPER + " and press " + Dialogue.CHAR_GAMEPAD_A + " to equip your new Shortsword.", level.player.x, level.player.y)
+            level.dialogue.queue("Go try it on some enemies with " + Dialogue.CHAR_GAMEPAD_Y + ".", level.player.x, level.player.y)
+            var enemy = level.get_entity(Engine.get_class("Enemy::Enemy"))
+            if (enemy != null) {
+                level.dialogue.queue("", enemy.x, enemy.y)
+            }
         } else if (_item_id == "bolt") {
             player.unlock_bolt()
             FloatingText.create_floating_text(level, "Bolt", x + 5, y - 20)
