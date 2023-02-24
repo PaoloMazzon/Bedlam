@@ -27,7 +27,7 @@ class Item is Entity {
             player.unlock_shortsword()
             FloatingText.create_floating_text(level, "Shortsword", x + 5, y - 20)
             level.dialogue.queue("Hold " + Dialogue.CHAR_GAMEPAD_RBUMPER + " and press " + Dialogue.CHAR_GAMEPAD_A + " to equip your new Shortsword.", level.player.x, level.player.y)
-            level.dialogue.queue("Go try it on some enemies with " + Dialogue.CHAR_GAMEPAD_Y + ".", level.player.x, level.player.y)
+            level.dialogue.queue("Go try it on some enemies with " + Dialogue.CHAR_GAMEPAD_X + " and " + Dialogue.CHAR_GAMEPAD_Y + ".", level.player.x, level.player.y)
             var enemy = level.get_entity(Engine.get_class("Enemy::Enemy"))
             if (enemy != null) {
                 level.dialogue.queue("", enemy.x, enemy.y)
@@ -35,6 +35,7 @@ class Item is Entity {
         } else if (_item_id == "bolt") {
             player.unlock_bolt()
             FloatingText.create_floating_text(level, "Bolt", x + 5, y - 20)
+            level.dialogue.queue("Hold " + Dialogue.CHAR_GAMEPAD_LBUMPER + " and press " + Dialogue.CHAR_GAMEPAD_A + " cast the spell.", level.player.x, level.player.y)
         } else if (_item_id == "health" || split == "health") {
             player.get_health_potion()
             FloatingText.create_floating_text(level, "Health Potion", x + 5, y - 20)
@@ -44,12 +45,15 @@ class Item is Entity {
         } else if (_item_id == "double_jump") {
             player.unlock_double_jump()
             FloatingText.create_floating_text(level, "Double Jump", x + 5, y - 20)
+            level.dialogue.queue("Press " + Dialogue.CHAR_GAMEPAD_A + " mid-air for an additional jump.", level.player.x, level.player.y)
         } else if (_item_id == "teleport") {
             player.unlock_teleport()
             FloatingText.create_floating_text(level, "Teleport", x + 5, y - 20)
+            level.dialogue.queue("Press " + Dialogue.CHAR_GAMEPAD_B + " to teleport in the direction you are facing.", level.player.x, level.player.y)
         } else if (_item_id == "walljump") {
             player.unlock_walljump()
             FloatingText.create_floating_text(level, "Walljump", x + 5, y - 20)
+            level.dialogue.queue("Press " + Dialogue.CHAR_GAMEPAD_A + " against a wall to jump off of it.", level.player.x, level.player.y)
         } else if (split == "heart") {
             player.unlock_health_heart()
             FloatingText.create_floating_text(level, "Health Up", x + 5, y - 20)

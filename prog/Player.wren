@@ -150,7 +150,7 @@ class Player is Entity {
         // Wall jump
         if (_walljump && _weapon_frames == 0) {
             // Slow down when clutching to wall
-            if (level.tileset.collision(hitbox, x + _facing, y) && (left || right)) {
+            if (level.tileset.collision(hitbox, x + _facing, y) && level.tileset.collision(hitbox, x + _facing, y + 8) && !level.tileset.collision(hitbox, x, y + 8) && (left || right)) {
                 if (_vspeed > 0) {
                     _vspeed = _vspeed / 2
                     if (jump && _walljump_side != _facing) {
