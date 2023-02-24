@@ -83,6 +83,7 @@ class Util {
         Globals.camera.x = (p.x + 4) - (Constants.GAME_WIDTH / 2)
         Globals.camera.y = (p.y + 6) - (Constants.GAME_HEIGHT / 2)
         Globals.camera.update()
+        level.set_focus(p.x, p.y)
         return ret
     }
 

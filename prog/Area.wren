@@ -8,16 +8,21 @@ import "State" for Globals, Constants, Balance
 import "Player" for Player
 import "LevelControl" for Transition
 import "Assets" for Assets
+import "Dialogue" for Dialogue
 
 class Area is Level {
     construct new() {
         _paused = false
         _pause_timer = -1
+        _focus_x = 0
+        _focus_y = 0
+        _dialogue = Dialogue.new()
     }
 
     tileset { _tileset } // tileset used for collision checking
     is_paused { _paused } // it is the entity's responsibility to check this
     player { _player }
+    dialogue { _dialogue }
 
     pause(time_in_seconds) {
         _paused = true
@@ -27,6 +32,11 @@ class Area is Level {
     pause() { 
         _paused = true 
         _pause_timer = -1
+    }
+
+    set_focus(x, y) {
+        _focus_x = x
+        _focus_y = y
     }
 
     unpause() {
@@ -98,7 +108,9 @@ class Area is Level {
         Renderer.set_colour_mod([1, 1, 1, _hidden_fade])
         Renderer.draw_texture(_hidden_surface, 0, 0)
         Renderer.set_colour_mod([1, 1, 1, 1])
-        Util.draw_player_ui(_player)
+        if (!dialogue.update(this)) {
+            Util.draw_player_ui(_player)
+        }
         Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
         Renderer.lock_cameras(Renderer.DEFAULT_CAMERA)
         Util.draw_game_surface()
@@ -142,6 +154,13 @@ class Area is Level {
                 unpause()
             }
         }
+
+        // Focus camera on the focus
+        var diff_x = ((_focus_x + 4) - (Constants.GAME_WIDTH / 2)) - Globals.camera.x
+        var diff_y = ((_focus_y + 6) - (Constants.GAME_HEIGHT / 2)) - Globals.camera.y
+        Globals.camera.x = Math.clamp(Globals.camera.x + (diff_x * 0.1), 0, tileset.width - Constants.GAME_WIDTH)
+        Globals.camera.y = Math.clamp(Globals.camera.y + (diff_y * 0.1), 0, tileset.height - Constants.GAME_HEIGHT)
+        Globals.camera.update()
 
         // Hotkeys
         if (Keyboard.key(Keyboard.KEY_LALT) && Keyboard.key_pressed(Keyboard.KEY_RETURN)) {

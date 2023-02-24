@@ -8,6 +8,7 @@ import "Assets" for Assets
 import "Spells" for Bolt
 import "Weapon" for Weapon
 import "Item" for Item
+import "Dialogue" for Dialogue
 import "MinorEntities" for TeleportSilhouette, Hit
 
 class Player is Entity {
@@ -168,7 +169,7 @@ class Player is Entity {
         }
 
         // Teleport
-        if (!level.tileset.collision(hitbox, x + (Balance.TELEPORT_RANGE * _facing), y) && teleport && _teleport && x + (Balance.TELEPORT_RANGE * _facing) < (level.tileset.width + 8) && x + (Balance.TELEPORT_RANGE * _facing) > 8) {
+        if (!level.tileset.collision(hitbox, x + (Balance.TELEPORT_RANGE * _facing), y) && teleport && _teleport && x + (Balance.TELEPORT_RANGE * _facing) < (level.tileset.width - 8) && x + (Balance.TELEPORT_RANGE * _facing) > 8) {
             TeleportSilhouette.create_teleport_silhouette(level, x, y, sprite, _facing, sprite.frame)
             x = x + (Balance.TELEPORT_RANGE * _facing)
         } else if (x + (Balance.TELEPORT_RANGE * _facing) < level.tileset.width && x + (Balance.TELEPORT_RANGE * _facing) > 0 && teleport && _teleport) {
@@ -330,11 +331,7 @@ class Player is Entity {
         pickups(level)
 
         // Camera
-        var diff_x = ((x + 4) - (Constants.GAME_WIDTH / 2)) - Globals.camera.x
-        var diff_y = ((y + 6) - (Constants.GAME_HEIGHT / 2)) - Globals.camera.y
-        Globals.camera.x = Math.clamp(Globals.camera.x + (diff_x * 0.1), 0, level.tileset.width - Constants.GAME_WIDTH)
-        Globals.camera.y = Math.clamp(Globals.camera.y + (diff_y * 0.1), 0, level.tileset.height - Constants.GAME_HEIGHT)
-        Globals.camera.update()
+        level.set_focus(x, y)
     }
 
     draw(level) {
