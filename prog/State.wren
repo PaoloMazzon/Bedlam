@@ -34,10 +34,7 @@ class Balance {
 }
 
 class Globals {
-    static init() {
-        __config = INI.open("config")
-        __game_surf = null
-        __camera = null
+    static reload() {
         __scale = __config.get_num("renderer", "scale", Constants.DEFAULT_SCALE)
         __fullscreen = __config.get_bool("renderer", "fullscreen", false)
         __area = __config.get_string("game", "area", "Map_A1#1")
@@ -62,6 +59,13 @@ class Globals {
         if (str != "") {
             __unlocked_items = str.split(",")
         }
+    }
+
+    static init() {
+        __config = INI.open("config")
+        __game_surf = null
+        __camera = null
+        this.reload()
     }
 
     static game_surf { __game_surf }
@@ -90,6 +94,7 @@ class Globals {
     static walljump { __walljump }
     static teleport { __teleport }
     static item_unlocked(item) { __unlocked_items.indexOf(item) != -1 }
+    static event_has_happened(event) { __unlocked_items.indexOf(item) != -1 }
     static scale=(s) {
         __scale = s
         __config.set_num("renderer", "scale", __scale)
@@ -100,78 +105,52 @@ class Globals {
         __config.set_bool("renderer", "fullscreen", __fullscreen)
         __config.flush("config")
     }
-    static area=(s) {
-        __area = s
-        __config.set_string("game", "area", __area)
-        __config.flush("config")
-    }
-    static max_player_hp=(s) {
-        __max_player_hp = s
-        __config.set_num("game", "max_hp", __max_player_hp)
-        __config.flush("config")
-    }
-    static player_hp=(s) {
-        __player_hp = s
-        __config.set_num("game", "hp", __player_hp)
-        __config.flush("config")
-    }
-    static player_mana=(s) {
-        __player_mana = s
-        __config.set_num("game", "mana", __player_mana)
-        __config.flush("config")
-    }
-    static player_has_bolt=(s) {
-        __player_has_bolt = s
-        __config.set_bool("game", "bolt", __player_has_bolt)
-        __config.flush("config")
-    }
-    static player_has_shortsword=(s) {
-        __player_has_shortsword = s
-        __config.set_bool("game", "shortsword", __player_has_shortsword)
-        __config.flush("config")
-    }
-    static health_potions=(s) {
-        __health_potions = s
-        __config.set_num("game", "health_potions", __health_potions)
-        __config.flush("config")
-    }
-    static mana_potions=(s) {
-        __mana_potions = s
-        __config.set_num("game", "mana_potions", __mana_potions)
-        __config.flush("config")
-    }
-    static equipped_weapon=(s) {
-        __equipped_weapon = s
-        __config.set_num("game", "weapon", __equipped_weapon)
-        __config.flush("config")
-    }
-    static max_jumps=(s) {
-        __max_jumps = s
-        __config.set_num("game", "jumps", __max_jumps)
-        __config.flush("config")
-    }
-    static walljump=(s) {
-        __walljump = s
-        __config.set_bool("game", "walljump", __walljump)
-        __config.flush("config")
-    }
-    static teleport=(s) {
-        __teleport = s
-        __config.set_bool("game", "teleport", __teleport)
-        __config.flush("config")
-    }
+    static area=(s) { __area = s }
+    static max_player_hp=(s) { __max_player_hp = s }
+    static player_hp=(s) { __player_hp = s }
+    static player_mana=(s) { __player_mana = s }
+    static player_has_bolt=(s) { __player_has_bolt = s }
+    static player_has_shortsword=(s) { __player_has_shortsword = s }
+    static health_potions=(s) { __health_potions = s }
+    static mana_potions=(s) { __mana_potions = s }
+    static equipped_weapon=(s) { __equipped_weapon = s }
+    static max_jumps=(s) { __max_jumps = s }
+    static walljump=(s) { __walljump = s }
+    static teleport=(s) { __teleport = s }
     static unlock_item(item) {
         if (!Globals.item_unlocked(item) && item != "health" && item != "mana") {
             __unlocked_items.add(item)
-            var str = ""
-            for (i in __unlocked_items) {
-                if (i != "") {
-                    str = str + i + ","
-                }
-            }
-            __config.set_string("game", "unlocked_items", str)
-            __config.flush("config")
         }
+    }
+    static record_event(event) {
+        if (!Globals.item_unlocked(item) && item != "message") {
+            __unlocked_items.add(item)
+        }
+    }
+
+    static save_to_file() {
+        __config.set_string("game", "area", __area)
+        __config.set_num("game", "max_hp", __max_player_hp)
+        __config.set_num("game", "hp", __player_hp)
+        __config.set_num("game", "mana", __player_mana)
+        __config.set_bool("game", "bolt", __player_has_bolt)
+        __config.set_bool("game", "shortsword", __player_has_shortsword)
+        __config.set_num("game", "health_potions", __health_potions)
+        __config.set_num("game", "mana_potions", __mana_potions)
+        __config.set_num("game", "weapon", __equipped_weapon)
+        __config.set_num("game", "jumps", __max_jumps)
+        __config.set_bool("game", "walljump", __walljump)
+        __config.set_bool("game", "teleport", __teleport)
+
+        var str = ""
+        for (i in __unlocked_items) {
+            if (i != "") {
+                str = str + i + ","
+            }
+        }
+        __config.set_string("game", "unlocked_items", str)
+        
+        __config.flush("config")
     }
 
     static move_camera(x, y) {

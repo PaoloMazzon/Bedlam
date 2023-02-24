@@ -21,6 +21,10 @@ class Transition is Entity {
     create(level, tiled_data) {
         super.create(level, tiled_data)
         _area = tiled_data["properties"]["area"]
-        hitbox = Hitbox.new_rectangle(8, 16)
+        if (tiled_data["width"] == 0 || tiled_data["height"] == 0) {
+            hitbox = Hitbox.new_rectangle(8, 16)
+        } else {
+            hitbox = Hitbox.new_rectangle(tiled_data["width"], tiled_data["height"])
+        }
     }
 }
