@@ -84,6 +84,14 @@ class Util {
         Globals.camera.y = (p.y + 6) - (Constants.GAME_HEIGHT / 2)
         Globals.camera.update()
         level.set_focus(p.x, p.y)
+
+        // Enable lighting if we're in the cathedral
+        if (Globals.in_cathedral) {
+            level.enable_lighting()
+        } else {
+            level.disable_lighting()
+        }
+
         return ret
     }
 

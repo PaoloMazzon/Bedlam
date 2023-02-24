@@ -68,6 +68,46 @@ class Globals {
         this.reload()
     }
 
+    static in_cathedral {
+        var s = this.area.split("#")
+        var loc = s[0].split("_")[1]
+        if (["B4", "B5", "B6", "B7", "A6", "C6", "C7", "D7"].indexOf(loc) != -1) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    static in_tomb {
+        var s = this.area.split("#")
+        var loc = s[0].split("_")[1]
+        if (["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C3", "D3"].indexOf(loc) != -1) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    static in_bridge {
+        var s = this.area.split("#")
+        var loc = s[0].split("_")[1]
+        if (["E3", "E4", "F3", "F4"].indexOf(loc) != -1) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    static in_nexus {
+        var s = this.area.split("#")
+        var loc = s[0].split("_")[1]
+        if (["E6", "F1", "F6", "F7", "G1", "G2", "G3", "G4", "G5", "G6", "G7"].indexOf(loc) != -1) {
+            return true
+        } else {
+            return false
+        }
+    }
+
     static game_surf { __game_surf }
     static game_surf=(s) { __game_surf = s }
     static camera { __camera }

@@ -17,12 +17,21 @@ class Area is Level {
         _focus_x = 0
         _focus_y = 0
         _dialogue = Dialogue.new()
+        _lighting = false
     }
 
     tileset { _tileset } // tileset used for collision checking
     is_paused { _paused } // it is the entity's responsibility to check this
     player { _player }
     dialogue { _dialogue }
+
+    enable_lighting() {
+        _lighting = true
+    }
+
+    disable_lighting() {
+        _lighting = false
+    }
 
     pause(time_in_seconds) {
         _paused = true
@@ -89,6 +98,9 @@ class Area is Level {
         _fade_out = -1
         _next_area = ""
         Renderer.set_texture_camera(true)
+
+        // Lighting
+        _lighting_surface = Surface.new(Constants.GAME_WIDTH, Constants.GAME_HEIGHT)
     }
 
     update() {
@@ -107,6 +119,22 @@ class Area is Level {
         Renderer.draw_texture(_foreground_surface, 0, 0)
         Renderer.set_colour_mod([1, 1, 1, _hidden_fade])
         Renderer.draw_texture(_hidden_surface, 0, 0)
+
+        // Handle lighting
+        if (_lighting) {
+            Renderer.set_target(_lighting_surface)
+            Renderer.set_texture_camera(false)
+            Renderer.set_colour_mod([0, 0, 0, 0.95])
+            Renderer.clear()
+            Renderer.set_colour_mod([0, 0, 0, 1])
+            Renderer.set_blend_mode(Renderer.BLEND_MODE_SUBTRACT)
+            Renderer.draw_circle(player.x - Globals.camera.x + 4, player.y - Globals.camera.y + 6, 30 + (Engine.time * 2).sin)
+            Renderer.set_blend_mode(Renderer.BLEND_MODE_BLEND)
+            Renderer.set_target(Globals.game_surf)
+            Renderer.draw_texture(_lighting_surface, 0, 0)
+            Renderer.set_texture_camera(true)
+        }
+
         Renderer.set_colour_mod([1, 1, 1, 1])
         if (!dialogue.update(this)) {
             Util.draw_player_ui(_player)

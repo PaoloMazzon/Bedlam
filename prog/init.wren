@@ -4,6 +4,7 @@ import "State" for Constants, Globals
 import "Menu" for Menu
 import "LevelControl" for Marker
 import "Item" for Item
+import "Events" for Event
 
 Globals.init()
 
