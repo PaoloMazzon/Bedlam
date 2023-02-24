@@ -23,10 +23,6 @@ class Util {
         var conf = Renderer.get_config()
         var x = (conf["window_width"] - (Globals.scale * Constants.GAME_WIDTH)) / 2
         var y = (conf["window_height"] - (Globals.scale * Constants.GAME_HEIGHT)) / 2
-        //Globals.camera.x_on_screen = x
-        //Globals.camera.y_on_screen = y
-        //Globals.camera.w_on_screen = Globals.scale * Constants.GAME_WIDTH
-        //Globals.camera.h_on_screen = Globals.scale * Constants.GAME_HEIGHT
         Globals.camera.width = Constants.GAME_WIDTH
         Globals.camera.height = Constants.GAME_HEIGHT
         Globals.camera.zoom = 1

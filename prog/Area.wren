@@ -17,7 +17,8 @@ class Area is Level {
 
     tileset { _tileset } // tileset used for collision checking
     is_paused { _paused } // it is the entity's responsibility to check this
-    
+    player { _player }
+
     pause(time_in_seconds) {
         _paused = true
         _pause_timer = (time_in_seconds * 60).round
@@ -41,6 +42,7 @@ class Area is Level {
         Globals.camera.x = Math.clamp(Globals.camera.x, 0, tileset.width - Constants.GAME_WIDTH)
         Globals.camera.y = Math.clamp(Globals.camera.y, 0, tileset.height - Constants.GAME_HEIGHT)
         Globals.camera.update()
+        _hidden_fade = 1 // for fading in/out the hidden areas
 
         // Pre-load tilesets
         // Pre-load the image of the foreground tileset
@@ -93,9 +95,9 @@ class Area is Level {
         Renderer.draw_texture(_collision_surface, 0, 0)
         super.update()
         Renderer.draw_texture(_foreground_surface, 0, 0)
-        if (!_hidden_tileset.collision(_player.hitbox, _player.x, _player.y)) {
-            Renderer.draw_texture(_hidden_surface, 0, 0)
-        }
+        Renderer.set_colour_mod([1, 1, 1, _hidden_fade])
+        Renderer.draw_texture(_hidden_surface, 0, 0)
+        Renderer.set_colour_mod([1, 1, 1, 1])
         Util.draw_player_ui(_player)
         Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
         Renderer.lock_cameras(Renderer.DEFAULT_CAMERA)
@@ -116,6 +118,13 @@ class Area is Level {
             if (_fade_out == 0) {
                 Util.change_area(_area, Area)
             }
+        }
+
+        // Fade in/out for hidden areas
+        if (_hidden_tileset.collision(_player.hitbox, _player.x, _player.y)) {
+            _hidden_fade = Math.clamp(_hidden_fade - 0.1, 0, 1)
+        } else {
+            _hidden_fade = Math.clamp(_hidden_fade + 0.1, 0, 1)
         }
 
         // Check for collisions between the player and transitions
