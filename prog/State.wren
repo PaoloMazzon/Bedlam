@@ -75,6 +75,29 @@ class Globals {
         this.reload()
     }
 
+    static area_coords {
+        var s = this.area.split("#")
+        var loc = s[0].split("_")[1]
+
+        if (loc[0] == "A") {
+            return [1, Num.fromString(loc[1])]
+        } else if (loc[0] == "B") {
+            return [2, Num.fromString(loc[1])]
+        } else if (loc[0] == "C") {
+            return [3, Num.fromString(loc[1])]
+        } else if (loc[0] == "D") {
+            return [4, Num.fromString(loc[1])]
+        } else if (loc[0] == "E") {
+            return [5, Num.fromString(loc[1])]
+        } else if (loc[0] == "F") {
+            return [6, Num.fromString(loc[1])]
+        } else if (loc[0] == "G") {
+            return [7, Num.fromString(loc[1])]
+        }
+
+        return null
+    }
+
     static in_cathedral {
         var s = this.area.split("#")
         var loc = s[0].split("_")[1]

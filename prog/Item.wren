@@ -55,6 +55,9 @@ class Item is Entity {
             player.unlock_double_jump()
             FloatingText.create_floating_text(level, "Double Jump", x + 5, y - 20)
             level.dialogue.queue("Press " + Dialogue.CHAR_GAMEPAD_A + " mid-air for an additional jump.", level.player.x, level.player.y)
+        } else if (_item_id == "minimap") {
+            FloatingText.create_floating_text(level, "Mini-map", x + 5, y - 20)
+            level.dialogue.queue("Press " + Dialogue.CHAR_GAMEPAD_SELECT + " to reveal the mini-map.", level.player.x, level.player.y)
         } else if (_item_id == "teleport") {
             player.unlock_teleport()
             FloatingText.create_floating_text(level, "Teleport", x + 5, y - 20)
@@ -103,6 +106,8 @@ class Item is Entity {
             _texture = Assets.tex_wall_jump_icon
         } else if (_item_id == "teleport") {
             _texture = Assets.tex_teleport_icon
+        } else if (_item_id == "minimap") {
+            _texture = Assets.tex_minimap_icon
         } else if (_item_id == "double_jump") {
             _texture = Assets.tex_doublejump_icon
         } else if (split == "heart") {

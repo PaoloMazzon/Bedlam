@@ -1,5 +1,6 @@
 import "lib/Renderer" for Renderer
 import "lib/Engine" for Engine
+import "lib/Util" for Math
 import "State" for Globals, Constants, Balance
 import "lib/Input" for Gamepad, Keyboard
 import "Player" for Player
@@ -97,58 +98,73 @@ class Util {
 
     static draw_player_ui(player) {
         Renderer.set_texture_camera(false)
-        Renderer.draw_texture(Assets.tex_status_back, 2, 2)
-        Renderer.draw_texture_part(Assets.tex_health, 13, 2, 0, 0, Assets.tex_health.width * (player.hp / Balance.PLAYER_POSSIBLE_HP), Assets.tex_health.height)
-        Renderer.draw_texture_part(Assets.tex_mana, 13, 2, 0, 0, Assets.tex_mana.width * (player.mana / Balance.PLAYER_MANA), Assets.tex_mana.height)
 
-        // HP cap display
-        if (player.max_hp != Balance.PLAYER_POSSIBLE_HP) {
-            Renderer.set_colour_mod([0, 0, 0, 1])
-            Renderer.draw_line(13 + (50 * (player.max_hp / Balance.PLAYER_POSSIBLE_HP)), 4, 13 + (49 * (player.max_hp / Balance.PLAYER_POSSIBLE_HP)), 10)
+        // Minimap
+        if (Gamepad.button(0, Gamepad.BUTTON_BACK) && Globals.item_unlocked("minimap")) {
+            Renderer.draw_texture(Assets.tex_minimap, 0, 0)
+            
+            // Draw flashing rectangle where the player is
+            var coords = Globals.area_coords
+            var x = 52 + (9 * (coords[0] - 1))
+            var y = 32 + (9 * (coords[1] - 1))
+            var s = Math.serp(Engine.time, 0, 1)
+            Renderer.set_colour_mod([s, s, s, 1])
+            Renderer.draw_rectangle(x, y, 2, 2, 0, 0, 0)
             Renderer.set_colour_mod([1, 1, 1, 1])
-        }
-        
-        if (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && !Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
-            // Spell wheel
-            Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)
-            if (player.has_bolt) {
-                Renderer.draw_texture(Assets.tex_bolt_icon, 137, 26)
-            }
-            if (player.has_shock) {
-                Renderer.draw_texture(Assets.tex_shock_icon, 148, 15)
-            }
-            if (player.has_laser) {
-                Renderer.draw_texture(Assets.tex_laser_icon, 137, 4)
-            }
-        } else if (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
-            // Mixed wheel
-            Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)
-            Renderer.draw_texture(Assets.tex_health_potion, 137, 26)
-            Renderer.draw_texture(Assets.tex_mana_potion, 137, 4)
-        } else if (!Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
-            // Weapon wheel
-            Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)
-            if (player.has_shortsword) {
-                Renderer.draw_texture(Weapon.weapon_icon(Constants.WEAPON_SHORTSWORD), 137, 26)
-            }
-            if (player.has_mace) {
-                Renderer.draw_texture(Weapon.weapon_icon(Constants.WEAPON_MACE), 148, 15)
-            }
-            // A is 137, 26
-            // B is 148, 15
-            // X is 126, 15
-            // Y is 137, 4
         } else {
-            // Equipped weapon
-            Renderer.draw_texture(Assets.tex_weapon_box, 146, 2)
-            if (player.equipped_weapon != 0) {
-                Renderer.draw_texture(Weapon.weapon_icon(player.equipped_weapon), 148, 4)
-            }
-        }
+            Renderer.draw_texture(Assets.tex_status_back, 2, 2)
+            Renderer.draw_texture_part(Assets.tex_health, 13, 2, 0, 0, Assets.tex_health.width * (player.hp / Balance.PLAYER_POSSIBLE_HP), Assets.tex_health.height)
+            Renderer.draw_texture_part(Assets.tex_mana, 13, 2, 0, 0, Assets.tex_mana.width * (player.mana / Balance.PLAYER_MANA), Assets.tex_mana.height)
 
-        Renderer.draw_texture(Assets.tex_potionbg, 2, 96)
-        Renderer.draw_font(Assets.fnt_font, player.health_potions.toString, 13, 98)
-        Renderer.draw_font(Assets.fnt_font, player.mana_potions.toString, 13, 108)
+            // HP cap display
+            if (player.max_hp != Balance.PLAYER_POSSIBLE_HP) {
+                Renderer.set_colour_mod([0, 0, 0, 1])
+                Renderer.draw_line(13 + (50 * (player.max_hp / Balance.PLAYER_POSSIBLE_HP)), 4, 13 + (49 * (player.max_hp / Balance.PLAYER_POSSIBLE_HP)), 10)
+                Renderer.set_colour_mod([1, 1, 1, 1])
+            }
+            
+            if (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && !Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
+                // Spell wheel
+                Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)
+                if (player.has_bolt) {
+                    Renderer.draw_texture(Assets.tex_bolt_icon, 137, 26)
+                }
+                if (player.has_shock) {
+                    Renderer.draw_texture(Assets.tex_shock_icon, 148, 15)
+                }
+                if (player.has_laser) {
+                    Renderer.draw_texture(Assets.tex_laser_icon, 137, 4)
+                }
+            } else if (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
+                // Mixed wheel
+                Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)
+                Renderer.draw_texture(Assets.tex_health_potion, 137, 26)
+                Renderer.draw_texture(Assets.tex_mana_potion, 137, 4)
+            } else if (!Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
+                // Weapon wheel
+                Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)
+                if (player.has_shortsword) {
+                    Renderer.draw_texture(Weapon.weapon_icon(Constants.WEAPON_SHORTSWORD), 137, 26)
+                }
+                if (player.has_mace) {
+                    Renderer.draw_texture(Weapon.weapon_icon(Constants.WEAPON_MACE), 148, 15)
+                }
+                // A is 137, 26
+                // B is 148, 15
+                // X is 126, 15
+                // Y is 137, 4
+            } else {
+                // Equipped weapon
+                Renderer.draw_texture(Assets.tex_weapon_box, 146, 2)
+                if (player.equipped_weapon != 0) {
+                    Renderer.draw_texture(Weapon.weapon_icon(player.equipped_weapon), 148, 4)
+                }
+            }
+
+            Renderer.draw_texture(Assets.tex_potionbg, 2, 96)
+            Renderer.draw_font(Assets.fnt_font, player.health_potions.toString, 13, 98)
+            Renderer.draw_font(Assets.fnt_font, player.mana_potions.toString, 13, 108)
+        }
 
         Renderer.set_texture_camera(true)
     }
