@@ -1,5 +1,6 @@
 import "lib/Engine" for Engine, Level, Entity
 import "lib/Util" for Math, Hitbox
+import "lib/Renderer" for Renderer
 import "Assets" for Assets
 import "MinorEntities" for Hit
 
@@ -11,7 +12,7 @@ class Spell is Entity {
 
     set_duration(duration_in_seconds) { _duration = (duration_in_seconds * 60).round }
     
-    set_penetrating { _penetrates = true }
+    set_penetrating() { _penetrates = true }
 
     // What should be called if something is hit by this spell -- override this and call the super
     hit_effect(level, entity) {
@@ -77,5 +78,117 @@ class Bolt is Spell {
         bolt.sprite.rotation = dir
         bolt.set_velocity(dir, 3)
         bolt.set_duration(0.5)
+    }
+}
+
+class Shock is Spell {
+    construct new() { super() }
+
+    chain=(s) { _chain = s }
+
+    hit_effect(level, entity) {
+        super.hit_effect(level, entity)
+        entity.take_damage(12)
+        
+        // Bounce to another entity
+        var type = Engine.get_class("Enemy::Enemy")
+        var enemies = level.get_entities(type)
+        for (enemy in enemies) {
+            if (enemy != entity && enemy.sprite != null && Math.point_distance(entity.x, entity.y, enemy.x, enemy.y) < 16 + enemy.sprite.width) {
+                var facing = (enemy.x - entity.x).sign
+                if (facing == 1) {
+                    Shock.cast(level, entity.x + entity.sprite.width + 8, entity.y + (entity.sprite.height / 2), facing, _chain)
+                } else {
+                    Shock.cast(level, entity.x - 8, entity.y + (entity.sprite.height / 2), facing, _chain)
+                }
+            }
+        }
+    }
+
+    create(level, tiled_data) {
+        super.create(level, tiled_data)
+        sprite = Assets.spr_shock.copy()
+        sprite.frame = 0
+        hitbox = Hitbox.new_rectangle(16, 8)
+        hitbox.x_offset = 8
+        hitbox.y_offset = 4
+        sprite.origin_x = 8
+        sprite.origin_y = 4
+        _chain = 0
+    }
+
+    static cast(level, x, y, facing, chain) {
+        if (chain <= 2) {
+            var shock = level.add_entity(Shock)
+            shock.x = x
+            shock.y = y
+            shock.sprite.scale_x = facing
+            shock.set_velocity(0, 0)
+            shock.set_duration(0.1)
+            shock.chain = chain + 1
+        }
+    }
+}
+
+class Laser is Spell {
+    construct new() { super() }
+
+    length=(s) { _length = s }
+    length { _length }
+
+    hit_effect(level, entity) {
+        super.hit_effect(level, entity)
+        entity.take_damage(10)
+        _destroy = true
+    }
+
+    create(level, tiled_data) {
+        super.create(level, tiled_data)
+        set_penetrating()
+        _length = 1
+        _destroy = false
+    }
+
+    update(level) {
+        if (level.is_paused) {
+            return
+        }
+        super.update(level)
+        if (_destroy) {
+            level.remove_entity(this)
+        }
+    }
+
+    draw(level) {
+        Renderer.set_colour_mod([1, 0, 0, 1])
+        Renderer.draw_rectangle(x, y, length.abs, 4, 0, 0, 0)
+        Renderer.set_colour_mod([1, 1, 1, 1])
+    }
+
+    static cast(level, x, y, facing) {
+        var laser = level.add_entity(Laser)
+        laser.x = x
+        laser.y = y
+        laser.set_velocity(0, 0)
+        laser.set_duration(0.08)
+
+        // Figure out how far the laser shoots
+        var yy = (y / 8).floor
+        var w = 0
+        for (i in 0..level.tileset.width) {
+            var xx = ((x + (i * facing)) / 8).floor
+            if (level.tileset[xx, yy] != 0 || xx > level.tileset.tile_width || xx < 0) {
+                w = (i - 2) * facing
+                break
+            }
+        }
+
+        // Make hitbox for said width
+        laser.length = w
+        if (facing == -1) {
+            laser.x = x + w
+        }
+        laser.y = laser.y - 2
+        laser.hitbox = Hitbox.new_rectangle(w.abs, 4)
     }
 }

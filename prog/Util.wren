@@ -114,6 +114,12 @@ class Util {
             if (player.has_bolt) {
                 Renderer.draw_texture(Assets.tex_bolt_icon, 137, 26)
             }
+            if (player.has_shock) {
+                Renderer.draw_texture(Assets.tex_shock_icon, 148, 15)
+            }
+            if (player.has_laser) {
+                Renderer.draw_texture(Assets.tex_laser_icon, 137, 4)
+            }
         } else if (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
             // Mixed wheel
             Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)

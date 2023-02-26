@@ -29,8 +29,10 @@ class Balance {
     static MANA_DAMAGE_THRESHHOLD { Balance.PLAYER_MANA * 0.20 }
     static MANA_BURN { Balance.PLAYER_MAX_BASE_HP * 0.0002 }
     static BOLT_COST { Balance.PLAYER_MANA * 0.05 }
+    static SHOCK_COST { Balance.PLAYER_MANA * 0.15 }
+    static LASER_COST { Balance.PLAYER_MANA * 0.2 }
     static ENEMY_IFRAMES { 5 }
-    static MANA_POTION { 0.3 }
+    static MANA_POTION { 0.7 }
     static HEALTH_POTION { 0.3 }
     static KNOCKBACK_STUN_FRAMES { 10 }
     static SHORTSWORD_DAMAGE { 8 }

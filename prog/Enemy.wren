@@ -72,6 +72,9 @@ class Enemy is Entity {
     }
 
     update(level) {
+        if (level.is_paused) {
+            return
+        }
         super.update(level)
 
         // Movement

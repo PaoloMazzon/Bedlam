@@ -35,6 +35,12 @@ class Item is Entity {
         } else if (_item_id == "mace") {
             player.unlock_mace()
             FloatingText.create_floating_text(level, "Axe", x + 5, y - 20)
+        } else if (_item_id == "shock") {
+            player.unlock_shock()
+            FloatingText.create_floating_text(level, "Shock", x + 5, y - 20)
+        } else if (_item_id == "laser") {
+            player.unlock_laser()
+            FloatingText.create_floating_text(level, "Laser", x + 5, y - 20)
         } else if (_item_id == "bolt") {
             player.unlock_bolt()
             FloatingText.create_floating_text(level, "Bolt", x + 5, y - 20)
@@ -85,6 +91,10 @@ class Item is Entity {
             _texture = Assets.tex_mace_icon
         } else if (_item_id == "bolt") {
             _texture = Assets.tex_bolt_icon
+        } else if (_item_id == "shock") {
+            _texture = Assets.tex_shock_icon
+        } else if (_item_id == "laser") {
+            _texture = Assets.tex_laser_icon
         } else if (_item_id == "health" || split == "health") {
             _texture = Assets.tex_health_potion
         } else if (_item_id == "mana" || split == "mana") {

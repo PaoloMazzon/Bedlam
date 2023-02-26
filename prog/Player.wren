@@ -5,7 +5,7 @@ import "lib/Input" for Gamepad, Keyboard
 import "State" for Globals, Constants, Balance
 import "Enemy" for Enemy
 import "Assets" for Assets
-import "Spells" for Bolt
+import "Spells" for Bolt, Shock, Laser
 import "Weapon" for Weapon
 import "Item" for Item
 import "Dialogue" for Dialogue
@@ -277,11 +277,15 @@ class Player is Entity {
 
     spells(level) {
         var bolt_cast = false
+        var shock_cast = false
+        var laser_cast = false
 
         if (_weapon_frames == 0) {
             var lshoulder = Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER)
             var rshoulder = Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)
             bolt_cast = (Keyboard.key_pressed(Keyboard.KEY_A) || (lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_A)))
+            shock_cast = lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_B)
+            laser_cast = lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_Y)
         }
 
         restore_mana(Balance.MANA_RESTORATION)
@@ -296,6 +300,18 @@ class Player is Entity {
                 xx = x
             }
             Bolt.cast(level, xx, y + 6, dir)
+        } else if (shock_cast && _has_shock && spend_mana(Balance.SHOCK_COST)) {
+            var xx = x + 16
+            if (_facing == -1) {
+                xx = x - 8
+            }
+            Shock.cast(level, xx, y + 6, _facing, 0)
+        } else if (laser_cast && _has_laser && spend_mana(Balance.LASER_COST)) {
+            var xx = x + 8
+            if (_facing == -1) {
+                xx = x
+            }
+            Laser.cast(level, xx, y + 6, _facing)
         }
     }
 
