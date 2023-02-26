@@ -339,7 +339,11 @@ class Player is Entity {
             sprite.scale_x = _facing
             var draw_x = x + 1
             if (_facing == -1) { draw_x = draw_x + 8 }
-            Renderer.draw_sprite(sprite, draw_x, y)
+            if (!level.is_paused) {
+                Renderer.draw_sprite(sprite, draw_x, y)
+            } else {
+                Renderer.draw_sprite(sprite, sprite.frame, draw_x, y)
+            }
         }
     }
 

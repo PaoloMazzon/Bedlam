@@ -43,6 +43,7 @@ class Skeleton is Enemy {
                     _walk_delay = -1
                     _stand_delay = Globals.rng.int(1 * 60, 4 * 60)
                     hspeed = Globals.rng.sample([-0.5, 0.5])
+                    facing = hspeed.sign
                 } else {
                     sprite.frame = 0
                 }
@@ -63,14 +64,5 @@ class Skeleton is Enemy {
             }
         }
         _on_ground_last_frame = on_ground
-
-        // Animation
-        if (hspeed > 0) {
-            sprite.scale_x = -1
-            sprite.origin_x = 8
-        } else if (hspeed < 0) {
-            sprite.scale_x = 1
-            sprite.origin_x = 0
-        }
     }
 }

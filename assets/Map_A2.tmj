@@ -180,35 +180,13 @@
                 {
                  "class":"Skeleton::Skeleton",
                  "height":12,
-                 "id":5,
-                 "name":"skelly",
-                 "rotation":0,
-                 "visible":true,
-                 "width":8,
-                 "x":380,
-                 "y":166
-                }, 
-                {
-                 "class":"Skeleton::Skeleton",
-                 "height":12,
                  "id":6,
                  "name":"skelly",
                  "rotation":0,
                  "visible":true,
                  "width":8,
-                 "x":471,
-                 "y":169
-                }, 
-                {
-                 "class":"Skeleton::Skeleton",
-                 "height":12,
-                 "id":7,
-                 "name":"skelly",
-                 "rotation":0,
-                 "visible":true,
-                 "width":8,
-                 "x":593,
-                 "y":168.5
+                 "x":531,
+                 "y":167.666666666667
                 }, 
                 {
                  "class":"Skeleton::Skeleton",
@@ -218,19 +196,30 @@
                  "rotation":0,
                  "visible":true,
                  "width":8,
-                 "x":283.5,
-                 "y":168.5
+                 "x":216.833333333333,
+                 "y":170.5
                 }, 
                 {
-                 "class":"Skeleton::Skeleton",
-                 "height":12,
-                 "id":9,
-                 "name":"skelly",
+                 "class":"Slime::Slime",
+                 "height":10,
+                 "id":10,
+                 "name":"slimey boi",
                  "rotation":0,
                  "visible":true,
-                 "width":8,
-                 "x":208.5,
-                 "y":168.5
+                 "width":12,
+                 "x":371.333333333333,
+                 "y":168.333333333333
+                }, 
+                {
+                 "class":"Slime::Slime",
+                 "height":10,
+                 "id":11,
+                 "name":"slimey boi",
+                 "rotation":0,
+                 "visible":true,
+                 "width":12,
+                 "x":648,
+                 "y":170.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -341,7 +330,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":10,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

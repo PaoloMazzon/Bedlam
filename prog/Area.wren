@@ -9,6 +9,7 @@ import "Player" for Player
 import "LevelControl" for Transition
 import "Assets" for Assets
 import "Dialogue" for Dialogue
+import "Slime" for Slime
 
 class Area is Level {
     construct new() {

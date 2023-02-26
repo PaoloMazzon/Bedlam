@@ -18,6 +18,10 @@ class Enemy is Entity {
     hp=(s) { _hp = s }
     stun(frames) { _stun_timer = frames }
     is_stunned { _stun_timer > 0 }
+    facing { _facing }
+    facing=(s) { _facing = s }
+    is_alt { _alt }
+    near_player { (level.player.y - y).abs < 20 && (level.player.x - x).abs < 100 }
     
     knockback(x, y) {
         _stun_timer = Balance.KNOCKBACK_STUN_FRAMES
@@ -40,11 +44,20 @@ class Enemy is Entity {
         _vspeed = 0
         _iframes = 0
         _stun_timer = 0
+        _facing = 1
+        _item = null
+        _alt = false
     }
 
     create(level, tiled_data) {
         super.create(level, tiled_data)
         _level = level
+        if (tiled_data["properties"].containsKey("item")) {
+            _item = tiled_data["properties"]["item"]
+        }
+        if (tiled_data["properties"].containsKey("alt")) {
+            _alt = tiled_data["properties"]["alt"]
+        }
     }
 
     update(level) {
@@ -68,6 +81,7 @@ class Enemy is Entity {
         }
         x = x + hspeed
         y = y + vspeed
+        x = Math.clamp(x, 0, level.tileset.width - sprite.width)
 
         // Get hit by spells & weapons
         var spell = level.entity_collision(this, Spell)
@@ -98,20 +112,36 @@ class Enemy is Entity {
     draw(level) {
         if (_iframes > 0) {
             Renderer.set_colour_mod([0, 0, 0, 1])
+        } else if (_alt) {
+            Renderer.set_colour_mod([1, 0.2, 0.2, 1])
         }
-        super.draw(level)
+        sprite.scale_x = facing
+        var draw_x = x
+        if (facing == -1) {
+            draw_x = draw_x + sprite.width
+        }
+        if (!level.is_paused) {
+            Renderer.draw_sprite(sprite, draw_x, y)
+        } else {
+            Renderer.draw_sprite(sprite, sprite.frame, draw_x, y)
+
+        }
         Renderer.set_colour_mod([1, 1, 1, 1])
     }
 
     destroy(level) {
         super.destroy(level)
 
-        // Chance to get a potion
-        var n = Globals.rng.int(20)
-        if (n == 0) {
-            Item.create_item(level, "health", x, y)
-        } else if (n == 1) {
-            Item.create_item(level, "mana", x, y)
+        if (_item != null) {
+            Item.create_item(level, _item, x, y)
+        } else {
+            // Chance to get a potion
+            var n = Globals.rng.int(20)
+            if (n == 0) {
+                Item.create_item(level, "health", x, y)
+            } else if (n == 1) {
+                Item.create_item(level, "mana", x, y)
+            }
         }
     }
 }
