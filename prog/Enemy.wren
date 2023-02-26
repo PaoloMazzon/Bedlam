@@ -21,7 +21,13 @@ class Enemy is Entity {
     facing { _facing }
     facing=(s) { _facing = s }
     is_alt { _alt }
-    near_player { (level.player.y - y).abs < 20 && (level.player.x - x).abs < 100 }
+    invincible=(s) { _invincible = s }
+    invincible { _invincible }
+    affected_by_gravity { _gravity }
+    affected_by_gravity=(s) { _gravity = s }
+    no_random_drops=(s) { _no_random_drops = s }
+    no_random_drops { _no_random_drops }
+    near_player { (_level.player.y - y).abs < 20 && (_level.player.x - x).abs < 80 }
     
     knockback(x, y) {
         _stun_timer = Balance.KNOCKBACK_STUN_FRAMES
@@ -47,16 +53,21 @@ class Enemy is Entity {
         _facing = 1
         _item = null
         _alt = false
+        _invincible = false
+        _gravity = true
+        _no_random_drops = false
     }
 
     create(level, tiled_data) {
         super.create(level, tiled_data)
         _level = level
-        if (tiled_data["properties"].containsKey("item")) {
-            _item = tiled_data["properties"]["item"]
-        }
-        if (tiled_data["properties"].containsKey("alt")) {
-            _alt = tiled_data["properties"]["alt"]
+        if (tiled_data != null) {
+            if (tiled_data["properties"].containsKey("item")) {
+                _item = tiled_data["properties"]["item"]
+            }
+            if (tiled_data["properties"].containsKey("alt")) {
+                _alt = tiled_data["properties"]["alt"]
+            }
         }
     }
 
@@ -64,7 +75,9 @@ class Enemy is Entity {
         super.update(level)
 
         // Movement
-        vspeed = vspeed + Balance.GRAVITY
+        if (_gravity) {
+            vspeed = vspeed + Balance.GRAVITY
+        }
 
         // Handle collisions
         if (level.tileset.collision(hitbox, x + hspeed, y)) {
@@ -85,11 +98,11 @@ class Enemy is Entity {
 
         // Get hit by spells & weapons
         var spell = level.entity_collision(this, Spell)
-        if (spell != null && _iframes == 0) {
+        if (spell != null && _iframes == 0 && !_invincible) {
             spell.hit_effect(level, this)
         }
         var wep = level.entity_collision(this, Weapon)
-        if (wep != null && _iframes == 0) {
+        if (wep != null && _iframes == 0 && !_invincible) {
             wep.hit_effect(level, this)
         }
 
@@ -110,23 +123,25 @@ class Enemy is Entity {
     }
 
     draw(level) {
-        if (_iframes > 0) {
-            Renderer.set_colour_mod([0, 0, 0, 1])
-        } else if (_alt) {
-            Renderer.set_colour_mod([1, 0.2, 0.2, 1])
-        }
-        sprite.scale_x = facing
-        var draw_x = x
-        if (facing == -1) {
-            draw_x = draw_x + sprite.width
-        }
-        if (!level.is_paused) {
-            Renderer.draw_sprite(sprite, draw_x, y)
-        } else {
-            Renderer.draw_sprite(sprite, sprite.frame, draw_x, y)
+        if (sprite != null) {
+            if (_iframes > 0) {
+                Renderer.set_colour_mod([0, 0, 0, 1])
+            } else if (_alt) {
+                Renderer.set_colour_mod([1, 0.2, 0.2, 1])
+            }
+            sprite.scale_x = facing
+            var draw_x = x
+            if (facing == -1) {
+                draw_x = draw_x + sprite.width
+            }
+            if (!level.is_paused) {
+                Renderer.draw_sprite(sprite, draw_x, y)
+            } else {
+                Renderer.draw_sprite(sprite, sprite.frame, draw_x, y)
 
+            }
+            Renderer.set_colour_mod([1, 1, 1, 1])
         }
-        Renderer.set_colour_mod([1, 1, 1, 1])
     }
 
     destroy(level) {
@@ -134,7 +149,7 @@ class Enemy is Entity {
 
         if (_item != null) {
             Item.create_item(level, _item, x, y)
-        } else {
+        } else if (!no_random_drops) {
             // Chance to get a potion
             var n = Globals.rng.int(20)
             if (n == 0) {

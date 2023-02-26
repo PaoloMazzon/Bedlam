@@ -10,6 +10,8 @@ import "LevelControl" for Transition
 import "Assets" for Assets
 import "Dialogue" for Dialogue
 import "Slime" for Slime
+import "Ghost" for Ghost
+import "Spikes" for Spikes
 
 class Area is Level {
     construct new() {
