@@ -7,6 +7,10 @@ class Constants {
     static GAME_HEIGHT { 120 }
     static DEFAULT_SCALE { 5 }
     static WEAPON_SHORTSWORD { 1 }
+    static WEAPON_MACE { 2 }
+    static WEAPON_SPEAR { 3 }
+    static WEAPON_RAPIER { 4 }
+    static WEAPON_LEGEND { 5 }
     static FLOATING_TEXT_DURATION_FRAMES { 60 }
     static SILHOUETTE_DURATION_FRAMES { 60 }
 }
@@ -30,6 +34,7 @@ class Balance {
     static HEALTH_POTION { 0.3 }
     static KNOCKBACK_STUN_FRAMES { 10 }
     static SHORTSWORD_DAMAGE { 8 }
+    static MACE_DAMAGE { 12 }
     static TELEPORT_RANGE { 40 }
 }
 

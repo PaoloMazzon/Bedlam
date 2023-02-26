@@ -104,6 +104,12 @@ class Area is Level {
 
         // Lighting
         _lighting_surface = Surface.new(Constants.GAME_WIDTH, Constants.GAME_HEIGHT)
+
+        // Pick the background depending on the area
+        _background = Assets.tex_forestbg
+        if (Globals.in_cathedral) {
+            _background = Assets.tex_cathedral_background
+        }
     }
 
     update() {
@@ -115,7 +121,7 @@ class Area is Level {
         Renderer.set_colour_mod([0, 0, 0, 1])
         Renderer.clear()
         Renderer.set_colour_mod([1, 1, 1, 1])
-        Tileset.draw_tiling_background(Assets.tex_forestbg, 0.8, Globals.camera)
+        Tileset.draw_tiling_background(_background, 0.8, Globals.camera)
         Renderer.draw_texture(_background_surface, 0, 0)
         Renderer.draw_texture(_collision_surface, 0, 0)
         super.update()

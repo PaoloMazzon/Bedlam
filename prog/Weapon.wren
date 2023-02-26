@@ -14,6 +14,15 @@ class Weapon is Entity {
                 spr = Assets.spr_shortsword_2
                 spr.origin_y = 4
             }
+        } else if (s == Constants.WEAPON_MACE) {
+            if (!alt) {
+                spr = Assets.spr_mace_1
+                spr.origin_y = 4
+            } else {
+                spr = Assets.spr_mace_2
+                spr.origin_x = 8
+                spr.origin_y = 4
+            }
         }
         spr.frame = 0
         return spr
@@ -22,12 +31,18 @@ class Weapon is Entity {
     static weapon_icon(wep) {
         if (wep == Constants.WEAPON_SHORTSWORD) {
             return Assets.tex_shortsword_icon
+        } else if (wep == Constants.WEAPON_MACE) {
+            return Assets.tex_mace_icon
         }
         return null
     }
 
     get_hitbox(wep, alt) {
         if (wep == Constants.WEAPON_SHORTSWORD) {
+            hitbox = Hitbox.new_rectangle(8, 8)
+            hitbox.x_offset = 4
+            hitbox.y_offset = 4
+        } else if (wep == Constants.WEAPON_MACE) {
             hitbox = Hitbox.new_rectangle(8, 8)
             hitbox.x_offset = 4
             hitbox.y_offset = 4
@@ -53,7 +68,14 @@ class Weapon is Entity {
                 enemy.take_damage(Balance.SHORTSWORD_DAMAGE / 2)
                 enemy.knockback((enemy.x - _player.x).sign * 1, -2)
             }
-        }
+        } else if (_weapon == Constants.WEAPON_MACE) {
+            if (!_alt) {
+                enemy.take_damage(Balance.MACE_DAMAGE)
+            } else {
+                enemy.take_damage(Balance.MACE_DAMAGE * 0.75)
+                enemy.knockback((enemy.x - _player.x).sign * 1, 0)
+            }
+        } 
         _duration = 0
     }
     

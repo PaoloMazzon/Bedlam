@@ -32,6 +32,9 @@ class Item is Entity {
             if (enemy != null) {
                 level.dialogue.queue("", enemy.x, enemy.y)
             }
+        } else if (_item_id == "mace") {
+            player.unlock_mace()
+            FloatingText.create_floating_text(level, "Axe", x + 5, y - 20)
         } else if (_item_id == "bolt") {
             player.unlock_bolt()
             FloatingText.create_floating_text(level, "Bolt", x + 5, y - 20)
@@ -78,6 +81,8 @@ class Item is Entity {
 
         if (_item_id == "shortsword") {
             _texture = Assets.tex_shortsword_icon
+        } else if (_item_id == "mace") {
+            _texture = Assets.tex_mace_icon
         } else if (_item_id == "bolt") {
             _texture = Assets.tex_bolt_icon
         } else if (_item_id == "health" || split == "health") {

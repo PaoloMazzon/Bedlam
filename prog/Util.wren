@@ -125,6 +125,13 @@ class Util {
             if (player.has_shortsword) {
                 Renderer.draw_texture(Weapon.weapon_icon(Constants.WEAPON_SHORTSWORD), 137, 26)
             }
+            if (player.has_mace) {
+                Renderer.draw_texture(Weapon.weapon_icon(Constants.WEAPON_MACE), 148, 15)
+            }
+            // A is 137, 26
+            // B is 148, 15
+            // X is 126, 15
+            // Y is 137, 4
         } else {
             // Equipped weapon
             Renderer.draw_texture(Assets.tex_weapon_box, 146, 2)

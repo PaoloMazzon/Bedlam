@@ -108,7 +108,7 @@ class Ghost is Enemy {
                     e.x = x + (facing * 4)
                     e.y = y + 6
                     e.hspeed = facing * 3
-                    e.sprite.facing = facing
+                    e.facing = facing
                 }
             }
         }

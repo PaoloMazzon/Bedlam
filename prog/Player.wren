@@ -48,9 +48,25 @@ class Player is Entity {
     health_potions { _health_potions }
     mana_potions { _mana_potions }
     has_bolt { _has_bolt }
+    has_shock { _has_shock }
+    has_laser { _has_laser }
+    has_bow { _has_bow }
+    has_lspell { _has_lspell }
     has_shortsword { _has_shortsword }
+    has_mace { _has_mace }
+    has_spear { _has_spear }
+    has_rapier { _has_rapier }
+    has_lweapon { _has_lweapon }
     unlock_bolt() { _has_bolt = true }
+    unlock_shock() { _has_shock = true }
+    unlock_laser() { _has_laser = true }
+    unlock_bow() { _has_bow = true }
+    unlock_lspell() { _has_lspell = true } 
     unlock_shortsword() { _has_shortsword = true }
+    unlock_mace() { _has_mace = true }
+    unlock_spear() { _has_spear = true }
+    unlock_rapier() { _has_rapier = true }
+    unlock_lweapon() { _has_lweapon = true }
     equipped_weapon { _equipped_weapon }
     get_health_potion() { _health_potions = _health_potions + 1 }
     get_mana_potion() { _mana_potions = _mana_potions + 1 }
@@ -99,11 +115,19 @@ class Player is Entity {
 
         // Spells & potions
         _has_bolt = Globals.player_has_bolt
+        _has_shock = Globals.item_unlocked("shock")
+        _has_laser = Globals.item_unlocked("laser")
+        _has_bow = Globals.item_unlocked("bow")
+        _has_lspell = Globals.item_unlocked("lspell")
         _health_potions = Globals.health_potions
         _mana_potions = Globals.mana_potions
 
         // Weapons
         _has_shortsword = Globals.player_has_shortsword
+        _has_mace = Globals.item_unlocked("mace")
+        _has_spear = Globals.item_unlocked("spear")
+        _has_rapier = Globals.item_unlocked("rapier")
+        _has_lweapon = Globals.item_unlocked("lweapon")
         _weapon_frames = Globals.equipped_weapon
         _equipped_weapon = Globals.equipped_weapon
     }
@@ -279,6 +303,7 @@ class Player is Entity {
         var weapon_swing = false
         var weapon_alt = false
         var equip_shortsword = false
+        var equip_mace = false
 
         if (_weapon_frames == 0) {
             var lshoulder = Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER)
@@ -286,6 +311,7 @@ class Player is Entity {
             weapon_swing = Keyboard.key_pressed(Keyboard.KEY_X) || (!lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_X))
             weapon_alt = Keyboard.key_pressed(Keyboard.KEY_C) || (!lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_Y))
             equip_shortsword = Keyboard.key_pressed(Keyboard.KEY_1) || (rshoulder && !lshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_A))
+            equip_mace = (rshoulder && !lshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_B))
         }
 
         if (_weapon_frames > 0) {
@@ -296,6 +322,8 @@ class Player is Entity {
         }
         if (equip_shortsword && _has_shortsword) {
             _equipped_weapon = Constants.WEAPON_SHORTSWORD
+        } else if (equip_mace && _has_mace) {
+            _equipped_weapon = Constants.WEAPON_MACE
         }
         if ((weapon_swing || weapon_alt) && _equipped_weapon != 0) {
             var w = level.add_entity(Weapon)
@@ -305,6 +333,17 @@ class Player is Entity {
             w.y = y + 6
             if (_facing == -1) {
                 w.x = x - (w.hitbox.w / 2)
+            }
+
+            // Add another hitbox if its the mace swinging
+            if (_equipped_weapon == Constants.WEAPON_MACE && weapon_alt) {
+                var ww = level.add_entity(Weapon)
+                ww.set_weapon(_equipped_weapon, weapon_alt, this)
+                ww.x = x + 8 + (ww.hitbox.w / 2)
+                ww.y = y + 6
+                if (_facing == 1) {
+                    ww.x = x - (w.hitbox.w / 2)
+                }
             }
         }
     }
