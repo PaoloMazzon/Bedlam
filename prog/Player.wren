@@ -205,6 +205,16 @@ class Player is Entity {
     }
 
     collisions(level) {
+        // Walk up 1 block slopes
+        if (level.tileset.collision(hitbox, x + _hspeed, y) && level.tileset.collision(hitbox, x, y + 1) && !level.tileset.collision(hitbox, x + _hspeed, y - 8)) {
+            var counter = 0
+            while (level.tileset.collision(hitbox, x + _hspeed, y) && counter < 10) {
+                counter = counter + 1
+                y = y - 1
+            }
+            y = y - 1
+        }
+
         if (level.tileset.collision(hitbox, x + _hspeed, y)) {
             while (!level.tileset.collision(hitbox, x + _hspeed.sign, y)) {
                 x = x + _hspeed.sign

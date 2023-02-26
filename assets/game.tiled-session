@@ -1,0 +1,67 @@
+{
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "Map_A2.tmj": {
+            "scale": 1.1115,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.8097165991903,
+                "y": 160.14394961763384
+            }
+        },
+        "Map_A2.tmj#terrain": {
+            "scaleInDock": 1
+        },
+        "Map_B1.tmj": {
+            "expandedObjectLayers": [
+                5
+            ],
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 152.83333333333331,
+                "y": 196.33333333333331
+            }
+        },
+        "Map_B1.tmj#terrain": {
+            "scaleInDock": 1
+        },
+        "Map_B2.tmj": {
+            "expandedObjectLayers": [
+                5
+            ],
+            "scale": 2.7787499999999996,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 191.27305443094923,
+                "y": 181.01664417453895
+            }
+        },
+        "Map_B2.tmj#terrain": {
+            "scaleInDock": 1
+        },
+        "Map_B3.tmj": {
+            "expandedObjectLayers": [
+                5
+            ],
+            "scale": 4,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 150.375,
+                "y": 88.75
+            }
+        },
+        "Map_B3.tmj#terrain": {
+            "scaleInDock": 5.5
+        }
+    },
+    "last.objectTemplatePath": "C:/Users/lugi1/Desktop/Code/metroman/assets",
+    "openFiles": [
+    ],
+    "project": "game.tiled-project",
+    "recentFiles": [
+        "Map_A2.tmj"
+    ]
+}
