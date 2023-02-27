@@ -78,7 +78,6 @@ class Player is Entity {
         _hp = _max_hp
     }
 
-
     create(level, tiled_data) {
         super.create(level, tiled_data)
         // Sprite

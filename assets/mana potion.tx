@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="mana potion" class="Item::Item" width="10" height="12">
+  <properties>
+   <property name="item" value="mana_5"/>
+  </properties>
+ </object>
+</template>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="slimey boi" class="Slime::Slime" width="12" height="10"/>
+</template>

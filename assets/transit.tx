@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="forest a3" class="LevelControl::Transition" width="6.25" height="15.5">
+  <properties>
+   <property name="area" value="Map_A3#1"/>
+  </properties>
+ </object>
+</template>
