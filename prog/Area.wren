@@ -12,6 +12,7 @@ import "Dialogue" for Dialogue
 import "Slime" for Slime
 import "Ghost" for Ghost
 import "Spikes" for Spikes
+import "MinorEntities" for Light
 
 class Area is Level {
     construct new() {
@@ -104,6 +105,7 @@ class Area is Level {
 
         // Lighting
         _lighting_surface = Surface.new(Constants.GAME_WIDTH, Constants.GAME_HEIGHT)
+        _lights = get_entities(Light)
 
         // Pick the background depending on the area
         _background = Assets.tex_forestbg
@@ -138,6 +140,9 @@ class Area is Level {
             Renderer.set_colour_mod([0, 0, 0, 1])
             Renderer.set_blend_mode(Renderer.BLEND_MODE_SUBTRACT)
             Renderer.draw_circle(player.x - Globals.camera.x + 4, player.y - Globals.camera.y + 6, 30 + (Engine.time * 2).sin)
+            for (light in _lights) {
+                Renderer.draw_circle(light.x - Globals.camera.x, light.y - Globals.camera.y, light.radius)
+            }
             Renderer.set_blend_mode(Renderer.BLEND_MODE_BLEND)
             Renderer.set_target(Globals.game_surf)
             Renderer.draw_texture(_lighting_surface, 0, 0)

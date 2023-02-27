@@ -27,7 +27,7 @@ class Enemy is Entity {
     affected_by_gravity=(s) { _gravity = s }
     no_random_drops=(s) { _no_random_drops = s }
     no_random_drops { _no_random_drops }
-    near_player { (_level.player.y - y).abs < 20 && (_level.player.x - x).abs < 80 }
+    near_player { (_level.player.y - y).abs < 12 && (_level.player.x - x).abs < 80 }
     
     knockback(x, y) {
         _stun_timer = Balance.KNOCKBACK_STUN_FRAMES

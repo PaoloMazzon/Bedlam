@@ -1,6 +1,6 @@
 import "lib/Engine" for Entity
 import "lib/Renderer" for Renderer
-import "State" for Constants
+import "State" for Constants, Globals
 import "Assets" for Assets
 
 class Death is Entity { // death animations
@@ -114,5 +114,31 @@ class TeleportSilhouette is Entity {
             Renderer.draw_sprite(sprite, _frame, x, y)
         }
         Renderer.set_colour_mod([1, 1, 1, 1])
+    }
+}
+
+class Light is Entity {
+    construct new() {}
+
+    radius { _radius + _mod }
+
+    create(level, tiled_data) {
+        super.create(level, tiled_data)
+        _radius = 10
+        _mod = 0
+        _refresh = 3
+        if (tiled_data != null && tiled_data["properties"].containsKey("light")) {
+            _radius = tiled_data["properties"]["light"]
+        }
+    }
+
+    update(level) {
+        super.update(level)
+        if (_refresh == 0) {
+            _refresh = 3
+            _mod = Globals.rng.int(-1, 2)
+        } else {
+            _refresh = _refresh - 1
+        }
     }
 }
