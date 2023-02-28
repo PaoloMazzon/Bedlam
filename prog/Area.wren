@@ -93,6 +93,16 @@ class Area is Level {
         _tilesets["hidden"].draw()
         Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
 
+        // Second background
+        if (_tilesets.containsKey("background2")) {
+            _background2_surface = Surface.new(_tilesets["background2"].width, _tilesets["background2"].height)
+            Renderer.set_target(_background2_surface)
+            _tilesets["background2"].draw()
+            Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
+        } else {
+            _background2_surface = null
+        }
+
         // Hold onto player handle
         _player = get_entity(Player)
 
@@ -125,6 +135,9 @@ class Area is Level {
         Renderer.set_colour_mod([1, 1, 1, 1])
         Tileset.draw_tiling_background(_background, 0.8, Globals.camera)
         Renderer.draw_texture(_background_surface, 0, 0)
+        if (_background2_surface != null) {
+            Renderer.draw_texture(_background2_surface, 0, 0)
+        }
         Renderer.draw_texture(_collision_surface, 0, 0)
         super.update()
         Renderer.draw_texture(_foreground_surface, 0, 0)
@@ -133,6 +146,7 @@ class Area is Level {
 
         // Handle lighting
         if (_lighting) {
+            Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
             Renderer.set_target(_lighting_surface)
             Renderer.set_texture_camera(false)
             Renderer.set_colour_mod([0, 0, 0, 0.95])
@@ -144,6 +158,7 @@ class Area is Level {
                 Renderer.draw_circle(light.x - Globals.camera.x, light.y - Globals.camera.y, light.radius)
             }
             Renderer.set_blend_mode(Renderer.BLEND_MODE_BLEND)
+            Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
             Renderer.set_target(Globals.game_surf)
             Renderer.draw_texture(_lighting_surface, 0, 0)
             Renderer.set_texture_camera(true)

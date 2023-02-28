@@ -1,5 +1,6 @@
 import "lib/Engine" for Entity
 import "lib/Renderer" for Renderer
+import "lib/Util" for Hitbox
 import "State" for Constants, Globals
 import "Assets" for Assets
 
@@ -140,5 +141,14 @@ class Light is Entity {
         } else {
             _refresh = _refresh - 1
         }
+    }
+}
+
+class Platform is Entity {
+    construct  new() {}
+
+    create(level, tiled_data) {
+        super.create(level, tiled_data)
+        hitbox = Hitbox.new_rectangle(tiled_data["width"], tiled_data["height"])
     }
 }

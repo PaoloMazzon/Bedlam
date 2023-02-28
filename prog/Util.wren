@@ -41,16 +41,16 @@ class Util {
         Globals.shader_buffer.write_float(conf["window_width"])
         Globals.shader_buffer.write_float(conf["window_height"])
         Globals.shader_buffer.write_float(0.5)
-        Globals.post_shader.data = Globals.shader_buffer
+        //Globals.post_shader.data = Globals.shader_buffer
         
         // Draw background, black outline, and game surface with the post shader
         Renderer.draw_texture(Assets.tex_window_background, 0, 0, conf["window_width"] / 192, conf["window_height"] / 108, 0, 0, 0)
         Renderer.set_colour_mod([0, 0, 0, 1])
         Renderer.draw_rectangle_outline(x - 1, y - 1, Globals.scale * Constants.GAME_WIDTH + 2, Globals.scale * Constants.GAME_HEIGHT + 2, 0, 0, 0, 1)
         Renderer.set_colour_mod([1, 1, 1, 1])
-        Renderer.set_shader(Globals.post_shader)
+        //Renderer.set_shader(Globals.post_shader)
         Renderer.draw_texture(Globals.game_surf, x, y, Globals.scale, Globals.scale, 0, 0, 0)
-        Renderer.set_shader(null)
+        //Renderer.set_shader(null)
     }
 
     static change_area(new_area, level) {

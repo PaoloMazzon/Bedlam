@@ -33,7 +33,7 @@ class Balance {
     static LASER_COST { Balance.PLAYER_MANA * 0.2 }
     static ENEMY_IFRAMES { 5 }
     static MANA_POTION { 0.7 }
-    static HEALTH_POTION { 0.3 }
+    static HEALTH_POTION { 0.50 }
     static KNOCKBACK_STUN_FRAMES { 10 }
     static SHORTSWORD_DAMAGE { 8 }
     static MACE_DAMAGE { 12 }

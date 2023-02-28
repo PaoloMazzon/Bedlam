@@ -9,7 +9,7 @@ import "Spells" for Bolt, Shock, Laser
 import "Weapon" for Weapon
 import "Item" for Item
 import "Dialogue" for Dialogue
-import "MinorEntities" for TeleportSilhouette, Hit
+import "MinorEntities" for TeleportSilhouette, Hit, Platform
 
 class Player is Entity {
     construct new() { super() }
@@ -146,6 +146,10 @@ class Player is Entity {
             teleport = Keyboard.key_pressed(Keyboard.KEY_LSHIFT) || (!lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_B))
         }
 
+        y = y + 1
+        var on_ground = level.tileset.collision(hitbox, x, y) || level.entity_collision(this, Platform)
+        y = y - 1
+
         _hspeed = 0
         if (left) {
             _hspeed = _hspeed - _speed
@@ -157,11 +161,11 @@ class Player is Entity {
         }
 
         // Jumping
-        if (level.tileset.collision(hitbox, x, y + 1) && _jumps < _max_jumps) {
+        if (on_ground && _jumps < _max_jumps) {
             _jumps = _max_jumps
             _walljump_side = 0
         }
-        if (jump && (_jumps > 0 || level.tileset.collision(hitbox, x, y + 1))) {
+        if (jump && (_jumps > 0 || on_ground)) {
             if (_jumps > 0 && !level.tileset.collision(hitbox, x, y + 1)) {
                 _jumps = _jumps - 1
                 Hit.create_hit_effect(level, x + 4, y + 12, -Num.pi / 2)
@@ -225,6 +229,19 @@ class Player is Entity {
                 y = y + _vspeed.sign
             }
             _vspeed = 0
+            _walljump_side = 0
+        }
+        y = y + _vspeed
+        var platform = level.entity_collision(this, Platform)
+        y = y - _vspeed
+        var on_platform = false
+        if (platform != null && y + hitbox.h < platform.y) {
+            while (!platform.hitbox.collision(platform.x, platform.y, x, y + 1, hitbox)) {
+                y = y + 1
+            }
+            _vspeed = 0
+            on_platform = true
+            _walljump_side = 0
         }
         x = x + _hspeed
         y = y + _vspeed
@@ -236,7 +253,7 @@ class Player is Entity {
             } else {
                 sprite = Assets.spr_player_idle
             }
-            if (_vspeed > 0 && !level.tileset.collision(hitbox, x, y + 1)) {
+            if (_vspeed > 0 && !level.tileset.collision(hitbox, x, y + 1) && !on_platform) {
                 sprite = Assets.spr_player_fall
             } else if (_vspeed < 0) {
                 sprite = Assets.spr_player_jump

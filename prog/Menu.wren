@@ -14,7 +14,7 @@ class Menu is Level {
         Globals.camera = Camera.new()
         Util.maximize_scale()
         Globals.game_surf = Surface.new(Constants.GAME_WIDTH, Constants.GAME_HEIGHT)
-        Globals.post_shader = Shader.load("assets/post.vert.spv", "assets/post.frag.spv", 12)
+        //Globals.post_shader = Shader.load("assets/post.vert.spv", "assets/post.frag.spv", 12)
     }
 
     update() {
