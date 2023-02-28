@@ -11,7 +11,7 @@
             "selectedLayer": 2,
             "viewCenter": {
                 "x": 142.16666666666669,
-                "y": 163.99999999999997
+                "y": 163.66666666666669
             }
         },
         "Map_A1.tmj#terrain": {
@@ -46,11 +46,11 @@
             "expandedObjectLayers": [
                 5
             ],
-            "scale": 8,
+            "scale": 11,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 122.5625,
-                "y": 163.5
+                "x": 285.8636363636364,
+                "y": 209.54545454545456
             }
         },
         "Map_A6.tmj#terrain": {
@@ -103,10 +103,10 @@
                 5
             ],
             "scale": 2,
-            "selectedLayer": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 202.75,
-                "y": 223
+                "x": 220.25,
+                "y": 165
             }
         },
         "Map_B4.tmj#terrain": {
@@ -131,13 +131,41 @@
                 5
             ],
             "scale": 2,
-            "selectedLayer": 2,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 173.25,
-                "y": 180.5
+                "x": 218.75,
+                "y": 101.5
             }
         },
         "Map_B6.tmj#terrain": {
+            "scaleInDock": 4
+        },
+        "Map_B7.tmj": {
+            "expandedObjectLayers": [
+                5
+            ],
+            "scale": 4,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 162.625,
+                "y": 79.5
+            }
+        },
+        "Map_B7.tmj#terrain": {
+            "scaleInDock": 4
+        },
+        "Map_C6.tmj": {
+            "expandedObjectLayers": [
+                5
+            ],
+            "scale": 2,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 103.75,
+                "y": 199
+            }
+        },
+        "Map_C6.tmj#terrain": {
             "scaleInDock": 4
         }
     },
@@ -147,6 +175,8 @@
     "project": "game.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "Map_B7.tmj",
+        "Map_A6.tmj",
         "Map_A1.tmj",
         "Map_A2.tmj"
     ]
