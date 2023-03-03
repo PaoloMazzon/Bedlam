@@ -44,6 +44,8 @@ class Globals {
     static reload() {
         __scale = __config.get_num("renderer", "scale", Constants.DEFAULT_SCALE)
         __fullscreen = __config.get_bool("renderer", "fullscreen", false)
+        __sound = __config.get_bool("renderer", "sound", true)
+        __music = __config.get_bool("renderer", "music", true)
         __area = __config.get_string("game", "area", "Map_A1#1")
         __rng = Random.new()
         __max_player_hp = __config.get_num("game", "max_hp", Balance.PLAYER_MAX_BASE_HP)
@@ -151,6 +153,8 @@ class Globals {
     // Things that go in the ini automatically
     static scale { __scale }
     static fullscreen { __fullscreen }
+    static sound { __sound }
+    static music { __music }
     static area { __area }
     static max_player_hp { __max_player_hp }
     static player_hp { __player_hp }
@@ -173,6 +177,16 @@ class Globals {
     static fullscreen=(s) {
         __fullscreen = s
         __config.set_bool("renderer", "fullscreen", __fullscreen)
+        __config.flush("config")
+    }
+    static music=(s) {
+        __music = s
+        __config.set_bool("renderer", "music", __music)
+        __config.flush("config")
+    }
+    static sound=(s) {
+        __sound = s
+        __config.set_bool("renderer", "sound", __sound)
         __config.flush("config")
     }
     static area=(s) { __area = s }

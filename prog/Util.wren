@@ -44,9 +44,9 @@ class Util {
         //Globals.post_shader.data = Globals.shader_buffer
         
         // Draw background, black outline, and game surface with the post shader
-        Renderer.draw_texture(Assets.tex_window_background, 0, 0, conf["window_width"] / 192, conf["window_height"] / 108, 0, 0, 0)
+        Renderer.draw_texture(Assets.tex_back, 0, 0, conf["window_width"] / Assets.tex_back.width, conf["window_height"] / Assets.tex_back.height, 0, 0, 0)
         Renderer.set_colour_mod([0, 0, 0, 1])
-        Renderer.draw_rectangle_outline(x - 1, y - 1, Globals.scale * Constants.GAME_WIDTH + 2, Globals.scale * Constants.GAME_HEIGHT + 2, 0, 0, 0, 1)
+        Renderer.draw_rectangle(x - 1, y - 1, Globals.scale * Constants.GAME_WIDTH + 2, Globals.scale * Constants.GAME_HEIGHT + 2, 0, 0, 0)
         Renderer.set_colour_mod([1, 1, 1, 1])
         //Renderer.set_shader(Globals.post_shader)
         Renderer.draw_texture(Globals.game_surf, x, y, Globals.scale, Globals.scale, 0, 0, 0)
