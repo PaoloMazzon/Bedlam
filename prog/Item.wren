@@ -133,6 +133,9 @@ class Item is Entity {
 
         if (_texture != null) {
             var yy = (Engine.time * 2).sin
+            if (level.is_paused) {
+                yy = 0
+            }
             Renderer.draw_texture(_texture, x + 1, y - 11 + yy)
         }
     }

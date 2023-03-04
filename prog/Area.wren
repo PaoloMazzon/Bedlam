@@ -2,7 +2,7 @@ import "lib/Renderer" for Renderer
 import "lib/Drawing" for Surface
 import "lib/Engine" for Level, Engine, Entity
 import "lib/Util" for Math, Tileset
-import "lib/Input" for Keyboard
+import "lib/Input" for Keyboard, Gamepad
 import "Util" for Util
 import "State" for Globals, Constants, Balance
 import "Player" for Player
@@ -22,10 +22,11 @@ class Area is Level {
         _focus_y = 0
         _dialogue = Dialogue.new()
         _lighting = false
+        _player_paused = false
     }
 
     tileset { _tileset } // tileset used for collision checking
-    is_paused { _paused } // it is the entity's responsibility to check this
+    is_paused { _paused || _player_paused } // it is the entity's responsibility to check this
     player { _player }
     dialogue { _dialogue }
 
@@ -168,6 +169,14 @@ class Area is Level {
         if (!dialogue.update(this)) {
             Util.draw_player_ui(_player)
         }
+
+        // Pause screen
+        if (_player_paused) {
+            Renderer.set_texture_camera(false)
+            Renderer.draw_texture(Assets.tex_pause, 0, 0)
+            Renderer.set_texture_camera(true)
+        }
+
         Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
         Renderer.lock_cameras(Renderer.DEFAULT_CAMERA)
         Util.draw_game_surface()
@@ -213,11 +222,13 @@ class Area is Level {
         }
 
         // Focus camera on the focus
-        var diff_x = ((_focus_x + 4) - (Constants.GAME_WIDTH / 2)) - Globals.camera.x
-        var diff_y = ((_focus_y + 6) - (Constants.GAME_HEIGHT / 2)) - Globals.camera.y
-        Globals.camera.x = Math.clamp(Globals.camera.x + (diff_x * 0.1), 0, tileset.width - Constants.GAME_WIDTH)
-        Globals.camera.y = Math.clamp(Globals.camera.y + (diff_y * 0.1), 0, tileset.height - Constants.GAME_HEIGHT)
-        Globals.camera.update()
+        if (!is_paused) {
+            var diff_x = ((_focus_x + 4) - (Constants.GAME_WIDTH / 2)) - Globals.camera.x
+            var diff_y = ((_focus_y + 6) - (Constants.GAME_HEIGHT / 2)) - Globals.camera.y
+            Globals.camera.x = Math.clamp(Globals.camera.x + (diff_x * 0.1), 0, tileset.width - Constants.GAME_WIDTH)
+            Globals.camera.y = Math.clamp(Globals.camera.y + (diff_y * 0.1), 0, tileset.height - Constants.GAME_HEIGHT)
+            Globals.camera.update()
+        }
 
         // Hotkeys
         if (Keyboard.key(Keyboard.KEY_LALT) && Keyboard.key_pressed(Keyboard.KEY_RETURN)) {
@@ -233,6 +244,9 @@ class Area is Level {
 
             Renderer.set_config(conf)
             Util.maximize_scale()
+        }
+        if (Gamepad.button_pressed(0, Gamepad.BUTTON_START)) {
+            _player_paused = !_player_paused
         }
     }
 
