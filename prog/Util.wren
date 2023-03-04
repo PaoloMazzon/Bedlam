@@ -138,8 +138,12 @@ class Util {
             } else if (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
                 // Mixed wheel
                 Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)
-                Renderer.draw_texture(Assets.tex_health_potion, 137, 26)
-                Renderer.draw_texture(Assets.tex_mana_potion, 137, 4)
+                if (player.health_potions > 0) {
+                    Renderer.draw_texture(Assets.tex_health_potion, 137, 26)
+                }
+                if (player.mana_potions > 0) {
+                    Renderer.draw_texture(Assets.tex_mana_potion, 137, 4)
+                }
             } else if (!Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
                 // Weapon wheel
                 Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)

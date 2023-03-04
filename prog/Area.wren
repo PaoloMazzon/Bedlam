@@ -222,7 +222,7 @@ class Area is Level {
         }
 
         // Focus camera on the focus
-        if (!is_paused) {
+        if (!_player_paused) {
             var diff_x = ((_focus_x + 4) - (Constants.GAME_WIDTH / 2)) - Globals.camera.x
             var diff_y = ((_focus_y + 6) - (Constants.GAME_HEIGHT / 2)) - Globals.camera.y
             Globals.camera.x = Math.clamp(Globals.camera.x + (diff_x * 0.1), 0, tileset.width - Constants.GAME_WIDTH)
