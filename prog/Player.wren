@@ -268,6 +268,9 @@ class Player is Entity {
         _flicker = _flicker + 1
         if (_flicker == 10) {
             _flicker = 0
+            if (_hspeed != 0 && _equipped_weapon == Constants.WEAPON_LEGEND) {
+                TeleportSilhouette.create_teleport_silhouette_blue(level, x, y, sprite, _facing, sprite.frame)
+            }
         }
 
         var enemy = level.entity_collision(this, Enemy)

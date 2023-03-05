@@ -86,9 +86,20 @@ class TeleportSilhouette is Entity {
         t.x = x
         t.y = y
     }
+
+    static create_teleport_silhouette_blue(level, x, y, spr, facing, frame) {
+        var t = level.add_entity(TeleportSilhouette)
+        t.sprite = spr.copy()
+        t.facing = facing
+        t.frame = frame
+        t.x = x
+        t.y = y
+        t.blue = true
+    }
     
     facing=(s) { _facing = s }
     frame=(s) { _frame = s }
+    blue=(s) { _blue = s }
 
     construct new() { super() }
 
@@ -97,6 +108,7 @@ class TeleportSilhouette is Entity {
         _duration = Constants.SILHOUETTE_DURATION_FRAMES
         _frame = 0
         _facing = 0
+        _blue = false
     }
 
     update(level) {
@@ -107,7 +119,11 @@ class TeleportSilhouette is Entity {
     }
 
     draw(level) {
-        Renderer.set_colour_mod([0, 0, 0, _duration / Constants.SILHOUETTE_DURATION_FRAMES])
+        if (_blue) {
+            Renderer.set_colour_mod([0, 0.5, 1, _duration / Constants.SILHOUETTE_DURATION_FRAMES])
+        } else {
+            Renderer.set_colour_mod([0, 0, 0, _duration / Constants.SILHOUETTE_DURATION_FRAMES])
+        }
         sprite.scale_x = _facing
         if (_facing == -1) {
             Renderer.draw_sprite(sprite, _frame, x + 8, y)

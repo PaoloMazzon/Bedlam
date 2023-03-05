@@ -135,6 +135,13 @@ class Util {
                 if (player.has_laser) {
                     Renderer.draw_texture(Assets.tex_laser_icon, 137, 4)
                 }
+                if (player.has_bow) {
+                    Renderer.draw_texture(Assets.tex_bow_icon, 126, 15)
+                }
+                // A is 137, 26
+                // B is 148, 15
+                // X is 126, 15
+                // Y is 137, 4
             } else if (Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
                 // Mixed wheel
                 Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)
@@ -144,14 +151,26 @@ class Util {
                 if (player.mana_potions > 0) {
                     Renderer.draw_texture(Assets.tex_mana_potion, 137, 4)
                 }
+                if (player.has_lspell) {
+                    Renderer.draw_texture(Assets.tex_hell_icon, 126, 15)
+                }
+                if (player.has_lweapon) {
+                    Renderer.draw_texture(Assets.tex_hell_icon, 148, 15)
+                }
             } else if (!Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
                 // Weapon wheel
                 Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)
-                if (player.has_shortsword) {
+                if (player.has_shortsword) { // a
                     Renderer.draw_texture(Weapon.weapon_icon(Constants.WEAPON_SHORTSWORD), 137, 26)
                 }
-                if (player.has_mace) {
+                if (player.has_mace) { // b
                     Renderer.draw_texture(Weapon.weapon_icon(Constants.WEAPON_MACE), 148, 15)
+                }
+                if (player.has_spear) { // y
+                    Renderer.draw_texture(Weapon.weapon_icon(Constants.WEAPON_SPEAR), 137, 4)
+                }
+                if (player.has_rapier) { // x
+                    Renderer.draw_texture(Weapon.weapon_icon(Constants.WEAPON_RAPIER), 126, 15)
                 }
                 // A is 137, 26
                 // B is 148, 15

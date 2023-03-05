@@ -35,6 +35,23 @@ class Item is Entity {
         } else if (_item_id == "mace") {
             player.unlock_mace()
             FloatingText.create_floating_text(level, "Axe", x + 5, y - 20)
+        } else if (_item_id == "lweapon") {
+            player.unlock_lweapon()
+            FloatingText.create_floating_text(level, "Wraithslayer", x + 5, y - 20)
+            level.dialogue.queue("Hold " + Dialogue.CHAR_GAMEPAD_RBUMPER + " and " + Dialogue.CHAR_GAMEPAD_RBUMPER " then press " + Dialogue.CHAR_GAMEPAD_B + " to equip the Wraithslayer.", level.player.x, level.player.y)
+        } else if (_item_id == "rapier") {
+            player.unlock_rapier()
+            FloatingText.create_floating_text(level, "Rapier", x + 5, y - 20)
+        } else if (_item_id == "spear") {
+            player.unlock_spear()
+            FloatingText.create_floating_text(level, "Spear", x + 5, y - 20)
+        } else if (_item_id == "lspell") {
+            player.unlock_lspell()
+            FloatingText.create_floating_text(level, "Hell", x + 5, y - 20)
+            level.dialogue.queue("Hold " + Dialogue.CHAR_GAMEPAD_RBUMPER + " and " + Dialogue.CHAR_GAMEPAD_RBUMPER " then press " + Dialogue.CHAR_GAMEPAD_X + " to cast rain hell.", level.player.x, level.player.y)
+        } else if (_item_id == "bow") {
+            player.unlock_bow()
+            FloatingText.create_floating_text(level, "Bow", x + 5, y - 20)
         } else if (_item_id == "shock") {
             player.unlock_shock()
             FloatingText.create_floating_text(level, "Shock", x + 5, y - 20)
@@ -98,6 +115,16 @@ class Item is Entity {
             _texture = Assets.tex_shock_icon
         } else if (_item_id == "laser") {
             _texture = Assets.tex_laser_icon
+        } else if (_item_id == "lspell") {
+            _texture = Assets.tex_hell_icon
+        } else if (_item_id == "bow") {
+            _texture = Assets.tex_bow_icon
+        } else if (_item_id == "lweapon") {
+            _texture = Assets.tex_magicsword_icon
+        } else if (_item_id == "rapier") {
+            _texture = Assets.tex_rapier_icon
+        } else if (_item_id == "spear") {
+            _texture = Assets.tex_spear_icon
         } else if (_item_id == "health" || split == "health") {
             _texture = Assets.tex_health_potion
         } else if (_item_id == "mana" || split == "mana") {
