@@ -155,7 +155,7 @@ class Util {
                     Renderer.draw_texture(Assets.tex_hell_icon, 126, 15)
                 }
                 if (player.has_lweapon) {
-                    Renderer.draw_texture(Assets.tex_hell_icon, 148, 15)
+                    Renderer.draw_texture(Assets.tex_magicsword_icon, 148, 15)
                 }
             } else if (!Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
                 // Weapon wheel

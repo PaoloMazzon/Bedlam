@@ -40,7 +40,7 @@ class Spell is Entity {
         _duration = _duration - 1
         x = x + Math.cast_x(_speed, _direction)
         y = y + Math.cast_y(_speed, _direction)
-        if (_duration <= 0 || level.tileset.collision(hitbox, x, y)) {
+        if (_duration <= 0 || (level.tileset.collision(hitbox, x, y) && !_penetrates)) {
             level.remove_entity(this)
             
             if (_duration > 0) {
@@ -190,5 +190,34 @@ class Laser is Spell {
         }
         laser.y = laser.y - 2
         laser.hitbox = Hitbox.new_rectangle(w.abs, 4)
+    }
+}
+
+class Bow is Spell {
+    construct new() { super() }
+
+    hit_effect(level, entity) {
+        super.hit_effect(level, entity)
+        entity.take_damage(6)
+    }
+
+    create(level, tiled_data) {
+        super.create(level, tiled_data)
+        sprite = Assets.spr_magicsword_bolt.copy()
+        hitbox = Hitbox.new_rectangle(8, 8)
+        hitbox.x_offset = 4
+        hitbox.y_offset = 4
+        sprite.origin_x = 4
+        sprite.origin_y = 4
+    }
+
+    static cast(level, x, y, dir) {
+        var bow = level.add_entity(Bow)
+        bow.x = x
+        bow.y = y
+        bow.sprite.rotation = dir
+        bow.set_velocity(dir, 3)
+        bow.set_duration(0.5)
+        bow.set_penetrating()
     }
 }

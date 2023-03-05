@@ -5,7 +5,7 @@ import "lib/Input" for Gamepad, Keyboard
 import "State" for Globals, Constants, Balance
 import "Enemy" for Enemy
 import "Assets" for Assets
-import "Spells" for Bolt, Shock, Laser
+import "Spells" for Bolt, Shock, Laser, Bow
 import "Weapon" for Weapon
 import "Item" for Item
 import "Dialogue" for Dialogue
@@ -42,6 +42,7 @@ class Player is Entity {
 
     is_dead { _hp == 0 }
 
+    facing { _facing }
     mana { _mana }
     hp { _hp }
     max_hp { _max_hp }
@@ -111,6 +112,7 @@ class Player is Entity {
         _hp = Globals.player_hp
         _iframes = 0
         _flicker = 0
+        _rapier_dash = false
 
         // Spells & potions
         _has_bolt = Globals.player_has_bolt
@@ -140,17 +142,19 @@ class Player is Entity {
         if (_weapon_frames == 0) {
             var lshoulder = Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER)
             var rshoulder = Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)
-            left = Keyboard.key(Keyboard.KEY_LEFT) || Gamepad.button(0, Gamepad.BUTTON_DPAD_LEFT) || Gamepad.left_stick_x(0) < -0.3
-            right = Keyboard.key(Keyboard.KEY_RIGHT) || Gamepad.button(0, Gamepad.BUTTON_DPAD_RIGHT) || Gamepad.left_stick_x(0) > 0.3
-            jump = (Keyboard.key_pressed(Keyboard.KEY_Z) || (!lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_A)))
-            teleport = Keyboard.key_pressed(Keyboard.KEY_LSHIFT) || (!lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_B))
+            left = !_rapier_dash && (Keyboard.key(Keyboard.KEY_LEFT) || Gamepad.button(0, Gamepad.BUTTON_DPAD_LEFT) || Gamepad.left_stick_x(0) < -0.3)
+            right = !_rapier_dash && (Keyboard.key(Keyboard.KEY_RIGHT) || Gamepad.button(0, Gamepad.BUTTON_DPAD_RIGHT) || Gamepad.left_stick_x(0) > 0.3)
+            jump = !_rapier_dash && (Keyboard.key_pressed(Keyboard.KEY_Z) || (!lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_A)))
+            teleport = !_rapier_dash && (Keyboard.key_pressed(Keyboard.KEY_LSHIFT) || (!lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_B)))
         }
 
         y = y + 1
         var on_ground = level.tileset.collision(hitbox, x, y) || level.entity_collision(this, Platform)
         y = y - 1
 
-        _hspeed = 0
+        if (!_rapier_dash) {
+            _hspeed = 0
+        }
         if (left) {
             _hspeed = _hspeed - _speed
             _facing = -1
@@ -268,7 +272,7 @@ class Player is Entity {
         _flicker = _flicker + 1
         if (_flicker == 10) {
             _flicker = 0
-            if (_hspeed != 0 && _equipped_weapon == Constants.WEAPON_LEGEND) {
+            if ((_hspeed != 0 || _vspeed != 0) && _equipped_weapon == Constants.WEAPON_LEGEND) {
                 TeleportSilhouette.create_teleport_silhouette_blue(level, x, y, sprite, _facing, sprite.frame)
             }
         }
@@ -308,6 +312,8 @@ class Player is Entity {
         var bolt_cast = false
         var shock_cast = false
         var laser_cast = false
+        var bow_cast = false
+        var hell_cast = false
 
         if (_weapon_frames == 0) {
             var lshoulder = Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER)
@@ -315,6 +321,8 @@ class Player is Entity {
             bolt_cast = (Keyboard.key_pressed(Keyboard.KEY_A) || (lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_A)))
             shock_cast = lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_B)
             laser_cast = lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_Y)
+            bow_cast = lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_X)
+            hell_cast = lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_X)
         }
 
         restore_mana(Balance.MANA_RESTORATION)
@@ -329,6 +337,16 @@ class Player is Entity {
                 xx = x
             }
             Bolt.cast(level, xx, y + 6, dir)
+        } else if (bow_cast && _has_bow && spend_mana(Balance.BOW_COST)) {
+            var dir = 0
+            var xx = x + 8
+            if (_facing == -1) {
+                dir = 3.141592635
+                xx = x
+            }
+            Bow.cast(level, xx, y + 6, dir)
+        } else if (hell_cast && _has_lspell && spend_mana(Balance.HELL_COST)) {
+            // TODO: Implement hell
         } else if (shock_cast && _has_shock && spend_mana(Balance.SHOCK_COST)) {
             var xx = x + 16
             if (_facing == -1) {
@@ -349,6 +367,9 @@ class Player is Entity {
         var weapon_alt = false
         var equip_shortsword = false
         var equip_mace = false
+        var equip_rapier = false
+        var equip_spear = false
+        var equip_legend = false
 
         if (_weapon_frames == 0) {
             var lshoulder = Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER)
@@ -357,20 +378,39 @@ class Player is Entity {
             weapon_alt = Keyboard.key_pressed(Keyboard.KEY_C) || (!lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_Y))
             equip_shortsword = Keyboard.key_pressed(Keyboard.KEY_1) || (rshoulder && !lshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_A))
             equip_mace = (rshoulder && !lshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_B))
+            equip_rapier = (rshoulder && !lshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_X))
+            equip_spear = (rshoulder && !lshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_Y))
+            equip_legend = (rshoulder && lshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_B))
         }
 
         if (_weapon_frames > 0) {
             _weapon_frames = _weapon_frames - 1
             if (_weapon_frames == 0) {
                 sprite = Assets.spr_player_idle
+                _rapier_dash = false
             }
         }
         if (equip_shortsword && _has_shortsword) {
             _equipped_weapon = Constants.WEAPON_SHORTSWORD
         } else if (equip_mace && _has_mace) {
             _equipped_weapon = Constants.WEAPON_MACE
+        } else if (equip_rapier && _has_rapier) {
+            _equipped_weapon = Constants.WEAPON_RAPIER
+        } else if (equip_spear && _has_spear) {
+            _equipped_weapon = Constants.WEAPON_SPEAR
+        } else if (equip_legend && _has_lweapon) {
+            _equipped_weapon = Constants.WEAPON_LEGEND
         }
-        if ((weapon_swing || weapon_alt) && _equipped_weapon != 0) {
+
+        if (weapon_alt && _equipped_weapon == Constants.WEAPON_LEGEND && spend_mana(Balance.BOW_COST / 2)) {
+            var dir = 0
+            var xx = x + 8
+            if (_facing == -1) {
+                dir = 3.141592635
+                xx = x
+            }
+            Bow.cast(level, xx, y + 6, dir)
+        } else if ((weapon_swing || weapon_alt) && _equipped_weapon != 0) {
             var w = level.add_entity(Weapon)
             _weapon_frames = w.set_weapon(_equipped_weapon, weapon_alt, this)
             sprite = Weapon.weapon_sprite(_equipped_weapon, weapon_alt)
@@ -378,6 +418,11 @@ class Player is Entity {
             w.y = y + 6
             if (_facing == -1) {
                 w.x = x - (w.hitbox.w / 2)
+            }
+
+            // Put the hitbox up for the spear air attack
+            if (_equipped_weapon == Constants.WEAPON_SPEAR && weapon_alt) {
+                w.y = y - w.hitbox.h / 2
             }
 
             // Add another hitbox if its the mace swinging
@@ -389,6 +434,12 @@ class Player is Entity {
                 if (_facing == 1) {
                     ww.x = x - (w.hitbox.w / 2)
                 }
+            }
+
+            // Dash forward for rapier alt
+            if (_equipped_weapon == Constants.WEAPON_RAPIER && weapon_alt) {
+                _rapier_dash = true
+                _hspeed = Balance.RAPIER_ALT_SPEED * facing
             }
         }
     }

@@ -195,6 +195,244 @@
                  "width":0,
                  "x":135.272727272727,
                  "y":97.0909090909091
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":12,
+                 "id":42,
+                 "name":"health potion",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"rapier"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":10,
+                 "x":128,
+                 "y":176
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":12,
+                 "id":43,
+                 "name":"health potion",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"spear"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":10,
+                 "x":144,
+                 "y":176
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":12,
+                 "id":44,
+                 "name":"health potion",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"lspell"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":10,
+                 "x":176,
+                 "y":176
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":12,
+                 "id":45,
+                 "name":"health potion",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"lweapon"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":10,
+                 "x":160,
+                 "y":176
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":12,
+                 "id":46,
+                 "name":"health potion",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"bow"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":10,
+                 "x":192,
+                 "y":176
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":12,
+                 "id":47,
+                 "name":"health potion",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"laser"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":10,
+                 "x":208,
+                 "y":176
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":12,
+                 "id":48,
+                 "name":"health potion",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"shortsword"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":10,
+                 "x":112,
+                 "y":176
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":12,
+                 "id":49,
+                 "name":"health potion",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"bolt"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":10,
+                 "x":96,
+                 "y":176
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":12,
+                 "id":50,
+                 "name":"health potion",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"mace"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":10,
+                 "x":80,
+                 "y":176
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":12,
+                 "id":51,
+                 "name":"health potion",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"shock"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":10,
+                 "x":64,
+                 "y":176
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":12,
+                 "id":52,
+                 "name":"health potion",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"teleport"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":10,
+                 "x":224,
+                 "y":176
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":12,
+                 "id":53,
+                 "name":"health potion",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"walljump"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":10,
+                 "x":240,
+                 "y":176
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":12,
+                 "id":54,
+                 "name":"health potion",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"double_jump"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":10,
+                 "x":256,
+                 "y":176
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":12,
+                 "id":55,
+                 "name":"health potion",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"minimap"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":10,
+                 "x":272,
+                 "y":176
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -305,7 +543,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":42,
+ "nextobjectid":56,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
