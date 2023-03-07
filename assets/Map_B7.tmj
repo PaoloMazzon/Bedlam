@@ -214,7 +214,7 @@
                  "visible":true,
                  "width":23.9592,
                  "x":256,
-                 "y":136
+                 "y":136.1
                 }, 
                 {
                  "class":"MinorEntities::Platform",
@@ -370,6 +370,61 @@
                  "width":16.25,
                  "x":119.875,
                  "y":296.875
+                }, 
+                {
+                 "class":"Drake::Drake",
+                 "height":10,
+                 "id":18,
+                 "name":"drake",
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":244.291666666667,
+                 "y":18.0416666666667
+                }, 
+                {
+                 "class":"Drake::Drake",
+                 "height":10,
+                 "id":19,
+                 "name":"drake",
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":167.333333333333,
+                 "y":59.6666666666667
+                }, 
+                {
+                 "class":"Drake::Drake",
+                 "height":10,
+                 "id":20,
+                 "name":"drake",
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":161.333333333333,
+                 "y":157
+                }, 
+                {
+                 "class":"Ghost::Ghost",
+                 "height":12,
+                 "id":21,
+                 "name":"ghost",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":173.333333333333,
+                 "y":24.6666666666667
+                }, 
+                {
+                 "class":"Skeleton::Skeleton",
+                 "height":12,
+                 "id":22,
+                 "name":"skelly",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":169.666666666667,
+                 "y":289.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -480,7 +535,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":18,
+ "nextobjectid":23,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

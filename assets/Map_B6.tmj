@@ -733,6 +733,113 @@
                  "width":10,
                  "x":76,
                  "y":350
+                }, 
+                {
+                 "class":"Soldier::Soldier",
+                 "height":12,
+                 "id":39,
+                 "name":"soldier",
+                 "properties":[
+                        {
+                         "name":"requires",
+                         "type":"string",
+                         "value":"double_jump"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":206,
+                 "y":209.227272727273
+                }, 
+                {
+                 "class":"Soldier::Soldier",
+                 "height":12,
+                 "id":40,
+                 "name":"soldier",
+                 "properties":[
+                        {
+                         "name":"requires",
+                         "type":"string",
+                         "value":"double_jump"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":253.636363636364,
+                 "y":256.454545454545
+                }, 
+                {
+                 "class":"Soldier::Soldier",
+                 "height":12,
+                 "id":41,
+                 "name":"soldier",
+                 "properties":[
+                        {
+                         "name":"requires",
+                         "type":"string",
+                         "value":"double_jump"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":275.25,
+                 "y":341.875
+                }, 
+                {
+                 "class":"Soldier::Soldier",
+                 "height":12,
+                 "id":42,
+                 "name":"soldier",
+                 "properties":[
+                        {
+                         "name":"requires",
+                         "type":"string",
+                         "value":"double_jump"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":172,
+                 "y":447.333333333333
+                }, 
+                {
+                 "class":"Drake::Drake",
+                 "height":10,
+                 "id":44,
+                 "name":"drake",
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":280,
+                 "y":250.5
+                }, 
+                {
+                 "class":"Soldier::Soldier",
+                 "height":12,
+                 "id":45,
+                 "name":"soldier",
+                 "properties":[
+                        {
+                         "name":"alt",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":385.5,
+                 "y":134.5
+                }, 
+                {
+                 "class":"Skeleton::Skeleton",
+                 "height":12,
+                 "id":46,
+                 "name":"skelly",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":393.5,
+                 "y":253.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -883,7 +990,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":39,
+ "nextobjectid":47,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

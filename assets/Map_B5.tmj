@@ -228,6 +228,28 @@
                  "width":0,
                  "x":46.9090909090909,
                  "y":101.454545454545
+                }, 
+                {
+                 "class":"Drake::Drake",
+                 "height":10,
+                 "id":9,
+                 "name":"drake",
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":24,
+                 "y":256
+                }, 
+                {
+                 "class":"Drake::Drake",
+                 "height":10,
+                 "id":10,
+                 "name":"drake",
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":209.5,
+                 "y":90.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -338,7 +360,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":9,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

@@ -272,9 +272,12 @@ class Player is Entity {
         _flicker = _flicker + 1
         if (_flicker == 10) {
             _flicker = 0
-            if ((_hspeed != 0 || _vspeed != 0) && _equipped_weapon == Constants.WEAPON_LEGEND) {
-                TeleportSilhouette.create_teleport_silhouette_blue(level, x, y, sprite, _facing, sprite.frame)
-            }
+            //if ((_hspeed != 0 || _vspeed != 0) && _equipped_weapon == Constants.WEAPON_LEGEND) {
+                //TeleportSilhouette.create_teleport_silhouette_blue(level, x, y, sprite, _facing, sprite.frame)
+            //}
+        }
+        if ((_hspeed != 0 || _vspeed != 0) && _equipped_weapon == Constants.WEAPON_LEGEND) {
+            TeleportSilhouette.create_teleport_silhouette_blue(level, x, y, sprite, _facing, sprite.frame)
         }
 
         var enemy = level.entity_collision(this, Enemy)
@@ -474,11 +477,15 @@ class Player is Entity {
             sprite.scale_x = _facing
             var draw_x = x + 1
             if (_facing == -1) { draw_x = draw_x + 8 }
+            if (_equipped_weapon == Constants.WEAPON_LEGEND) {
+                Renderer.set_colour_mod([0, 0.5, 1, 1])
+            }
             if (!level.is_paused) {
                 Renderer.draw_sprite(sprite, draw_x, y)
             } else {
                 Renderer.draw_sprite(sprite, sprite.frame, draw_x, y)
             }
+            Renderer.set_colour_mod([1, 1, 1, 1])
         }
     }
 

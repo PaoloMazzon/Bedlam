@@ -11,6 +11,9 @@ import "Assets" for Assets
 import "Dialogue" for Dialogue
 import "Slime" for Slime
 import "Ghost" for Ghost
+import "Soldier" for Soldier
+import "Mage" for Mage
+import "Drake" for Drake
 import "Spikes" for Spikes
 import "MinorEntities" for Light
 

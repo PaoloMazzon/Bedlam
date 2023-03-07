@@ -116,6 +116,9 @@ class TeleportSilhouette is Entity {
             level.remove_entity(this)
         }
         _duration = _duration - 1
+        if (_blue) {
+            _duration = _duration - 4
+        }
     }
 
     draw(level) {

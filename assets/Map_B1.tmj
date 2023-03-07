@@ -311,6 +311,23 @@
                  "width":12,
                  "x":150.333333333333,
                  "y":241
+                }, 
+                {
+                 "class":"Soldier::Soldier",
+                 "height":12,
+                 "id":23,
+                 "name":"soldier",
+                 "properties":[
+                        {
+                         "name":"requires",
+                         "type":"string",
+                         "value":"double_jump"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
+                 "x":197.666666666667,
+                 "y":143.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -421,7 +438,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":21,
+ "nextobjectid":24,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
