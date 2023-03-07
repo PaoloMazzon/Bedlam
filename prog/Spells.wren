@@ -88,7 +88,7 @@ class Shock is Spell {
 
     hit_effect(level, entity) {
         super.hit_effect(level, entity)
-        entity.take_damage(12)
+        entity.take_damage(10)
         
         // Bounce to another entity
         var type = Engine.get_class("Enemy::Enemy")
@@ -138,7 +138,7 @@ class Laser is Spell {
 
     hit_effect(level, entity) {
         super.hit_effect(level, entity)
-        entity.take_damage(10)
+        entity.take_damage(15)
         _destroy = true
     }
 
@@ -217,7 +217,7 @@ class Bow is Spell {
         bow.y = y
         bow.sprite.rotation = dir
         bow.set_velocity(dir, 3)
-        bow.set_duration(0.5)
+        bow.set_duration(1.5)
         bow.set_penetrating()
     }
 }

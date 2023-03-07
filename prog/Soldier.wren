@@ -10,9 +10,9 @@ class Soldier is Enemy {
     hit_effect(player) {
         if (_attack_timer > 0) {
             if (is_alt) {
-                player.take_damage(13)
+                player.take_damage(18)
             } else {
-                player.take_damage(10)
+                player.take_damage(13)
             }
         } else {
             if (is_alt) {
@@ -33,7 +33,7 @@ class Soldier is Enemy {
         _walk_delay = Globals.rng.int(1 * 60, 4 * 60)
         _stand_delay = -1
         if (is_alt) {
-            hp = 65
+            hp = 80
         } else {
             hp = 50
         }
@@ -104,7 +104,11 @@ class Soldier is Enemy {
                     hspeed = 0
                     if (_wait_timer == -1) {
                         _attack_timer = 60
-                        hspeed = (level.player.x - x).sign * 1.4
+                        if (is_alt) {
+                            hspeed = (level.player.x - x).sign * 1.8
+                        } else {
+                            hspeed = (level.player.x - x).sign * 1.4
+                        }
                         facing = hspeed.sign
                     }
                 } else {

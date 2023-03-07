@@ -54,8 +54,11 @@ class Ghost is Enemy {
         _walk_delay = Globals.rng.int(1 * 60, 4 * 60)
         _stand_delay = -1
         hp = 20
+        if (is_alt) {
+            hp = hp + 20
+        }
         _on_ground_last_frame = true
-        _shoot_delay = 120
+        _shoot_delay = 90
     }
 
     update(level) {
@@ -103,7 +106,7 @@ class Ghost is Enemy {
                 hspeed = 0
                 _shoot_delay = _shoot_delay - 1
                 if (_shoot_delay <= 0) {
-                    _shoot_delay = 120
+                    _shoot_delay = 90
                     var e = level.add_entity(GhostProjectile)
                     e.x = x + (facing * 4)
                     e.y = y + 6

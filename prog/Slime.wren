@@ -8,7 +8,11 @@ class Slime is Enemy {
     construct new() { super() }
 
     hit_effect(player) {
-        player.take_damage(5)
+        if (is_alt) {
+            player.take_damage(8)
+        } else {
+            player.take_damage(5)
+        }
     }
 
     create(level, tiled_data) {
@@ -17,6 +21,9 @@ class Slime is Enemy {
         hitbox = Hitbox.new_rectangle(12, 10)
         _jump_delay = Globals.rng.int(0.5 * 60, 1 * 60)
         hp = 15
+        if (is_alt) {
+            hp = hp + 20
+        }
         _on_ground_last_frame = true
     }
 
@@ -43,7 +50,11 @@ class Slime is Enemy {
             if (level.tileset.collision(hitbox, x + hspeed.sign, y)) {
                 hspeed = -hspeed
             }
-            vspeed = -1.75
+            if (is_alt) {
+                vspeed = -3
+            } else {
+                vspeed = -1.75
+            }
             _jump_delay = Globals.rng.int(0.5 * 60, 1 * 60)
             facing = hspeed.sign
         }

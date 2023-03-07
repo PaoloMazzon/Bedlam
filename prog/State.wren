@@ -31,7 +31,7 @@ class Balance {
     static MANA_BURN { Balance.PLAYER_MAX_BASE_HP * 0.0002 }
     static BOLT_COST { Balance.PLAYER_MANA * 0.05 }
     static SHOCK_COST { Balance.PLAYER_MANA * 0.15 }
-    static LASER_COST { Balance.PLAYER_MANA * 0.3 }
+    static LASER_COST { Balance.PLAYER_MANA * 0.4 }
     static BOW_COST { Balance.PLAYER_MANA * 0.15 }
     static HELL_COST { Balance.PLAYER_MANA * 0.8 }
     static ENEMY_IFRAMES { 5 }
