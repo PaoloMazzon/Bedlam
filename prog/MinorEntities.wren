@@ -117,7 +117,7 @@ class TeleportSilhouette is Entity {
         }
         _duration = _duration - 1
         if (_blue) {
-            _duration = _duration - 4
+            _duration = _duration - 6
         }
     }
 

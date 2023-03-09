@@ -34,7 +34,7 @@ class Balance {
     static LASER_COST { Balance.PLAYER_MANA * 0.4 }
     static BOW_COST { Balance.PLAYER_MANA * 0.15 }
     static HELL_COST { Balance.PLAYER_MANA * 0.8 }
-    static ENEMY_IFRAMES { 5 }
+    static ENEMY_IFRAMES { 15 }
     static MANA_POTION { 0.7 }
     static HEALTH_POTION { 0.50 }
     static KNOCKBACK_STUN_FRAMES { 10 }

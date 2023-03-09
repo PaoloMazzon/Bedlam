@@ -37,7 +37,6 @@ class Enemy is Entity {
 
     take_damage(dmg) {
         _hp = Math.clamp(_hp - dmg, 0, hp)
-        _level.pause(Balance.HIT_FREEZE_DELAY)
         _iframes = Balance.ENEMY_IFRAMES
     }
 

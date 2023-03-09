@@ -8,7 +8,11 @@ class Spikes is Enemy {
     construct new() { super() }
 
     hit_effect(player) {
-        player.take_damage(10)
+        if (is_alt) {
+            player.take_damage(15)
+        } else {
+            player.take_damage(10)
+        }
     }
 
     create(level, tiled_data) {
