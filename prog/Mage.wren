@@ -8,7 +8,7 @@ class MageProjectile is Enemy {
     construct new() { super() }
 
     hit_effect(player) {
-        player.take_damage(3)
+        player.take_damage(5)
     }
 
     create(level, tiled_data) {

@@ -1,6 +1,7 @@
 {
-    "activeFile": "",
+    "activeFile": "Map_C6.tmj",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
         "Map_A1.tmj": {
@@ -10,8 +11,8 @@
             "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 142.49999999999997,
-                "y": 163.66666666666669
+                "x": 246.16666666666669,
+                "y": 154.5
             }
         },
         "Map_A1.tmj#terrain": {
@@ -63,8 +64,8 @@
             "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 152.83333333333331,
-                "y": 116.66666666666669
+                "x": 159.83333333333331,
+                "y": 159.83333333333334
             }
         },
         "Map_B1.tmj#terrain": {
@@ -161,8 +162,8 @@
             "scale": 2,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 103.75,
-                "y": 199
+                "x": 501.75,
+                "y": 116.25
             }
         },
         "Map_C6.tmj#terrain": {
@@ -171,16 +172,21 @@
     },
     "last.objectTemplatePath": "C:/Users/lugi1/Desktop/Code/metroman/assets",
     "openFiles": [
+        "Map_B1.tmj",
+        "Map_A1.tmj",
+        "Map_C6.tmj"
     ],
     "project": "game.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "Map_B1.tmj",
+        "Map_A1.tmj",
+        "Map_C6.tmj",
         "Map_B6.tmj",
         "Map_B7.tmj",
         "Map_B4.tmj",
         "Map_A2.tmj",
         "Map_B5.tmj",
-        "Map_A6.tmj",
-        "Map_A1.tmj"
+        "Map_A6.tmj"
     ]
 }

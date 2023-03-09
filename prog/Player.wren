@@ -5,7 +5,7 @@ import "lib/Input" for Gamepad, Keyboard
 import "State" for Globals, Constants, Balance
 import "Enemy" for Enemy
 import "Assets" for Assets
-import "Spells" for Bolt, Shock, Laser, Bow
+import "Spells" for Bolt, Shock, Laser, Bow, Hell
 import "Weapon" for Weapon
 import "Item" for Item
 import "Dialogue" for Dialogue
@@ -325,7 +325,7 @@ class Player is Entity {
             shock_cast = lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_B)
             laser_cast = lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_Y)
             bow_cast = lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_X)
-            hell_cast = lshoulder && !rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_X)
+            hell_cast = lshoulder && rshoulder && Gamepad.button_pressed(0, Gamepad.BUTTON_X)
         }
 
         restore_mana(Balance.MANA_RESTORATION)
@@ -349,7 +349,7 @@ class Player is Entity {
             }
             Bow.cast(level, xx, y + 6, dir)
         } else if (hell_cast && _has_lspell && spend_mana(Balance.HELL_COST)) {
-            // TODO: Implement hell
+            Hell.cast(level)
         } else if (shock_cast && _has_shock && spend_mana(Balance.SHOCK_COST)) {
             var xx = x + 16
             if (_facing == -1) {

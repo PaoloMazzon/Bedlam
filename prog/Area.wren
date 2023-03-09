@@ -255,5 +255,6 @@ class Area is Level {
 
     destroy() {
         super.destroy()
+        System.gc()
     }
 }

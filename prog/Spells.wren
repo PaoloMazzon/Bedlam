@@ -3,6 +3,7 @@ import "lib/Util" for Math, Hitbox
 import "lib/Renderer" for Renderer
 import "Assets" for Assets
 import "MinorEntities" for Hit
+import "State" for Globals
 
 class Spell is Entity {
     set_velocity(dir, speed) {
@@ -13,6 +14,9 @@ class Spell is Entity {
     set_duration(duration_in_seconds) { _duration = (duration_in_seconds * 60).round }
     
     set_penetrating() { _penetrates = true }
+
+    is_static=(s) { _static = s }
+    is_static { _static }
 
     // What should be called if something is hit by this spell -- override this and call the super
     hit_effect(level, entity) {
@@ -30,6 +34,7 @@ class Spell is Entity {
         _speed = 0
         _duration = 0
         _penetrates = false
+        _static = false
     }
 
     update(level) {
@@ -38,8 +43,10 @@ class Spell is Entity {
         }
         super.update(level)
         _duration = _duration - 1
-        x = x + Math.cast_x(_speed, _direction)
-        y = y + Math.cast_y(_speed, _direction)
+        if (!is_static) {
+            x = x + Math.cast_x(_speed, _direction)
+            y = y + Math.cast_y(_speed, _direction)
+        }
         if (_duration <= 0 || (level.tileset.collision(hitbox, x, y) && !_penetrates)) {
             level.remove_entity(this)
             
@@ -219,5 +226,54 @@ class Bow is Spell {
         bow.set_velocity(dir, 3)
         bow.set_duration(1.5)
         bow.set_penetrating()
+    }
+}
+
+class Hell is Spell {
+    construct new() { super() }
+
+    delay=(s) { _delay = s }
+    delay { _delay }
+
+    hit_effect(level, entity) {
+        super.hit_effect(level, entity)
+        entity.take_damage(10)
+    }
+
+    create(level, tiled_data) {
+        super.create(level, tiled_data)
+        sprite = Assets.spr_meteor.copy()
+        hitbox = Hitbox.new_rectangle(16, 16)
+        hitbox.x_offset = 8
+        hitbox.y_offset = 8
+        sprite.origin_x = 8
+        sprite.origin_y = 8
+        _delay = 0
+    }
+
+    update(level) {
+        super.update(level)
+        if (y > level.tileset.height + 8) {
+            level.remove_entity(this)
+        }
+
+        if (delay > 0) {
+            delay = delay - 1
+        } else {
+            is_static = false
+        }
+    }
+
+    static cast(level) {
+        for (i in 0..30) {
+            var hell = level.add_entity(Hell)
+            hell.x = Globals.rng.int(-level.tileset.height, level.tileset.width - level.tileset.height + 100)
+            hell.y = -8
+            hell.set_velocity(Num.pi / 4, 2)
+            hell.set_duration(999)
+            hell.set_penetrating()
+            hell.delay = Globals.rng.int(4 * 60)
+            hell.is_static = true
+        }
     }
 }
