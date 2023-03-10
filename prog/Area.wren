@@ -169,8 +169,19 @@ class Area is Level {
         }
 
         Renderer.set_colour_mod([1, 1, 1, 1])
-        if (!dialogue.update(this)) {
-            Util.draw_player_ui(_player)
+
+        if (!player.is_dead) {
+            if (!dialogue.update(this)) {
+                Util.draw_player_ui(_player)
+            }
+        } else {
+            Renderer.set_texture_camera(false)
+            Renderer.draw_texture(Assets.tex_youdied, 0, 0)
+            Renderer.set_texture_camera(true)
+
+            if (Gamepad.button_pressed(0, Gamepad.BUTTON_A)) {
+                Util.change_area(Globals.area, Area)
+            }
         }
 
         // Pause screen

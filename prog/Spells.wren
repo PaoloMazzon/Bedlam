@@ -177,7 +177,7 @@ class Laser is Spell {
         laser.x = x
         laser.y = y
         laser.set_velocity(0, 0)
-        laser.set_duration(0.08)
+        laser.set_duration(0.20)
 
         // Figure out how far the laser shoots
         var yy = (y / 8).floor
@@ -267,7 +267,7 @@ class Hell is Spell {
     static cast(level) {
         for (i in 0..30) {
             var hell = level.add_entity(Hell)
-            hell.x = Globals.rng.int(-level.tileset.height, level.tileset.width - level.tileset.height + 100)
+            hell.x = Globals.rng.int(-level.tileset.height, level.tileset.width)
             hell.y = -8
             hell.set_velocity(Num.pi / 4, 2)
             hell.set_duration(999)

@@ -460,13 +460,15 @@ class Player is Entity {
         }
         super.update(level)
 
-        platforming(level)
-        collisions(level)
-        combat(level)
-        potions(level)
-        spells(level)
-        weapons(level)
-        pickups(level)
+        if (!is_dead) {
+            platforming(level)
+            collisions(level)
+            combat(level)
+            potions(level)
+            spells(level)
+            weapons(level)
+            pickups(level)
+        }
 
         // Camera
         level.set_focus(x, y)
@@ -480,7 +482,7 @@ class Player is Entity {
             if (_equipped_weapon == Constants.WEAPON_LEGEND) {
                 Renderer.set_colour_mod([0, 0.5, 1, 1])
             }
-            if (!level.is_paused) {
+            if (!level.is_paused && !is_dead) {
                 Renderer.draw_sprite(sprite, draw_x, y)
             } else {
                 Renderer.draw_sprite(sprite, sprite.frame, draw_x, y)

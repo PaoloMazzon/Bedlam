@@ -48,6 +48,22 @@ class Balance {
 }
 
 class Globals {
+    static reset_save() {
+        __area = "Map_A1#1"
+        __max_player_hp = Balance.PLAYER_MAX_BASE_HP
+        __player_hp = Balance.PLAYER_MAX_BASE_HP
+        __player_mana = Balance.PLAYER_MANA
+        __player_has_bolt = false
+        __player_has_shortsword = false
+        __health_potions = 0
+        __mana_potions = 0
+        __equipped_weapon = 0
+        __max_jumps = 0
+        __walljump = false
+        __teleport = false
+        __unlocked_items = []
+    }
+
     static reload() {
         __scale = __config.get_num("renderer", "scale", Constants.DEFAULT_SCALE)
         __fullscreen = __config.get_bool("renderer", "fullscreen", false)
