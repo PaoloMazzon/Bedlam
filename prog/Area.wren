@@ -16,6 +16,7 @@ import "Mage" for Mage
 import "Drake" for Drake
 import "Spikes" for Spikes
 import "MinorEntities" for Light
+import "NPC"
 
 class Area is Level {
     construct new() {

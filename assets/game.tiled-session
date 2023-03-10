@@ -11,8 +11,8 @@
             "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 246.16666666666669,
-                "y": 154.5
+                "x": 171.16666666666669,
+                "y": 140.5
             }
         },
         "Map_A1.tmj#terrain": {
@@ -61,11 +61,11 @@
             "expandedObjectLayers": [
                 5
             ],
-            "scale": 3,
+            "scale": 5.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 159.83333333333331,
-                "y": 159.83333333333334
+                "x": 157.1818181818182,
+                "y": 259
             }
         },
         "Map_B1.tmj#terrain": {
@@ -162,8 +162,8 @@
             "scale": 2,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 501.75,
-                "y": 116.25
+                "x": 203.25,
+                "y": 179.25
             }
         },
         "Map_C6.tmj#terrain": {
