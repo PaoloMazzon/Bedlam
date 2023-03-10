@@ -194,7 +194,7 @@ class Globals {
     static walljump { __walljump }
     static teleport { __teleport }
     static item_unlocked(item) { __unlocked_items.indexOf(item) != -1 }
-    static event_has_happened(event) { __unlocked_items.indexOf(item) != -1 }
+    static event_has_happened(event) { __unlocked_items.indexOf("e_" + event) != -1 }
     static scale=(s) {
         __scale = s
         __config.set_num("renderer", "scale", __scale)
@@ -233,9 +233,7 @@ class Globals {
         }
     }
     static record_event(event) {
-        if (!Globals.item_unlocked(item) && item != "message") {
-            __unlocked_items.add(item)
-        }
+        Globals.unlock_item("e_" + event)
     }
 
     static save_to_file() {

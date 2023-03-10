@@ -86,6 +86,8 @@ class Item is Entity {
         } else if (split == "heart") {
             player.unlock_health_heart()
             FloatingText.create_floating_text(level, "Health Up", x + 5, y - 20)
+        } else if (split == "fragment") {
+            FloatingText.create_floating_text(level, "Toy Fragment", x + 5, y - 20)
         }
     }
 
@@ -139,6 +141,8 @@ class Item is Entity {
             _texture = Assets.tex_doublejump_icon
         } else if (split == "heart") {
             _texture = Assets.tex_health_up_icon
+        } else if (split == "fragment") {
+            _texture = Assets.tex_toy_fragment
         }
     }
 

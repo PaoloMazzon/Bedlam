@@ -4,6 +4,9 @@ import "lib/Renderer" for Renderer
 import "lib/Util" for Hitbox
 import "State" for Globals
 import "Assets" for Assets
+import "Item" for Item
+import "Dialogue" for Dialogue
+import "MinorEntities" for FloatingText
 
 class NPC is Entity {
     data { _data }
@@ -27,6 +30,7 @@ class NPC is Entity {
         // Snap to the ground
         if (_first) {
             _first = false
+            y = y.floor
             while (!level.tileset.collision(hitbox, x, y + 1)) {
                 y = y + 1
             }
@@ -51,7 +55,19 @@ class NPC is Entity {
 
 class SlimeNPC is NPC {
     on_player_interact(level, player) {
-        // TODO: This
+        if (Globals.item_unlocked("toy") && !Globals.event_has_happened("slime_gives_spell")) {
+            Globals.record_event("slime_gives_spell")
+            Item.create_item(level, "lspell", x + 30, y)
+            level.dialogue.queue("Thank you for returning my toy!", center_x, center_y)
+            level.dialogue.queue("Here, you can have this.", center_x, center_y)
+            level.dialogue.queue("I don't know what it is but it looks cool.", center_x, center_y)
+        } else if (Globals.event_has_happened("slime_gives_spell")) {
+            level.dialogue.queue("Thank you for returning my toy!", center_x, center_y)
+        } else {
+            level.dialogue.queue("Some bad men took my toy and broke it " + Dialogue.CHAR_FROWN, center_x, center_y)
+            level.dialogue.queue("Where can I find them?", level.player.x, level.player.y)
+            level.dialogue.queue("I don't know, they all left.", center_x, center_y)
+        }
     }
 
     construct new() {}
@@ -59,6 +75,36 @@ class SlimeNPC is NPC {
     create(level, tiled_data) {
         super.create(level, tiled_data)
         sprite = Assets.spr_slimenpc
+        hitbox = Hitbox.new_rectangle(sprite.width, sprite.height)
+        if (Globals.event_has_happened("slime_gives_spell") && !Globals.item_unlocked("lspell")) {
+            Item.create_item(level, "lspell", x + 30, y)
+        }
+    }
+}
+
+class BlacksmithNPC is NPC {
+    on_player_interact(level, player) {
+        if (Globals.item_unlocked("toy")) {
+            level.dialogue.queue("...", center_x, center_y)
+            level.dialogue.queue(Dialogue.CHAR_SMILE, center_x, center_y)
+        } else if (Globals.item_unlocked("fragment_1") && Globals.item_unlocked("fragment_2") && Globals.item_unlocked("fragment_3") && !Globals.item_unlocked("toy")) {
+            level.dialogue.queue("Is that a broken toy you have " + Dialogue.CHAR_EYES, center_x, center_y)
+            level.dialogue.queue("Let me fix it for you.", center_x, center_y)
+            FloatingText.create_floating_text(level, "Toy", player.x + 4, player.y - 20)
+            Globals.unlock_item("toy")
+            level.dialogue.queue("...", center_x, center_y)
+            level.dialogue.queue("Good as new.", center_x, center_y)
+        } else {
+            level.dialogue.queue("The commander never gets me anything to do anymore.", center_x, center_y)
+            level.dialogue.queue("I wish I had something to work on...", center_x, center_y)
+        }
+    }
+
+    construct new() {}
+
+    create(level, tiled_data) {
+        super.create(level, tiled_data)
+        sprite = Assets.spr_blacksmith
         hitbox = Hitbox.new_rectangle(sprite.width, sprite.height)
     }
 }

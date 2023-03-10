@@ -1,5 +1,5 @@
 {
-    "activeFile": "Map_C6.tmj",
+    "activeFile": "Map_A1.tmj",
     "expandedProjectPaths": [
         "."
     ],
@@ -11,8 +11,8 @@
             "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 171.16666666666669,
-                "y": 140.5
+                "x": 127.83333333333331,
+                "y": 144.5
             }
         },
         "Map_A1.tmj#terrain": {
@@ -37,7 +37,7 @@
             "selectedLayer": 2,
             "viewCenter": {
                 "x": 210.75,
-                "y": 170.5
+                "y": 170.75
             }
         },
         "Map_A3.tmj#terrain": {
@@ -61,11 +61,11 @@
             "expandedObjectLayers": [
                 5
             ],
-            "scale": 5.5,
+            "scale": 2,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 157.1818181818182,
-                "y": 259
+                "x": 198.25,
+                "y": 114.25
             }
         },
         "Map_B1.tmj#terrain": {
@@ -180,8 +180,8 @@
     "property.type": "bool",
     "recentFiles": [
         "Map_B1.tmj",
-        "Map_A1.tmj",
         "Map_C6.tmj",
+        "Map_A1.tmj",
         "Map_B6.tmj",
         "Map_B7.tmj",
         "Map_B4.tmj",
