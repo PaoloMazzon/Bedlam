@@ -3,6 +3,7 @@ import "lib/Input" for Gamepad, Keyboard
 import "lib/Engine" for Engine
 import "lib/Util" for Math
 import "Assets" for Assets
+import "State" for Globals
 
 class Dialogue {
     construct new() {
@@ -122,6 +123,7 @@ class Dialogue {
                 if (_message_queue.count == 0) {
                     level.unpause()
                 }
+                Globals.play_sound(Assets.aud_menu)
             }
             Renderer.set_texture_camera(true)
             return true

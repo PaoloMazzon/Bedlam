@@ -6,6 +6,7 @@ import "Spells" for Spell
 import "Weapon" for Weapon
 import "MinorEntities" for Death
 import "Item" for Item
+import "Assets" for Assets
 
 // Enemies handle their own physics here, nearly identical to the players
 class Enemy is Entity {
@@ -38,6 +39,11 @@ class Enemy is Entity {
     take_damage(dmg) {
         _hp = Math.clamp(_hp - dmg, 0, hp)
         _iframes = Balance.ENEMY_IFRAMES
+        if (is_dead) {
+            Globals.play_sound(Assets.aud_enemy_death)
+        } else {
+            Globals.play_sound(Assets.aud_enemy_hit)
+        }
     }
 
     hit_effect(player) { } // called when the player touches this enemy

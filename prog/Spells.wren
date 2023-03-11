@@ -85,6 +85,7 @@ class Bolt is Spell {
         bolt.sprite.rotation = dir
         bolt.set_velocity(dir, 3)
         bolt.set_duration(0.5)
+        Globals.play_sound(Assets.aud_bolt)
     }
 }
 
@@ -133,6 +134,7 @@ class Shock is Spell {
             shock.set_velocity(0, 0)
             shock.set_duration(0.1)
             shock.chain = chain + 1
+            Globals.play_sound(Assets.aud_bolt)
         }
     }
 }
@@ -197,6 +199,9 @@ class Laser is Spell {
         }
         laser.y = laser.y - 2
         laser.hitbox = Hitbox.new_rectangle(w.abs, 4)
+
+        // Audio
+        Globals.play_sound(Assets.aud_laser)
     }
 }
 
@@ -226,6 +231,7 @@ class Bow is Spell {
         bow.set_velocity(dir, 3)
         bow.set_duration(1.5)
         bow.set_penetrating()
+        Globals.play_sound(Assets.aud_bow)
     }
 }
 
@@ -274,6 +280,7 @@ class Hell is Spell {
             hell.set_penetrating()
             hell.delay = Globals.rng.int(4 * 60)
             hell.is_static = true
+            Globals.play_sound(Assets.aud_hell)
         }
     }
 }

@@ -113,6 +113,10 @@ class Util {
             Renderer.set_colour_mod([1, 1, 1, 1])
         } else {
             Renderer.draw_texture(Assets.tex_status_back, 2, 2)
+            Renderer.set_colour_mod([1, 1, 1, 0.5])
+            Renderer.draw_texture_part(Assets.tex_health, 13, 2, 0, 0, Assets.tex_health.width * (player.hp_flux / Balance.PLAYER_POSSIBLE_HP), Assets.tex_health.height)
+            Renderer.draw_texture_part(Assets.tex_mana, 13, 2, 0, 0, Assets.tex_mana.width * (player.mana_flux / Balance.PLAYER_MANA), Assets.tex_mana.height)
+            Renderer.set_colour_mod([1, 1, 1, 1])
             Renderer.draw_texture_part(Assets.tex_health, 13, 2, 0, 0, Assets.tex_health.width * (player.hp / Balance.PLAYER_POSSIBLE_HP), Assets.tex_health.height)
             Renderer.draw_texture_part(Assets.tex_mana, 13, 2, 0, 0, Assets.tex_mana.width * (player.mana / Balance.PLAYER_MANA), Assets.tex_mana.height)
 
@@ -156,21 +160,46 @@ class Util {
                 }
                 if (player.has_lweapon) {
                     Renderer.draw_texture(Assets.tex_magicsword_icon, 148, 15)
+                    if (player.equipped_weapon == Constants.WEAPON_LEGEND) {
+                        Renderer.set_colour_mod([87 / 255, 8 / 255, 97 / 255, 1])
+                        Renderer.draw_rectangle_outline(148 - 1, 15 - 1, 11, 11, 0, 0, 0, 1)
+                        Renderer.set_colour_mod([1, 1, 1, 1])
+                    }
                 }
             } else if (!Gamepad.button(0, Gamepad.BUTTON_LEFT_SHOULDER) && Gamepad.button(0, Gamepad.BUTTON_RIGHT_SHOULDER)) {
                 // Weapon wheel
                 Renderer.draw_texture(Assets.tex_spell_wheel, 124, 2)
                 if (player.has_shortsword) { // a
                     Renderer.draw_texture(Weapon.weapon_icon(Constants.WEAPON_SHORTSWORD), 137, 26)
+                    if (player.equipped_weapon == Constants.WEAPON_SHORTSWORD) {
+                        Renderer.set_colour_mod([87 / 255, 8 / 255, 97 / 255, 1])
+                        Renderer.draw_rectangle_outline(137 - 1, 26 - 1, 11, 11, 0, 0, 0, 1)
+                        Renderer.set_colour_mod([1, 1, 1, 1])
+                    }
                 }
                 if (player.has_mace) { // b
                     Renderer.draw_texture(Weapon.weapon_icon(Constants.WEAPON_MACE), 148, 15)
+                    if (player.equipped_weapon == Constants.WEAPON_MACE) {
+                        Renderer.set_colour_mod([87 / 255, 8 / 255, 97 / 255, 1])
+                        Renderer.draw_rectangle_outline(148 - 1, 15 - 1, 11, 11, 0, 0, 0, 1)
+                        Renderer.set_colour_mod([1, 1, 1, 1])
+                    }
                 }
                 if (player.has_spear) { // y
                     Renderer.draw_texture(Weapon.weapon_icon(Constants.WEAPON_SPEAR), 137, 4)
+                    if (player.equipped_weapon == Constants.WEAPON_SPEAR) {
+                        Renderer.set_colour_mod([87 / 255, 8 / 255, 97 / 255, 1])
+                        Renderer.draw_rectangle_outline(137 - 1, 4 - 1, 11, 11, 0, 0, 0, 1)
+                        Renderer.set_colour_mod([1, 1, 1, 1])
+                    }
                 }
                 if (player.has_rapier) { // x
                     Renderer.draw_texture(Weapon.weapon_icon(Constants.WEAPON_RAPIER), 126, 15)
+                    if (player.equipped_weapon == Constants.WEAPON_RAPIER) {
+                        Renderer.set_colour_mod([87 / 255, 8 / 255, 97 / 255, 1])
+                        Renderer.draw_rectangle_outline(126 - 1, 15 - 1, 11, 11, 0, 0, 0, 1)
+                        Renderer.set_colour_mod([1, 1, 1, 1])
+                    }
                 }
                 // A is 137, 26
                 // B is 148, 15

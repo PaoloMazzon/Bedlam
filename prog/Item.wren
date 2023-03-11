@@ -18,6 +18,7 @@ class Item is Entity {
         Globals.unlock_item(_item_id)
         level.remove_entity(this)
         var split = ""
+        Globals.play_sound(Assets.aud_item_pickup)
 
         if (_item_id.split("_").count > 1) {
             split = _item_id.split("_")[0]

@@ -41,6 +41,7 @@ class NPC is Entity {
         _colliding = hitbox.collision(x, y, level.player.x, level.player.y, level.player.hitbox)
 
         if (_colliding && Gamepad.button_pressed(0, Gamepad.BUTTON_DPAD_UP) && !level.is_paused) {
+            Globals.play_sound(Assets.aud_menu)
             on_player_interact(level, level.player)
         }
     }

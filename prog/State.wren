@@ -1,5 +1,6 @@
 import "lib/File" for INI, File
 import "lib/Util" for Buffer
+import "lib/Audio" for Audio
 import "random" for Random
 import "lib/Engine" for Engine
 
@@ -163,6 +164,12 @@ class Globals {
             return true
         } else {
             return false
+        }
+    }
+
+    static play_sound(sound) {
+        if (__sound) {
+            Audio.play(sound, false, 1, 1)
         }
     }
 

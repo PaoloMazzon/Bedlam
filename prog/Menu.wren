@@ -25,6 +25,7 @@ class Menu is Level {
     menu_logic() {
         // Menu input
         if (Gamepad.button_pressed(0, Gamepad.BUTTON_DPAD_DOWN) || Gamepad.left_stick_y(0) < -0.1) {
+            Globals.play_sound(Assets.aud_menu)
             if (_pointer == "continue") {
                 _pointer = "new"
             } else if (_pointer == "new") {
@@ -34,6 +35,7 @@ class Menu is Level {
             }
         }
         if (Gamepad.button_pressed(0, Gamepad.BUTTON_DPAD_UP) || Gamepad.left_stick_y(0) > 0.1) {
+            Globals.play_sound(Assets.aud_menu)
             if (_pointer == "fullscreen" || _pointer == "music" || _pointer == "sound") {
                 _pointer = "quit"
             } else if (_pointer == "quit") {
@@ -43,6 +45,7 @@ class Menu is Level {
             }
         }
         if (Gamepad.button_pressed(0, Gamepad.BUTTON_DPAD_RIGHT) || Gamepad.left_stick_x(0) > 0.1) {
+            Globals.play_sound(Assets.aud_menu)
             if (_pointer == "continue" || _pointer == "new" || _pointer == "quit") {
                 _pointer = "fullscreen"
             } else if (_pointer == "fullscreen") {
@@ -52,6 +55,7 @@ class Menu is Level {
             }
         }
         if (Gamepad.button_pressed(0, Gamepad.BUTTON_DPAD_LEFT) || Gamepad.left_stick_x(0) < -0.1) {
+            Globals.play_sound(Assets.aud_menu)
             if (_pointer == "fullscreen") {
                 _pointer = "quit"
             } else if (_pointer == "music") {
@@ -62,6 +66,7 @@ class Menu is Level {
         }
 
         if (Gamepad.button_pressed(0, Gamepad.BUTTON_A)) {
+            Globals.play_sound(Assets.aud_menu)
             if (_pointer == "continue") {
                 Util.change_area(Globals.area, Area)
             } else if (_pointer == "new") {

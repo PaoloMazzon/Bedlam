@@ -44,7 +44,9 @@ class Player is Entity {
 
     facing { _facing }
     mana { _mana }
+    mana_flux { _mana_flux }
     hp { _hp }
+    hp_flux { _hp_flux }
     max_hp { _max_hp }
     health_potions { _health_potions }
     mana_potions { _mana_potions }
@@ -105,14 +107,18 @@ class Player is Entity {
         _walljump = Globals.walljump
         _teleport = Globals.teleport
         _walljump_side = 0
+        _on_ground_last_frame = false
 
         // Combat things
         _mana = Globals.player_mana
         _max_hp = Globals.max_player_hp
         _hp = Globals.player_hp
+        _hp_flux = _hp
+        _mana_flux = _mana
         _iframes = 0
         _flicker = 0
         _rapier_dash = false
+        _alternator = 0
 
         // Spells & potions
         _has_bolt = Globals.player_has_bolt
@@ -175,6 +181,7 @@ class Player is Entity {
                 Hit.create_hit_effect(level, x + 4, y + 12, -Num.pi / 2)
             }
             _vspeed = -_jump_height
+            Globals.play_sound(Assets.aud_player_jump)
         }
         _vspeed = _vspeed + Balance.GRAVITY
 
@@ -189,6 +196,7 @@ class Player is Entity {
                         _vspeed = -_jump_height
                         _hspeed = _facing * -2
                         _facing = -_facing
+                        Globals.play_sound(Assets.aud_player_jump)
                         if (_facing == 1) {
                             Hit.create_hit_effect(level, x + 4, y + 12, Num.pi / -4)
                         } else {
@@ -203,12 +211,24 @@ class Player is Entity {
         if (!level.tileset.collision(hitbox, x + (Balance.TELEPORT_RANGE * _facing), y) && teleport && _teleport && x + (Balance.TELEPORT_RANGE * _facing) < (level.tileset.width - 8) && x + (Balance.TELEPORT_RANGE * _facing) > 8) {
             TeleportSilhouette.create_teleport_silhouette(level, x, y, sprite, _facing, sprite.frame)
             x = x + (Balance.TELEPORT_RANGE * _facing)
+            Globals.play_sound(Assets.aud_teleport)
         } else if (x + (Balance.TELEPORT_RANGE * _facing) < level.tileset.width - 8 && x + (Balance.TELEPORT_RANGE * _facing) > 8 && teleport && _teleport) {
             TeleportSilhouette.create_teleport_silhouette(level, x, y, sprite, _facing, sprite.frame)
             while (!level.tileset.collision(hitbox, x + _facing, y)) {
                 x = x + _facing
             }
+            Globals.play_sound(Assets.aud_teleport)
         }
+
+        if ((_hspeed != 0 && on_ground && _alternator == 0) || (on_ground && !_on_ground_last_frame)) {
+            Globals.play_sound(Assets.aud_walk)
+        }
+        _alternator = _alternator + 1
+        if (_alternator == 10) {
+            _alternator = 0
+        }
+
+        _on_ground_last_frame = on_ground
     }
 
     collisions(level) {
@@ -283,7 +303,16 @@ class Player is Entity {
         var enemy = level.entity_collision(this, Enemy)
         if (enemy != null && _iframes == 0) {
             enemy.hit_effect(this)
+            if (!is_dead) {
+                Globals.play_sound(Assets.aud_player_hit)
+            } else {
+                Globals.play_sound(Assets.aud_player_death)
+            }
         }
+
+        // Move fluxes towards proper value
+        _mana_flux = _mana_flux + ((mana - _mana_flux).sign * 0.1)
+        _hp_flux = _hp_flux + ((hp - _hp_flux).sign * 0.1)
     }
 
     potions(level) {
@@ -395,14 +424,19 @@ class Player is Entity {
         }
         if (equip_shortsword && _has_shortsword) {
             _equipped_weapon = Constants.WEAPON_SHORTSWORD
+            Globals.play_sound(Assets.aud_menu)
         } else if (equip_mace && _has_mace) {
             _equipped_weapon = Constants.WEAPON_MACE
+            Globals.play_sound(Assets.aud_menu)
         } else if (equip_rapier && _has_rapier) {
             _equipped_weapon = Constants.WEAPON_RAPIER
+            Globals.play_sound(Assets.aud_menu)
         } else if (equip_spear && _has_spear) {
             _equipped_weapon = Constants.WEAPON_SPEAR
+            Globals.play_sound(Assets.aud_menu)
         } else if (equip_legend && _has_lweapon) {
             _equipped_weapon = Constants.WEAPON_LEGEND
+            Globals.play_sound(Assets.aud_menu)
         }
 
         if (weapon_alt && _equipped_weapon == Constants.WEAPON_LEGEND && spend_mana(Balance.BOW_COST / 2)) {
@@ -422,6 +456,7 @@ class Player is Entity {
             if (_facing == -1) {
                 w.x = x - (w.hitbox.w / 2)
             }
+            Globals.play_sound(Assets.aud_weapon_swing)
 
             // Put the hitbox up for the spear air attack
             if (_equipped_weapon == Constants.WEAPON_SPEAR && weapon_alt) {
