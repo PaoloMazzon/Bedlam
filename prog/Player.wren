@@ -108,6 +108,7 @@ class Player is Entity {
         _teleport = Globals.teleport
         _walljump_side = 0
         _on_ground_last_frame = false
+        _on_platform = false
 
         // Combat things
         _mana = Globals.player_mana
@@ -176,7 +177,7 @@ class Player is Entity {
             _walljump_side = 0
         }
         if (jump && (_jumps > 0 || on_ground)) {
-            if (_jumps > 0 && !level.tileset.collision(hitbox, x, y + 1)) {
+            if (_jumps > 0 && !level.tileset.collision(hitbox, x, y + 1) && !_on_platform) {
                 _jumps = _jumps - 1
                 Hit.create_hit_effect(level, x + 4, y + 12, -Num.pi / 2)
             }
@@ -258,14 +259,15 @@ class Player is Entity {
         y = y + _vspeed
         var platform = level.entity_collision(this, Platform)
         y = y - _vspeed
-        var on_platform = false
+        _on_platform = false
         if (platform != null && y + hitbox.h < platform.y) {
             while (!platform.hitbox.collision(platform.x, platform.y, x, y + 1, hitbox)) {
                 y = y + 1
             }
             _vspeed = 0
-            on_platform = true
+            _on_platform = true
             _walljump_side = 0
+            _jumps = _max_jumps
         }
         x = x + _hspeed
         y = y + _vspeed
@@ -277,7 +279,7 @@ class Player is Entity {
             } else {
                 sprite = Assets.spr_player_idle
             }
-            if (_vspeed > 0 && !level.tileset.collision(hitbox, x, y + 1) && !on_platform) {
+            if (_vspeed > 0 && !level.tileset.collision(hitbox, x, y + 1) && !_on_platform) {
                 sprite = Assets.spr_player_fall
             } else if (_vspeed < 0) {
                 sprite = Assets.spr_player_jump

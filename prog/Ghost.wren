@@ -8,7 +8,7 @@ class GhostProjectile is Enemy {
     construct new() { super() }
 
     hit_effect(player) {
-        player.take_damage(3)
+        player.take_damage(7)
     }
 
     create(level, tiled_data) {
@@ -44,7 +44,11 @@ class Ghost is Enemy {
     construct new() { super() }
 
     hit_effect(player) {
-        player.take_damage(3)
+        if (is_alt) {
+            player.take_damage(5)
+        } else {
+            player.take_damage(3)
+        }
     }
 
     create(level, tiled_data) {
@@ -53,9 +57,9 @@ class Ghost is Enemy {
         hitbox = Hitbox.new_rectangle(8, 12)
         _walk_delay = Globals.rng.int(1 * 60, 4 * 60)
         _stand_delay = -1
-        hp = 20
+        hp = 35
         if (is_alt) {
-            hp = hp + 20
+            hp = hp + 10
         }
         _on_ground_last_frame = true
         _shoot_delay = 90

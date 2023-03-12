@@ -33,9 +33,9 @@ class Soldier is Enemy {
         _walk_delay = Globals.rng.int(1 * 60, 4 * 60)
         _stand_delay = -1
         if (is_alt) {
-            hp = 80
+            hp = 100
         } else {
-            hp = 50
+            hp = 55
         }
         _on_ground_last_frame = true
         _attack_timer = 0

@@ -8,7 +8,7 @@ class MageProjectile is Enemy {
     construct new() { super() }
 
     hit_effect(player) {
-        player.take_damage(5)
+        player.take_damage(10)
     }
 
     create(level, tiled_data) {
@@ -62,9 +62,9 @@ class Mage is Enemy {
         _walk_delay = Globals.rng.int(1 * 60, 4 * 60)
         _stand_delay = -1
         if (!is_alt) {
-            hp = 30
+            hp = 45
         } else {
-            hp = 40
+            hp = 70
         }
         _on_ground_last_frame = true
         if (is_alt) {

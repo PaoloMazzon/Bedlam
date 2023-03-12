@@ -9,11 +9,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 5.5,
+            "scale": 4,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 282.4545454545455,
-                "y": 146.54545454545453
+                "x": 119.875,
+                "y": 145.75
             }
         },
         "Map_A1.tmj#terrain": {
@@ -245,7 +245,7 @@
                 5
             ],
             "scale": 1.5,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
                 "x": 256.33333333333326,
                 "y": 242.66666666666663

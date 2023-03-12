@@ -229,7 +229,10 @@
                  "y":457.666683333333
                 }, 
                 {
+                 "class":"Skeleton::Skeleton",
+                 "height":12,
                  "id":7,
+                 "name":"skelly",
                  "properties":[
                         {
                          "name":"alt",
@@ -241,7 +244,9 @@
                          "type":"string",
                          "value":"fragment_2"
                         }],
-                 "template":"skelly.tx",
+                 "rotation":0,
+                 "visible":true,
+                 "width":8,
                  "x":415.5,
                  "y":409.5
                 }, 

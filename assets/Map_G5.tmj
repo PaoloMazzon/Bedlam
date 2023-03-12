@@ -255,6 +255,12 @@
                  "height":12,
                  "id":7,
                  "name":"soldier",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"quest_sword"
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":8,

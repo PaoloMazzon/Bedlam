@@ -11,7 +11,7 @@ class Slime is Enemy {
         if (is_alt) {
             player.take_damage(8)
         } else {
-            player.take_damage(5)
+            player.take_damage(6)
         }
     }
 
@@ -20,9 +20,9 @@ class Slime is Enemy {
         sprite = Assets.spr_slime.copy()
         hitbox = Hitbox.new_rectangle(12, 10)
         _jump_delay = Globals.rng.int(0.5 * 60, 1 * 60)
-        hp = 15
+        hp = 35
         if (is_alt) {
-            hp = hp + 20
+            hp = hp + 15
         }
         _on_ground_last_frame = true
     }

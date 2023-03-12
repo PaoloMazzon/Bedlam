@@ -23,27 +23,27 @@ class Balance {
     static HIT_FREEZE_DELAY { 0.25 }
     static FADE_DURATION { 0.25 }
     static PLAYER_MANA { 60 }
-    static PLAYER_MAX_BASE_HP { 40 }
+    static PLAYER_MAX_BASE_HP { 50 }
     static PLAYER_HP_BOOSTS { 10 }
-    static PLAYER_POSSIBLE_HP { 70 }
+    static PLAYER_POSSIBLE_HP { 80 }
     static PLAYER_IFRAMES { 60 }
-    static MANA_RESTORATION { Balance.PLAYER_MANA * 0.0003 } // per second
+    static MANA_RESTORATION { (Balance.PLAYER_MANA * 0.012) / 100 } // per second
     static MANA_DAMAGE_THRESHHOLD { Balance.PLAYER_MANA * 0.20 }
     static MANA_BURN { Balance.PLAYER_MAX_BASE_HP * 0.0002 }
-    static BOLT_COST { Balance.PLAYER_MANA * 0.05 }
-    static SHOCK_COST { Balance.PLAYER_MANA * 0.15 }
-    static LASER_COST { Balance.PLAYER_MANA * 0.4 }
-    static BOW_COST { Balance.PLAYER_MANA * 0.15 }
+    static BOLT_COST { Balance.PLAYER_MANA * 0.08 }
+    static SHOCK_COST { Balance.PLAYER_MANA * 0.25 }
+    static LASER_COST { Balance.PLAYER_MANA * 0.45 }
+    static BOW_COST { Balance.PLAYER_MANA * 0.20 }
     static HELL_COST { Balance.PLAYER_MANA * 0.8 }
-    static ENEMY_IFRAMES { 15 }
-    static MANA_POTION { 0.7 }
-    static HEALTH_POTION { 0.50 }
+    static ENEMY_IFRAMES { 24 }
+    static MANA_POTION { 0.6 }
+    static HEALTH_POTION { 0.40 }
     static KNOCKBACK_STUN_FRAMES { 10 }
-    static SHORTSWORD_DAMAGE { 8 }
-    static MACE_DAMAGE { 12 }
-    static RAPIER_DAMAGE { 10 }
-    static SPEAR_DAMAGE { 10 }
-    static LEGEND_DAMAGE { 14 }
+    static SHORTSWORD_DAMAGE { 10 }
+    static MACE_DAMAGE { 20 }
+    static RAPIER_DAMAGE { 15 }
+    static SPEAR_DAMAGE { 12 }
+    static LEGEND_DAMAGE { 18 }
     static TELEPORT_RANGE { 40 }
     static RAPIER_ALT_SPEED { 2.3 }
 }

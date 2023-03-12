@@ -123,7 +123,7 @@ class Util {
             // HP cap display
             if (player.max_hp != Balance.PLAYER_POSSIBLE_HP) {
                 Renderer.set_colour_mod([0, 0, 0, 1])
-                Renderer.draw_line(13 + (50 * (player.max_hp / Balance.PLAYER_POSSIBLE_HP)), 4, 13 + (49 * (player.max_hp / Balance.PLAYER_POSSIBLE_HP)), 10)
+                Renderer.draw_line(13 + (50 * (player.max_hp / Balance.PLAYER_POSSIBLE_HP)).round, 4, 13 + (49 * (player.max_hp / Balance.PLAYER_POSSIBLE_HP)).round, 10)
                 Renderer.set_colour_mod([1, 1, 1, 1])
             }
             

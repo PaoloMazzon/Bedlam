@@ -8,7 +8,11 @@ class Skeleton is Enemy {
     construct new() { super() }
 
     hit_effect(player) {
-        player.take_damage(3)
+        if (is_alt) {
+            player.take_damage(7)
+        } else {
+            player.take_damage(5)
+        }
     }
 
     create(level, tiled_data) {
@@ -18,7 +22,11 @@ class Skeleton is Enemy {
         hitbox = Hitbox.new_rectangle(8, 12)
         _walk_delay = Globals.rng.int(1 * 60, 4 * 60)
         _stand_delay = -1
-        hp = 20
+        if (!is_alt) {
+            hp = 40
+        } else {
+            hp = 70
+        }
         _on_ground_last_frame = true
     }
 

@@ -9,9 +9,9 @@ class Drake is Enemy {
 
     hit_effect(player) {
         if (is_alt) {
-            player.take_damage(8)
+            player.take_damage(10)
         } else {
-            player.take_damage(5)
+            player.take_damage(8)
         }
     }
 
@@ -22,9 +22,9 @@ class Drake is Enemy {
         hspeed = 0.65
         affected_by_gravity = false
         if (is_alt) {
-            hp = 30
+            hp = 50
         } else {
-            hp = 20
+            hp = 30
         }
     }
 
