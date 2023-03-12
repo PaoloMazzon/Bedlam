@@ -15,6 +15,7 @@ import "Soldier" for Soldier
 import "Mage" for Mage
 import "Drake" for Drake
 import "Spikes" for Spikes
+import "Spikeball" for Spikeball
 import "MinorEntities" for Light
 import "NPC"
 
@@ -126,6 +127,8 @@ class Area is Level {
         _background = Assets.tex_forestbg
         if (Globals.in_cathedral) {
             _background = Assets.tex_cathedral_background
+        } else if (Globals.in_bridge) {
+            _background = Assets.tex_bridge_background
         }
     }
 

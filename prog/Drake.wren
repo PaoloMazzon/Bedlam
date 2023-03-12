@@ -37,7 +37,7 @@ class Drake is Enemy {
             return
         }
 
-        if (level.tileset.collision(hitbox, x + hspeed, y)) {
+        if (level.tileset.collision(hitbox, x + hspeed, y) || x + hspeed > level.tileset.width - 16 || x + hspeed < 0) {
             hspeed = -hspeed
             facing = hspeed.sign
         }

@@ -109,3 +109,51 @@ class BlacksmithNPC is NPC {
         hitbox = Hitbox.new_rectangle(sprite.width, sprite.height)
     }
 }
+
+class BridgeNPC is NPC {
+    on_player_interact(level, player) {
+        if (Globals.item_unlocked("quest_sword") && !Globals.item_unlocked("bow")) {
+            level.dialogue.queue("...", center_x, center_y)
+            level.dialogue.queue(Dialogue.CHAR_SMILE, center_x, center_y)
+            level.dialogue.queue("You found my sword!", center_x, center_y)
+            level.dialogue.queue("Here, you can have this to show my gratitude.", center_x, center_y)
+            player.unlock_bow()
+            FloatingText.create_floating_text(level, "Bow", player.x + 4, player.y - 20)
+        } else {
+            level.dialogue.queue("One of the other soldiers took my sword...", center_x, center_y)
+        }
+    }
+
+    construct new() {}
+
+    create(level, tiled_data) {
+        super.create(level, tiled_data)
+        sprite = Assets.spr_bridgenpc
+        hitbox = Hitbox.new_rectangle(sprite.width, sprite.height)
+    }
+}
+
+class ImprisonedNPC is NPC {
+    on_player_interact(level, player) {
+        if (!Globals.item_unlocked("heart_2")) {
+            level.dialogue.queue("Oh hey old friend! Thanks again for the sword.", center_x, center_y)
+            level.dialogue.queue("They imprisoned me for throwing rocks at a bird.", center_x, center_y)
+            level.dialogue.queue("I don't need this in here, you take it.", center_x, center_y)
+            player.unlock_health_heart()
+            FloatingText.create_floating_text(level, "Health Up", player.x + 4, player.y - 20)
+        } else {
+            level.dialogue.queue("See you around " + Dialogue.CHAR_SMILE, center_x, center_y)
+        }
+    }
+
+    construct new() {}
+
+    create(level, tiled_data) {
+        super.create(level, tiled_data)
+        sprite = Assets.spr_bridgenpc
+        hitbox = Hitbox.new_rectangle(sprite.width, sprite.height)
+        if (!Globals.item_unlocked("bow")) {
+            level.remove_entity(this)
+        }
+    }
+}

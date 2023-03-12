@@ -330,12 +330,14 @@ class Player is Entity {
             if (_mana_potions > 0) {
                 _mana_potions = _mana_potions - 1
                 restore_mana(Balance.PLAYER_MANA * Balance.MANA_POTION)
+                Globals.play_sound(Assets.aud_heal)
             }
         }
         if (health_potion) {
             if (_health_potions > 0) {
                 _health_potions = _health_potions - 1
                 heal(_max_hp * Balance.HEALTH_POTION)
+                Globals.play_sound(Assets.aud_heal)
             }
         }
     }
@@ -510,7 +512,7 @@ class Player is Entity {
     }
 
     draw(level) {
-        if (_iframes == 0 || (_iframes > 0 && _flicker > 4)) {
+        if (_iframes == 0 || (_iframes > 0 && _flicker > 4) || is_dead) {
             sprite.scale_x = _facing
             var draw_x = x + 1
             if (_facing == -1) { draw_x = draw_x + 8 }

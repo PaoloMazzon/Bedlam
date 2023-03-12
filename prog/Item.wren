@@ -89,6 +89,8 @@ class Item is Entity {
             FloatingText.create_floating_text(level, "Health Up", x + 5, y - 20)
         } else if (split == "fragment") {
             FloatingText.create_floating_text(level, "Toy Fragment", x + 5, y - 20)
+        } else if (split == "quest_sword") {
+            FloatingText.create_floating_text(level, "Ray's Sword", x + 5, y - 20)
         }
     }
 
@@ -108,7 +110,7 @@ class Item is Entity {
             split = _item_id.split("_")[0]
         }
 
-        if (_item_id == "shortsword") {
+        if (_item_id == "shortsword" || _item_id == "quest_sword") {
             _texture = Assets.tex_shortsword_icon
         } else if (_item_id == "mace") {
             _texture = Assets.tex_mace_icon

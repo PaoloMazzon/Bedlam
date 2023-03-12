@@ -215,7 +215,7 @@
                  "class":"LevelControl::Marker",
                  "height":12,
                  "id":4,
-                 "name":"a3 spawn",
+                 "name":"3",
                  "properties":[
                         {
                          "name":"id",
@@ -232,7 +232,7 @@
                  "class":"LevelControl::Transition",
                  "height":7.04545454545456,
                  "id":5,
-                 "name":"forest a3",
+                 "name":"c7#1",
                  "properties":[
                         {
                          "name":"area",
@@ -503,6 +503,39 @@
                  "width":0,
                  "x":543.833333333333,
                  "y":42.1666666666667
+                }, 
+                {
+                 "class":"Spikeball::Spikeball",
+                 "ellipse":true,
+                 "height":16,
+                 "id":23,
+                 "name":"spikeball",
+                 "properties":[
+                        {
+                         "name":"alt",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"length",
+                         "type":"float",
+                         "value":40
+                        }, 
+                        {
+                         "name":"rotation",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"speed",
+                         "type":"float",
+                         "value":0.09
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":16,
+                 "x":324.75,
+                 "y":148
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -613,7 +646,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":23,
+ "nextobjectid":24,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

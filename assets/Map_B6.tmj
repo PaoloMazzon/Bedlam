@@ -823,6 +823,11 @@
                          "name":"alt",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"fragment_1"
                         }],
                  "rotation":0,
                  "visible":true,
