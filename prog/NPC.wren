@@ -178,6 +178,8 @@ class FinalRayNPC is NPC {
     on_player_interact(level, player) {
         if (!Globals.item_unlocked("lweapon") && !Globals.event_has_happened("given_lweapon")) {
             Item.create_item(level, "lweapon", x - 10, y)
+            Item.create_item(level, "health", x + 42, y)
+            Item.create_item(level, "mana", x + 30, y)
             level.dialogue.queue("Hello again, Bedlam!", center_x, center_y)
             level.dialogue.queue("Thanks for helping me out so much.", center_x, center_y)
             level.dialogue.queue("I've been exploring the Nexus and I found this. I like my sword too much to use it but I suppose you might find a purpose.", center_x, center_y)
@@ -202,7 +204,7 @@ class FinalRayNPC is NPC {
         if (!Globals.event_has_happened("helped_ray")) {
             level.remove_entity(this)
         }
-        if (Globals.event_has_happened(given_lweapon) && !Globals.item_unlocked("lweapon")) {
+        if (Globals.event_has_happened("given_lweapon") && !Globals.item_unlocked("lweapon")) {
             Item.create_item(level, "lweapon", x - 10, y)
         }
     }

@@ -9,11 +9,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 4,
+            "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 119.625,
-                "y": 176.875
+                "x": 145.49999999999997,
+                "y": 225.66666666666669
             }
         },
         "Map_A1.tmj#terrain": {
@@ -65,8 +65,8 @@
             "scale": 5.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 159.9090909090909,
-                "y": 159.90909090909093
+                "x": 211.36363636363637,
+                "y": 62.909090909090914
             }
         },
         "Map_B1.tmj#terrain": {
@@ -79,8 +79,8 @@
             "scale": 2.7787499999999996,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 167.161493477283,
-                "y": 152.4066576698156
+                "x": 166.8016194331984,
+                "y": 166.26180836707155
             }
         },
         "Map_B2.tmj#terrain": {
@@ -255,15 +255,18 @@
             "scaleInDock": 4
         },
         "Map_E6.tmj": {
-            "scale": 2.7787499999999996,
+            "expandedObjectLayers": [
+                5
+            ],
+            "scale": 3,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 160.68376068376074,
-                "y": 160.14394961763384
+                "x": 172.49999999999997,
+                "y": 134.66666666666669
             }
         },
         "Map_E6.tmj#terrain": {
-            "scaleInDock": 1
+            "scaleInDock": 3
         },
         "Map_F3.tmj": {
             "expandedObjectLayers": [
@@ -283,15 +286,29 @@
             "expandedObjectLayers": [
                 5
             ],
-            "scale": 1,
+            "scale": 4,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 236.5,
-                "y": 159
+                "x": 174.375,
+                "y": 239
             }
         },
         "Map_F4.tmj#terrain": {
             "scaleInDock": 5.5
+        },
+        "Map_F6.tmj": {
+            "expandedObjectLayers": [
+                5
+            ],
+            "scale": 2,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 185.25,
+                "y": 118.5
+            }
+        },
+        "Map_F6.tmj#terrain": {
+            "scaleInDock": 3
         },
         "Map_G3.tmj": {
             "expandedObjectLayers": [
@@ -311,11 +328,11 @@
             "expandedObjectLayers": [
                 5
             ],
-            "scale": 3,
+            "scale": 4,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 142.49999999999997,
-                "y": 165.99999999999997
+                "x": 122.875,
+                "y": 246.25
             }
         },
         "Map_G4.tmj#terrain": {
@@ -325,15 +342,29 @@
             "expandedObjectLayers": [
                 5
             ],
-            "scale": 3,
+            "scale": 2,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 147.49999999999997,
-                "y": 148.99999999999997
+                "x": 226.75,
+                "y": 157
             }
         },
         "Map_G5.tmj#terrain": {
             "scaleInDock": 4
+        },
+        "Map_G6.tmj": {
+            "expandedObjectLayers": [
+                5
+            ],
+            "scale": 4,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 165.875,
+                "y": 203.25
+            }
+        },
+        "Map_G6.tmj#terrain": {
+            "scaleInDock": 3
         }
     },
     "last.objectTemplatePath": "C:/Users/lugi1/Desktop/Code/metroman/assets",
@@ -345,10 +376,10 @@
     "project": "game.tiled-project",
     "property.type": "float",
     "recentFiles": [
-        "Map_G4.tmj",
         "Map_E6.tmj",
-        "Map_E4.tmj",
+        "Map_G4.tmj",
         "Map_F4.tmj",
+        "Map_E4.tmj",
         "Map_F3.tmj",
         "Map_B6.tmj",
         "Map_D7.tmj",

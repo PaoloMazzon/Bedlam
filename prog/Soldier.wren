@@ -57,7 +57,7 @@ class Soldier is Enemy {
             hspeed = 0
         }
         if (level.tileset.collision(hitbox, x, y + 1)) {
-            if (!near_player) {
+            if (!near_player && _attack_timer == -1) {
                 sprite = _idle_sprite
 
                 // Stop attacking if the player walked away
@@ -103,7 +103,7 @@ class Soldier is Enemy {
                     _wait_timer = _wait_timer - 1
                     hspeed = 0
                     if (_wait_timer == -1) {
-                        _attack_timer = 60
+                        _attack_timer = 30
                         if (is_alt) {
                             hspeed = (level.player.x - x).sign * 1.8
                         } else {
