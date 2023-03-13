@@ -251,72 +251,6 @@
                  "y":280
                 }, 
                 {
-                 "class":"Spikeball::Spikeball",
-                 "ellipse":true,
-                 "height":16,
-                 "id":8,
-                 "name":"spikeball",
-                 "properties":[
-                        {
-                         "name":"alt",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"length",
-                         "type":"float",
-                         "value":32
-                        }, 
-                        {
-                         "name":"rotation",
-                         "type":"float",
-                         "value":0
-                        }, 
-                        {
-                         "name":"speed",
-                         "type":"float",
-                         "value":0.06
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":172.666666666667,
-                 "y":108.333333333333
-                }, 
-                {
-                 "class":"Spikeball::Spikeball",
-                 "ellipse":true,
-                 "height":16,
-                 "id":9,
-                 "name":"spikeball",
-                 "properties":[
-                        {
-                         "name":"alt",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"length",
-                         "type":"float",
-                         "value":32
-                        }, 
-                        {
-                         "name":"rotation",
-                         "type":"float",
-                         "value":0
-                        }, 
-                        {
-                         "name":"speed",
-                         "type":"float",
-                         "value":0.06
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":68,
-                 "y":124
-                }, 
-                {
                  "class":"Soldier::Soldier",
                  "height":12,
                  "id":10,
@@ -343,11 +277,83 @@
                  "height":12,
                  "id":12,
                  "name":"mage",
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"cell_key"
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":8,
                  "x":152.333333333333,
                  "y":289
+                }, 
+                {
+                 "class":"Spikeball::Spikeball",
+                 "height":0,
+                 "id":13,
+                 "name":"spikeball",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"alt",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"length",
+                         "type":"float",
+                         "value":32
+                        }, 
+                        {
+                         "name":"rotation",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"speed",
+                         "type":"float",
+                         "value":0.06
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":76.3333333333333,
+                 "y":132.666666666667
+                }, 
+                {
+                 "class":"Spikeball::Spikeball",
+                 "height":0,
+                 "id":14,
+                 "name":"spikeball",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"alt",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"length",
+                         "type":"float",
+                         "value":32
+                        }, 
+                        {
+                         "name":"rotation",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"speed",
+                         "type":"float",
+                         "value":0.06
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":180.333333333333,
+                 "y":116.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -458,7 +464,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":13,
+ "nextobjectid":15,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

@@ -63,6 +63,7 @@ class Globals {
         __walljump = false
         __teleport = false
         __unlocked_items = []
+        __percent_completed = 0
     }
 
     static reload() {
@@ -92,6 +93,7 @@ class Globals {
         if (str != "") {
             __unlocked_items = str.split(",")
         }
+        Globals.calculate_percent()
     }
 
     static init() {
@@ -173,6 +175,17 @@ class Globals {
         }
     }
 
+    static calculate_percent() {
+        var important_items = ["heart_1", "heart_2", "heart_3", "shortsword", "mace", "bolt", "shock", "laser", "lspell", "bow", "lweapon", "rapier", "spear", "walljump", "teleport", "minimap", "double_jump", "fragment_1", "fragment_2", "fragment_3", "toy", "e_helped_ray"]
+        var total = 0
+        for (i in __unlocked_items) {
+            if (important_items.indexOf(i) != -1) {
+                total = total + 1
+            }
+        }
+        __percent_completed = total / important_items.count
+    }
+
     static game_surf { __game_surf }
     static game_surf=(s) { __game_surf = s }
     static camera { __camera }
@@ -185,6 +198,7 @@ class Globals {
 
     // Things that go in the ini automatically
     static scale { __scale }
+    static percent_completed { ((__percent_completed * 100).round).toString }
     static fullscreen { __fullscreen }
     static sound { __sound }
     static music { __music }

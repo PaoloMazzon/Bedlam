@@ -63,7 +63,7 @@ class SlimeNPC is NPC {
             level.dialogue.queue("Here, you can have this.", center_x, center_y)
             level.dialogue.queue("I don't know what it is but it looks cool.", center_x, center_y)
         } else if (Globals.event_has_happened("slime_gives_spell")) {
-            level.dialogue.queue("Thank you for returning my toy!", center_x, center_y)
+            level.dialogue.queue("You're not so mean for a Wraith.", center_x, center_y)
         } else {
             level.dialogue.queue("Some bad men took my toy and broke it " + Dialogue.CHAR_FROWN, center_x, center_y)
             level.dialogue.queue("Where can I find them?", level.player.x, level.player.y)
@@ -141,6 +141,12 @@ class ImprisonedNPC is NPC {
             level.dialogue.queue("I don't need this in here, you take it.", center_x, center_y)
             player.unlock_health_heart()
             FloatingText.create_floating_text(level, "Health Up", player.x + 4, player.y - 20)
+        } else if (Globals.item_unlocked("cell_key") && !Globals.event_has_happened("helped_ray")) {
+            level.dialogue.queue("My oh my! Much appreciated Mr...?", center_x, center_y)
+            level.dialogue.queue("Bedlam.", level.player.x, level.player.y)
+            level.dialogue.queue("Bedlam!", center_x, center_y)
+            level.dialogue.queue("I suppose I'll see my self out soon enough.", center_x, center_y)
+            Globals.record_event("helped_ray")
         } else {
             level.dialogue.queue("See you around " + Dialogue.CHAR_SMILE, center_x, center_y)
         }
@@ -152,8 +158,42 @@ class ImprisonedNPC is NPC {
         super.create(level, tiled_data)
         sprite = Assets.spr_bridgenpc
         hitbox = Hitbox.new_rectangle(sprite.width, sprite.height)
-        if (!Globals.item_unlocked("bow")) {
+        if (!Globals.item_unlocked("bow") || Globals.event_has_happened("helped_ray")) {
             level.remove_entity(this)
+        }
+    }
+}
+
+class FinalRayNPC is NPC {
+    on_player_interact(level, player) {
+        if (!Globals.item_unlocked("lweapon") && !Globals.event_has_happened("given_lweapon")) {
+            Item.create_item(level, "lweapon", x - 10, y)
+            level.dialogue.queue("Hello again, Bedlam!", center_x, center_y)
+            level.dialogue.queue("Thanks for helping me out so much.", center_x, center_y)
+            level.dialogue.queue("I've been exploring the Nexus and I found this. I like my sword too much to use it but I suppose you might find a purpose.", center_x, center_y)
+            Globals.record_event("given_lweapon")
+        } else {
+            var strings = [
+                Dialogue.CHAR_SMILE,
+                "I heard there was a Wraith around here, have you seen him?",
+                "Most of my fellow soldiers aren't happy people...",
+                "I wonder what the blacksmith gets up to day-to-day...",
+                "Jack's book was a pretty good read."]
+            level.dialogue.queue(Globals.rng.sample(strings), center_x, center_y)
+        }
+    }
+
+    construct new() {}
+
+    create(level, tiled_data) {
+        super.create(level, tiled_data)
+        sprite = Assets.spr_bridgenpc
+        hitbox = Hitbox.new_rectangle(sprite.width, sprite.height)
+        if (!Globals.event_has_happened("helped_ray")) {
+            level.remove_entity(this)
+        }
+        if (Globals.event_has_happened(given_lweapon) && !Globals.item_unlocked("lweapon")) {
+            Item.create_item(level, "lweapon", x - 10, y)
         }
     }
 }
@@ -172,6 +212,23 @@ class SavePoint is NPC {
     create(level, tiled_data) {
         super.create(level, tiled_data)
         sprite = Assets.spr_save
+        hitbox = Hitbox.new_rectangle(sprite.width, sprite.height)
+    }
+}
+
+class Scroll is NPC {
+    on_player_interact(level, player) {
+        level.dialogue.queue("--CONTRACT--", center_x, center_y)
+        level.dialogue.queue("Bedlam,", center_x, center_y)
+        level.dialogue.queue("Your objective is to kill the commander of the Nexus.", center_x, center_y)
+        level.dialogue.queue("The Nexus is somewhere to the east.", center_x, center_y)
+    }
+
+    construct new() {}
+
+    create(level, tiled_data) {
+        super.create(level, tiled_data)
+        sprite = Assets.spr_scroll
         hitbox = Hitbox.new_rectangle(sprite.width, sprite.height)
     }
 }

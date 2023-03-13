@@ -88,6 +88,11 @@ class Util {
             p.heal(9999)
         }
 
+        // Start of game stuff
+        if (Globals.area == "Map_A1#1") {
+            p.vspeed = Balance.GRAVITY  * 5
+        }
+
         // Setup camera initial position
         Globals.camera.x = (p.x + 4) - (Constants.GAME_WIDTH / 2)
         Globals.camera.y = (p.y + 6) - (Constants.GAME_HEIGHT / 2)
@@ -119,6 +124,7 @@ class Util {
             Renderer.set_colour_mod([s, s, s, 1])
             Renderer.draw_rectangle(x, y, 2, 2, 0, 0, 0)
             Renderer.set_colour_mod([1, 1, 1, 1])
+            Renderer.draw_font(Assets.fnt_font, Globals.percent_completed + "\%", 2, 110)
         } else {
             Renderer.draw_texture(Assets.tex_status_back, 2, 2)
             Renderer.set_colour_mod([1, 1, 1, 0.5])

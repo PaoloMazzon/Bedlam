@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
- <object name="spikeball" class="Spikeball::Spikeball" width="16" height="16">
+ <object name="spikeball" class="Spikeball::Spikeball">
   <properties>
    <property name="alt" type="bool" value="false"/>
    <property name="length" type="float" value="32"/>
    <property name="rotation" type="float" value="0"/>
    <property name="speed" type="float" value="0.06"/>
   </properties>
-  <ellipse/>
+  <point/>
  </object>
 </template>

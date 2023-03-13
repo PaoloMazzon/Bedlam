@@ -19,6 +19,7 @@ class Item is Entity {
         level.remove_entity(this)
         var split = ""
         Globals.play_sound(Assets.aud_item_pickup)
+        Globals.calculate_percent()
 
         if (_item_id.split("_").count > 1) {
             split = _item_id.split("_")[0]
@@ -84,6 +85,8 @@ class Item is Entity {
             player.unlock_walljump()
             FloatingText.create_floating_text(level, "Walljump", x + 5, y - 20)
             level.dialogue.queue("Press " + Dialogue.CHAR_GAMEPAD_A + " against a wall to jump off of it.", level.player.x, level.player.y)
+        } else if (_item_id == "cell_key") {
+            FloatingText.create_floating_text(level, "Cell Key", x + 5, y - 20)
         } else if (split == "heart") {
             player.unlock_health_heart()
             FloatingText.create_floating_text(level, "Health Up", x + 5, y - 20)
@@ -136,6 +139,8 @@ class Item is Entity {
             _texture = Assets.tex_mana_potion
         } else if (_item_id == "walljump") {
             _texture = Assets.tex_wall_jump_icon
+        } else if (_item_id == "cell_key") {
+            _texture = Assets.tex_key
         } else if (_item_id == "teleport") {
             _texture = Assets.tex_teleport_icon
         } else if (_item_id == "minimap") {

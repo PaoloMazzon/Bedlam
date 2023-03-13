@@ -42,6 +42,10 @@ class Player is Entity {
 
     is_dead { _hp == 0 }
 
+    vspeed=(s) { _vspeed = s }
+    hspeed=(s) { _hspeed = s }
+    vspeed { _vspeed }
+    hspeed { _hspeed }
     facing { _facing }
     mana { _mana }
     mana_flux { _mana_flux }
