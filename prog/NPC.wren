@@ -85,7 +85,17 @@ class SlimeNPC is NPC {
 
 class BlacksmithNPC is NPC {
     on_player_interact(level, player) {
-        if (Globals.item_unlocked("toy")) {
+        if (!Globals.event_has_happened("scared_blacksmith")) {
+            Globals.record_event("scared_blacksmith")
+            level.dialogue.queue("You're that Wraith they're talking about! Please don't hurt me.", center_x, center_y)
+            level.dialogue.queue("... " + Dialogue.CHAR_EYES, center_x, center_y)
+            level.dialogue.queue("You're not going to hurt me?", center_x, center_y)
+            level.dialogue.queue("No?", level.player.x, level.player.y)
+            level.dialogue.queue("I didn't realize disciples of your demon could be so passive.", center_x, center_y)
+            level.dialogue.queue("Forgive me Master,", center_x, center_y)
+            level.dialogue.queue("Bedlam.", level.player.x, level.player.y)
+            level.dialogue.queue("Master Bedlam.", center_x, center_y)
+        } else if (Globals.item_unlocked("toy")) {
             level.dialogue.queue("...", center_x, center_y)
             level.dialogue.queue(Dialogue.CHAR_SMILE, center_x, center_y)
         } else if (Globals.item_unlocked("fragment_1") && Globals.item_unlocked("fragment_2") && Globals.item_unlocked("fragment_3") && !Globals.item_unlocked("toy")) {
@@ -202,6 +212,8 @@ class SavePoint is NPC {
     on_player_interact(level, player) {
         FloatingText.create_floating_text(level, "Game saved", x + 16, y - 8)
         player.heal(99999)
+        player.restore_mana(9999)
+        player.save_to_globals()
         Globals.play_sound(Assets.aud_heal)
         Globals.area = Globals.area.split("#")[0] + "#0"
         Globals.save_to_file()

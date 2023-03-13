@@ -40,6 +40,20 @@ class Player is Entity {
         _mana = Math.clamp(_mana - mana, 0, _mana)
     }
 
+    save_to_globals() {
+            Globals.player_mana = _mana
+            Globals.player_hp = _hp
+            Globals.max_player_hp = _max_hp
+            Globals.health_potions = _health_potions
+            Globals.mana_potions = _mana_potions
+            Globals.player_has_bolt = _has_bolt
+            Globals.player_has_shortsword = _has_shortsword
+            Globals.equipped_weapon = _equipped_weapon
+            Globals.max_jumps = _max_jumps
+            Globals.walljump = _walljump
+            Globals.teleport = _teleport
+    }
+
     is_dead { _hp == 0 }
 
     vspeed=(s) { _vspeed = s }
@@ -537,17 +551,7 @@ class Player is Entity {
     destroy(level) {
         super.destroy(level)
         if (!is_dead) {
-            Globals.player_mana = _mana
-            Globals.player_hp = _hp
-            Globals.max_player_hp = _max_hp
-            Globals.health_potions = _health_potions
-            Globals.mana_potions = _mana_potions
-            Globals.player_has_bolt = _has_bolt
-            Globals.player_has_shortsword = _has_shortsword
-            Globals.equipped_weapon = _equipped_weapon
-            Globals.max_jumps = _max_jumps
-            Globals.walljump = _walljump
-            Globals.teleport = _teleport
+            save_to_globals()
         } else {
             Globals.reload()
         }
