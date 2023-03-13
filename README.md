@@ -1,4 +1,4 @@
-![Bedlam](https://imgur.com/5Ed2qXZ)
+![Bedlam](https://i.imgur.com/5Ed2qXZ.png)
 
 Bedlam is a game made for the [Metroidvania Month 19](https://itch.io/jam/metroidvania-month-19) game jam.
 
