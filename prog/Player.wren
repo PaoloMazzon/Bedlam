@@ -544,7 +544,6 @@ class Player is Entity {
             Globals.max_jumps = _max_jumps
             Globals.walljump = _walljump
             Globals.teleport = _teleport
-            Globals.save_to_file()
         } else {
             Globals.reload()
         }

@@ -8,6 +8,7 @@ import "LevelControl" for Marker, Transition
 import "Skeleton" for Skeleton
 import "Assets" for Assets
 import "Weapon" for Weapon
+import "NPC" for SavePoint
 
 class Util {
     static maximize_scale() {
@@ -69,16 +70,23 @@ class Util {
         var p = level.add_entity(Player)
         var x = 0
         var y = 0
-        var markers = level.get_entities(Marker)
-        for (i in markers) {
-            if (s[1] == i.id) {
-                x = i.x
-                y = i.y
-                break
+        if (s[1] != 0) {
+            var markers = level.get_entities(Marker)
+            for (i in markers) {
+                if (s[1] == i.id) {
+                    x = i.x
+                    y = i.y
+                    break
+                }
             }
+            p.x = x
+            p.y = y
+        } else {
+            var save = level.get_entity(SavePoint)
+            p.x = save.x + 12
+            p.y = save.y + 16
+            p.heal(9999)
         }
-        p.x = x
-        p.y = y
 
         // Setup camera initial position
         Globals.camera.x = (p.x + 4) - (Constants.GAME_WIDTH / 2)

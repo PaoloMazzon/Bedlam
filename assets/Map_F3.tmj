@@ -210,6 +210,17 @@
                  "width":8,
                  "x":297,
                  "y":113.5
+                }, 
+                {
+                 "class":"NPC::SavePoint",
+                 "height":32,
+                 "id":7,
+                 "name":"save",
+                 "rotation":0,
+                 "visible":true,
+                 "width":32,
+                 "x":112,
+                 "y":96
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -320,7 +331,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":7,
+ "nextobjectid":8,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

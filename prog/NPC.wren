@@ -157,3 +157,21 @@ class ImprisonedNPC is NPC {
         }
     }
 }
+
+class SavePoint is NPC {
+    on_player_interact(level, player) {
+        FloatingText.create_floating_text(level, "Game saved", x + 16, y - 8)
+        player.heal(99999)
+        Globals.play_sound(Assets.aud_heal)
+        Globals.area = Globals.area.split("#")[0] + "#0"
+        Globals.save_to_file()
+    }
+
+    construct new() {}
+
+    create(level, tiled_data) {
+        super.create(level, tiled_data)
+        sprite = Assets.spr_save
+        hitbox = Hitbox.new_rectangle(sprite.width, sprite.height)
+    }
+}
