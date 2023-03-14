@@ -128,9 +128,12 @@ class BridgeNPC is NPC {
             level.dialogue.queue("You found my sword!", center_x, center_y)
             level.dialogue.queue("Here, you can have this to show my gratitude.", center_x, center_y)
             player.unlock_bow()
+            Globals.unlock_item("bow")
             FloatingText.create_floating_text(level, "Bow", player.x + 4, player.y - 20)
-        } else {
+        } else if (!Globals.item_unlocked("bow")) {
             level.dialogue.queue("One of the other soldiers took my sword...", center_x, center_y)
+        } else {
+            level.dialogue.queue("...", center_x, center_y)
         }
     }
 
@@ -140,6 +143,9 @@ class BridgeNPC is NPC {
         super.create(level, tiled_data)
         sprite = Assets.spr_bridgenpc
         hitbox = Hitbox.new_rectangle(sprite.width, sprite.height)
+        if (Globals.item_unlocked("bow")) {
+            level.remove_entity(this)
+        }
     }
 }
 
@@ -150,6 +156,7 @@ class ImprisonedNPC is NPC {
             level.dialogue.queue("They imprisoned me for throwing rocks at a bird.", center_x, center_y)
             level.dialogue.queue("I don't need this in here, you take it.", center_x, center_y)
             player.unlock_health_heart()
+            Globals.unlock_item("heart_2")
             FloatingText.create_floating_text(level, "Health Up", player.x + 4, player.y - 20)
         } else if (Globals.item_unlocked("cell_key") && !Globals.event_has_happened("helped_ray")) {
             level.dialogue.queue("My oh my! Much appreciated Mr...?", center_x, center_y)

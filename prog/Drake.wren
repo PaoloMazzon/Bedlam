@@ -21,6 +21,7 @@ class Drake is Enemy {
         hitbox = Hitbox.new_rectangle(16, 10)
         hspeed = 0.65
         affected_by_gravity = false
+        affected_by_knockback = false
         if (is_alt) {
             hp = 50
         } else {

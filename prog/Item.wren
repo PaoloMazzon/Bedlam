@@ -92,7 +92,7 @@ class Item is Entity {
             FloatingText.create_floating_text(level, "Health Up", x + 5, y - 20)
         } else if (split == "fragment") {
             FloatingText.create_floating_text(level, "Toy Fragment", x + 5, y - 20)
-        } else if (split == "quest_sword") {
+        } else if (_item_id == "quest_sword") {
             FloatingText.create_floating_text(level, "Ray's Sword", x + 5, y - 20)
         }
     }

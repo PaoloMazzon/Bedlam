@@ -34,11 +34,13 @@ class Soldier is Enemy {
         _stand_delay = -1
         if (is_alt) {
             hp = 100
+            drop_chance = 1 / 4
         } else {
             hp = 55
+            drop_chance = 1 / 6
         }
         _on_ground_last_frame = true
-        _attack_timer = 0
+        _attack_timer = -1
         _wait_timer = 60
     }
 
@@ -103,7 +105,7 @@ class Soldier is Enemy {
                     _wait_timer = _wait_timer - 1
                     hspeed = 0
                     if (_wait_timer == -1) {
-                        _attack_timer = 30
+                        _attack_timer = 40
                         if (is_alt) {
                             hspeed = (level.player.x - x).sign * 1.8
                         } else {

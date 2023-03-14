@@ -29,11 +29,17 @@ class Enemy is Entity {
     no_random_drops=(s) { _no_random_drops = s }
     no_random_drops { _no_random_drops }
     near_player { (_level.player.y - y).abs < 18 && (_level.player.x - x).abs < 80 }
+    affected_by_knockback=(s) { _affected_by_knockback = s }
+    affected_by_knockback { _affected_by_knockback }
+    drop_chance=(s) { _drop_chance = s }
+    drop_chance { _drop_chance }
     
     knockback(x, y) {
-        _stun_timer = Balance.KNOCKBACK_STUN_FRAMES
-        hspeed = x
-        vspeed = y
+        if (_affected_by_knockback) {
+            _stun_timer = Balance.KNOCKBACK_STUN_FRAMES
+            hspeed = x
+            vspeed = y
+        }
     }
 
     take_damage(dmg) {
@@ -61,6 +67,8 @@ class Enemy is Entity {
         _invincible = false
         _gravity = true
         _no_random_drops = false
+        _affected_by_knockback = true
+        _drop_chance = 1 / 15
     }
 
     create(level, tiled_data) {
@@ -165,11 +173,13 @@ class Enemy is Entity {
             Item.create_item(level, _item, x, y)
         } else if (!no_random_drops) {
             // Chance to get a potion
-            var n = Globals.rng.int(20)
-            if (n == 0) {
-                Item.create_item(level, "health", x, y)
-            } else if (n == 1) {
-                Item.create_item(level, "mana", x, y)
+            if (Globals.rng.float() <= drop_chance) {
+                var n = Globals.rng.sample[0, 1]
+                if (n == 0) {
+                    Item.create_item(level, "health", x, y)
+                } else if (n == 1) {
+                    Item.create_item(level, "mana", x, y)
+                }
             }
         }
     }

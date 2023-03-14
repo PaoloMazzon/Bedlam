@@ -21,8 +21,10 @@ class Slime is Enemy {
         hitbox = Hitbox.new_rectangle(12, 10)
         _jump_delay = Globals.rng.int(0.5 * 60, 1 * 60)
         hp = 35
+        drop_chance = 1 / 13
         if (is_alt) {
             hp = hp + 15
+            drop_chance = 1 / 11
         }
         _on_ground_last_frame = true
     }

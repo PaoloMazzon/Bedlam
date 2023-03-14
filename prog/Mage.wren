@@ -63,8 +63,10 @@ class Mage is Enemy {
         _stand_delay = -1
         if (!is_alt) {
             hp = 45
+            drop_chance = 1 / 8
         } else {
             hp = 70
+            drop_chance = 1 / 6
         }
         _on_ground_last_frame = true
         if (is_alt) {
