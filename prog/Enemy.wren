@@ -174,7 +174,7 @@ class Enemy is Entity {
         } else if (!no_random_drops) {
             // Chance to get a potion
             if (Globals.rng.float() <= drop_chance) {
-                var n = Globals.rng.sample[0, 1]
+                var n = Globals.rng.sample([0, 1])
                 if (n == 0) {
                     Item.create_item(level, "health", x, y)
                 } else if (n == 1) {

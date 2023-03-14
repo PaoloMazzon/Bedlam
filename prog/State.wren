@@ -46,6 +46,7 @@ class Balance {
     static LEGEND_DAMAGE { 18 }
     static TELEPORT_RANGE { 40 }
     static RAPIER_ALT_SPEED { 2.3 }
+    static COMMANDER_MAX_HEALTH { 400 }
 }
 
 class Globals {
@@ -176,7 +177,7 @@ class Globals {
     }
 
     static calculate_percent() {
-        var important_items = ["heart_1", "heart_2", "heart_3", "shortsword", "mace", "bolt", "shock", "laser", "lspell", "bow", "lweapon", "rapier", "spear", "walljump", "teleport", "minimap", "double_jump", "fragment_1", "fragment_2", "fragment_3", "toy", "e_helped_ray"]
+        var important_items = ["e_killed_commander", "heart_1", "heart_2", "heart_3", "shortsword", "mace", "bolt", "shock", "laser", "lspell", "bow", "lweapon", "rapier", "spear", "walljump", "teleport", "minimap", "double_jump", "fragment_1", "fragment_2", "fragment_3", "toy", "e_helped_ray"]
         var total = 0
         for (i in __unlocked_items) {
             if (important_items.indexOf(i) != -1) {

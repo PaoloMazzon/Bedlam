@@ -18,6 +18,7 @@ import "Spikes" for Spikes
 import "Spikeball" for Spikeball
 import "MinorEntities" for Light
 import "NPC"
+import "Commander"
 
 class Area is Level {
     construct new() {
@@ -63,6 +64,15 @@ class Area is Level {
         _pause_timer = -1
     }
 
+    create_collision_surface() {
+        Renderer.set_texture_camera(false)
+        _collision_surface = Surface.new(_tileset.width, _tileset.height)
+        Renderer.set_target(_collision_surface)
+        _tileset.draw()
+        Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
+        Renderer.set_texture_camera(true)
+    }
+
     create() {
         super.create()
         _tilesets = Util.init_area(this)
@@ -75,11 +85,8 @@ class Area is Level {
 
         // Pre-load tilesets
         // Pre-load the image of the foreground tileset
+        create_collision_surface()
         Renderer.set_texture_camera(false)
-        _collision_surface = Surface.new(_tileset.width, _tileset.height)
-        Renderer.set_target(_collision_surface)
-        _tileset.draw()
-        Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
 
         // Pre-load the image of the backdrop tileset
         _background_surface = Surface.new(_tilesets["background"].width, _tilesets["background"].height)
@@ -176,7 +183,7 @@ class Area is Level {
 
         if (!player.is_dead) {
             if (!dialogue.update(this)) {
-                Util.draw_player_ui(_player)
+                Util.draw_player_ui(this, _player)
             }
         } else {
             Renderer.set_texture_camera(false)

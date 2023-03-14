@@ -13,7 +13,7 @@
             "selectedLayer": 2,
             "viewCenter": {
                 "x": 145.49999999999997,
-                "y": 225.66666666666669
+                "y": 238.33333333333331
             }
         },
         "Map_A1.tmj#terrain": {
@@ -178,7 +178,7 @@
             "selectedLayer": 3,
             "viewCenter": {
                 "x": 263.66666666666663,
-                "y": 123.66666666666666
+                "y": 123.99999999999997
             }
         },
         "Map_C6.tmj#terrain": {
@@ -268,6 +268,20 @@
         "Map_E6.tmj#terrain": {
             "scaleInDock": 3
         },
+        "Map_F1.tmj": {
+            "expandedObjectLayers": [
+                5
+            ],
+            "scale": 8,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 335.9375,
+                "y": 272.25
+            }
+        },
+        "Map_F1.tmj#terrain": {
+            "scaleInDock": 5.5
+        },
         "Map_F3.tmj": {
             "expandedObjectLayers": [
                 5
@@ -300,11 +314,11 @@
             "expandedObjectLayers": [
                 5
             ],
-            "scale": 5.5,
-            "selectedLayer": 2,
+            "scale": 1.5,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 108.45454545454545,
-                "y": 237.09090909090912
+                "x": 282.99999999999994,
+                "y": 124.66666666666663
             }
         },
         "Map_F6.tmj#terrain": {
@@ -324,6 +338,34 @@
         "Map_F7.tmj#terrain": {
             "scaleInDock": 4
         },
+        "Map_G1.tmj": {
+            "expandedObjectLayers": [
+                5
+            ],
+            "scale": 3,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 169.49999999999997,
+                "y": 96.33333333333331
+            }
+        },
+        "Map_G1.tmj#terrain": {
+            "scaleInDock": 4
+        },
+        "Map_G2.tmj": {
+            "expandedObjectLayers": [
+                5
+            ],
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 161.49999999999997,
+                "y": 184.33333333333331
+            }
+        },
+        "Map_G2.tmj#terrain": {
+            "scaleInDock": 3
+        },
         "Map_G3.tmj": {
             "expandedObjectLayers": [
                 5
@@ -331,8 +373,8 @@
             "scale": 3,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 154.83333333333334,
-                "y": 70.99999999999999
+                "x": 154.16666666666669,
+                "y": 125.99999999999999
             }
         },
         "Map_G3.tmj#terrain": {

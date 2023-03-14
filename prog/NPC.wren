@@ -253,3 +253,23 @@ class Scroll is NPC {
         hitbox = Hitbox.new_rectangle(sprite.width, sprite.height)
     }
 }
+
+class Seer is NPC {
+    on_player_interact(level, player) {
+        if (Globals.event_has_happened("killed_commander")) {
+            level.dialogue.queue("You killed the commander!", center_x, center_y)
+            level.dialogue.queue("We are all free!", center_x, center_y)
+        } else {
+            level.dialogue.queue("The Commander awaits below.", center_x, center_y)
+            level.dialogue.queue("I had to tell him you were coming...", center_x, center_y)
+        }
+    }
+
+    construct new() {}
+
+    create(level, tiled_data) {
+        super.create(level, tiled_data)
+        sprite = Assets.spr_finalnpc
+        hitbox = Hitbox.new_rectangle(sprite.width, sprite.height)
+    }
+}

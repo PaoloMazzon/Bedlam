@@ -10,6 +10,7 @@ import "Weapon" for Weapon
 import "Item" for Item
 import "Dialogue" for Dialogue
 import "MinorEntities" for TeleportSilhouette, Hit, Platform
+import "Commander" for CommanderTrigger
 
 class Player is Entity {
     construct new() { super() }
@@ -323,10 +324,12 @@ class Player is Entity {
         var enemy = level.entity_collision(this, Enemy)
         if (enemy != null && _iframes == 0) {
             enemy.hit_effect(this)
-            if (!is_dead) {
-                Globals.play_sound(Assets.aud_player_hit)
-            } else {
-                Globals.play_sound(Assets.aud_player_death)
+            if (!(enemy is CommanderTrigger)) {
+                if (!is_dead) {
+                    Globals.play_sound(Assets.aud_player_hit)
+                } else {
+                    Globals.play_sound(Assets.aud_player_death)
+                }
             }
         }
 

@@ -9,6 +9,7 @@ import "Skeleton" for Skeleton
 import "Assets" for Assets
 import "Weapon" for Weapon
 import "NPC" for SavePoint
+import "Commander" for Commander
 
 class Util {
     static maximize_scale() {
@@ -109,7 +110,7 @@ class Util {
         return ret
     }
 
-    static draw_player_ui(player) {
+    static draw_player_ui(level, player) {
         Renderer.set_texture_camera(false)
 
         // Minimap
@@ -230,6 +231,18 @@ class Util {
             Renderer.draw_texture(Assets.tex_potionbg, 2, 96)
             Renderer.draw_font(Assets.fnt_font, player.health_potions.toString, 13, 98)
             Renderer.draw_font(Assets.fnt_font, player.mana_potions.toString, 13, 108)
+
+            // Commander health
+            var e = level.get_entity(Commander)
+            if (e != null && e.is_agro) {
+                var val = e.hp / Balance.COMMANDER_MAX_HEALTH
+                var flux = e.flux / Balance.COMMANDER_MAX_HEALTH
+                Renderer.draw_texture(Assets.tex_commanderbar_empty, 33, 96)
+                Renderer.set_colour_mod([1, 1, 1, 0.5])
+                Renderer.draw_texture_part(Assets.tex_commanderbar, 33, 96, 0, 0, Assets.tex_commanderbar.width * flux, Assets.tex_commanderbar.height)
+                Renderer.set_colour_mod([1, 1, 1, 1])
+                Renderer.draw_texture_part(Assets.tex_commanderbar, 33, 96, 0, 0, Assets.tex_commanderbar.width * val, Assets.tex_commanderbar.height)
+            }
         }
 
         Renderer.set_texture_camera(true)
