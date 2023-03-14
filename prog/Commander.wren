@@ -138,8 +138,11 @@ class Commander is Enemy {
     create(level, tiled_data) {
         super.create(level, tiled_data)
         sprite = Assets.spr_commander_idle
-        hitbox = Hitbox.new_rectangle(25, 28)
-        hitbox.y_offset = -4
+        _base_hitbox = Hitbox.new_rectangle(12, 28)
+        _run_hitbox = Hitbox.new_rectangle(25, 28)
+        _base_hitbox.y_offset = -4
+        _run_hitbox.y_offset = -4
+        hitbox = _base_hitbox
         _jump_delay = Globals.rng.int(0.5 * 60, 1 * 60)
         hp = Balance.COMMANDER_MAX_HEALTH
         _on_ground_last_frame = true
@@ -175,6 +178,7 @@ class Commander is Enemy {
         var on_ground = level.tileset.collision(hitbox, x, y + 1)
         
         if (_jump_phase > -1) {
+            hitbox = _base_hitbox
             if (on_ground && _jump_delay > 0) {
                 _jump_delay = _jump_delay - 1
                 sprite = Assets.spr_commander_idle
@@ -187,6 +191,7 @@ class Commander is Enemy {
                     hspeed = -hspeed
                 }
                 vspeed = -3
+                Globals.play_sound(Assets.aud_boss_jump)
                 _jump_delay = Globals.rng.int(0.5 * 60, 1 * 60)
                 facing = hspeed.sign
             }
@@ -202,6 +207,7 @@ class Commander is Enemy {
                 _wait_timer = 60
             }
         } else {
+            hitbox = _run_hitbox
             if (_attack_timer == -1 && _wait_timer == -1) {
                 _wait_timer = 60
             }
@@ -226,17 +232,27 @@ class Commander is Enemy {
 
             _charge_phase =  _charge_phase - 1
             if (_charge_phase <= -1) {
-                _jump_phase = 60 * 6
+                _jump_phase = 60 * 8
                 _charge_phase = -1
                 hspeed = 0
                 _jump_delay = Globals.rng.int(0.5 * 60, 1 * 60)
             }
         }
 
+        if (!_on_ground_last_frame && on_ground) {
+            Globals.play_sound(Assets.aud_boss_land)
+        }
         _on_ground_last_frame = on_ground
 
         if (hp < _flux) {
             _flux = _flux - 0.5
+        }
+        if (facing == 1) {
+            _base_hitbox.x_offset = -5
+            _run_hitbox.x_offset = -5
+        } else {
+            _base_hitbox.x_offset = -15
+            _run_hitbox.x_offset = -2
         }
     }
 
