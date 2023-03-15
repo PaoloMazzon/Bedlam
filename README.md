@@ -12,8 +12,8 @@ Bedlam is a game made for the [Metroidvania Month 19](https://itch.io/jam/metroi
  + Navigate through a dangerous and sprawling underground expanse filled with dangerous enemies
  + ***Kill the commander***
 
-![ss1](https://img.itch.zone/aW1hZ2UvMTk3MDQ1My8xMTU4NjMxNC5wbmc=/347x500/EFlFJe.png)
-![ss2](https://img.itch.zone/aW1hZ2UvMTk3MDQ1My8xMTU4NjMxNS5wbmc=/347x500/hnUSCh.png)
-![ss3](https://img.itch.zone/aW1hZ2UvMTk3MDQ1My8xMTU4NjMxMy5wbmc=/347x500/XmV6sX.png)
-![ss4](https://img.itch.zone/aW1hZ2UvMTk3MDQ1My8xMTU4NjMxNi5wbmc=/347x500/WI8KpK.png)
-![ss5](https://img.itch.zone/aW1hZ2UvMTk3MDQ1My8xMTU4NjMxOC5wbmc=/347x500/pubCbU.png)
+![ss1](https://img.itch.zone/aW1hZ2UvMTk3MDQ1My8xMTU4NjMxNC5wbmc=/original/fc%2FK%2B1.png)
+![ss2](https://img.itch.zone/aW1hZ2UvMTk3MDQ1My8xMTU4NjMxNS5wbmc=/original/3JKUEy.png)
+![ss3](https://img.itch.zone/aW1hZ2UvMTk3MDQ1My8xMTU4NjMxMy5wbmc=/original/q5BFi1.png)
+![ss4](https://img.itch.zone/aW1hZ2UvMTk3MDQ1My8xMTU4NjMxNi5wbmc=/original/kFQ%2BVX.png)
+![ss5](https://img.itch.zone/aW1hZ2UvMTk3MDQ1My8xMTU4NjMxOC5wbmc=/original/9kkVPT.png)
