@@ -276,8 +276,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":287.136363636364,
-                 "y":242.772727272727
+                 "x":274.954545454546,
+                 "y":243.318181818182
                 }, 
                 {
                  "class":"Slime::Slime",
@@ -328,6 +328,24 @@
                  "width":8,
                  "x":197.666666666667,
                  "y":143.333333333333
+                }, 
+                {
+                 "class":"Item::Item",
+                 "height":0,
+                 "id":29,
+                 "name":"",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"item",
+                         "type":"string",
+                         "value":"health_55"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":293.818181818182,
+                 "y":242.181818181818
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -432,13 +450,13 @@
          "name":"hidden",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":40,
          "x":0,
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":29,
+ "nextobjectid":30,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
