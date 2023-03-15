@@ -1,5 +1,5 @@
 {
-    "activeFile": "Map_A1.tmj",
+    "activeFile": "Map_F1.tmj",
     "automapping.whileDrawing": false,
     "expandedProjectPaths": [
         "."
@@ -272,11 +272,11 @@
             "expandedObjectLayers": [
                 5
             ],
-            "scale": 8,
-            "selectedLayer": 2,
+            "scale": 4,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 335.9375,
-                "y": 272.25
+                "x": 56.125,
+                "y": 260.5
             }
         },
         "Map_F1.tmj#terrain": {
@@ -441,22 +441,27 @@
     "openFiles": [
         "Map_B1.tmj",
         "Map_A1.tmj",
-        "Map_C6.tmj"
+        "Map_C6.tmj",
+        "Map_G3.tmj",
+        "Map_G2.tmj",
+        "Map_G1.tmj",
+        "Map_F1.tmj",
+        "Map_F6.tmj"
     ],
     "project": "game.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "Map_G5.tmj",
+        "Map_B1.tmj",
+        "Map_A1.tmj",
+        "Map_C6.tmj",
+        "Map_G3.tmj",
+        "Map_G2.tmj",
+        "Map_G1.tmj",
         "Map_F6.tmj",
+        "Map_F1.tmj",
+        "Map_G5.tmj",
         "Map_E6.tmj",
         "Map_G4.tmj",
-        "Map_F4.tmj",
-        "Map_E4.tmj",
-        "Map_F3.tmj",
-        "Map_B6.tmj",
-        "Map_D7.tmj",
-        "Map_A2.tmj",
-        "Map_C6.tmj",
-        "Map_C7.tmj"
+        "Map_F4.tmj"
     ]
 }

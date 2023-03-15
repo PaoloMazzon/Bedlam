@@ -68,6 +68,9 @@ class Area is Level {
         Renderer.set_texture_camera(false)
         _collision_surface = Surface.new(_tileset.width, _tileset.height)
         Renderer.set_target(_collision_surface)
+        Renderer.set_colour_mod([0, 0, 0, 0])
+        Renderer.clear()
+        Renderer.set_colour_mod([1, 1, 1, 1])
         _tileset.draw()
         Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
         Renderer.set_texture_camera(true)
@@ -91,18 +94,27 @@ class Area is Level {
         // Pre-load the image of the backdrop tileset
         _background_surface = Surface.new(_tilesets["background"].width, _tilesets["background"].height)
         Renderer.set_target(_background_surface)
+        Renderer.set_colour_mod([0, 0, 0, 0])
+        Renderer.clear()
+        Renderer.set_colour_mod([1, 1, 1, 1])
         _tilesets["background"].draw()
         Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
 
         // Pre-load the image of the background tileset
         _foreground_surface = Surface.new(_tilesets["foreground"].width, _tilesets["foreground"].height)
         Renderer.set_target(_foreground_surface)
+        Renderer.set_colour_mod([0, 0, 0, 0])
+        Renderer.clear()
+        Renderer.set_colour_mod([1, 1, 1, 1])
         _tilesets["foreground"].draw()
         Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
 
         // Pre-load the image of the hidden tileset
         _hidden_surface = Surface.new(_tilesets["hidden"].width, _tilesets["hidden"].height)
         Renderer.set_target(_hidden_surface)
+        Renderer.set_colour_mod([0, 0, 0, 0])
+        Renderer.clear()
+        Renderer.set_colour_mod([1, 1, 1, 1])
         _tilesets["hidden"].draw()
         Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
 
@@ -110,6 +122,9 @@ class Area is Level {
         if (_tilesets.containsKey("background2")) {
             _background2_surface = Surface.new(_tilesets["background2"].width, _tilesets["background2"].height)
             Renderer.set_target(_background2_surface)
+            Renderer.set_colour_mod([0, 0, 0, 0])
+            Renderer.clear()
+            Renderer.set_colour_mod([1, 1, 1, 1])
             _tilesets["background2"].draw()
             Renderer.set_target(Renderer.RENDER_TARGET_DEFAULT)
         } else {

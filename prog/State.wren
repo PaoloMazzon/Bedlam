@@ -65,6 +65,7 @@ class Globals {
         __teleport = false
         __unlocked_items = []
         __percent_completed = 0
+        __damage_mod = 1
     }
 
     static reload() {
@@ -93,6 +94,11 @@ class Globals {
         __unlocked_items = []
         if (str != "") {
             __unlocked_items = str.split(",")
+        }
+        if (Globals.event_has_happened("final_ray")) {
+            __damage_mod = 1.2
+        } else {
+            __damage_mod = 1
         }
         Globals.calculate_percent()
     }
@@ -177,7 +183,7 @@ class Globals {
     }
 
     static calculate_percent() {
-        var important_items = ["e_killed_commander", "heart_1", "heart_2", "heart_3", "shortsword", "mace", "bolt", "shock", "laser", "lspell", "bow", "lweapon", "rapier", "spear", "walljump", "teleport", "minimap", "double_jump", "fragment_1", "fragment_2", "fragment_3", "toy", "e_helped_ray"]
+        var important_items = ["e_final_ray", "e_killed_commander", "heart_1", "heart_2", "heart_3", "shortsword", "mace", "bolt", "shock", "laser", "lspell", "bow", "lweapon", "rapier", "spear", "walljump", "teleport", "minimap", "double_jump", "fragment_1", "fragment_2", "fragment_3", "toy", "e_helped_ray"]
         var total = 0
         for (i in __unlocked_items) {
             if (important_items.indexOf(i) != -1) {
@@ -196,6 +202,8 @@ class Globals {
     static shader_buffer { __shader_buffer }
     static shader_buffer=(s) { __shader_buffer = s }
     static rng { __rng }
+    static damage_mod { __damage_mod }
+    static damage_mod=(s) { __damage_mod = s }
 
     // Things that go in the ini automatically
     static scale { __scale }

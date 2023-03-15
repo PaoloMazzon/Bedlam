@@ -65,7 +65,7 @@ class Bolt is Spell {
 
     hit_effect(level, entity) {
         super.hit_effect(level, entity)
-        entity.take_damage(8)
+        entity.take_damage(8 * Globals.damage_mod)
     }
 
     create(level, tiled_data) {
@@ -96,7 +96,7 @@ class Shock is Spell {
 
     hit_effect(level, entity) {
         super.hit_effect(level, entity)
-        entity.take_damage(15)
+        entity.take_damage(15 * Globals.damage_mod)
         
         // Bounce to another entity
         var type = Engine.get_class("Enemy::Enemy")
@@ -147,7 +147,7 @@ class Laser is Spell {
 
     hit_effect(level, entity) {
         super.hit_effect(level, entity)
-        entity.take_damage(25)
+        entity.take_damage(25 * Globals.damage_mod)
         _destroy = true
     }
 
@@ -210,7 +210,7 @@ class Bow is Spell {
 
     hit_effect(level, entity) {
         super.hit_effect(level, entity)
-        entity.take_damage(20)
+        entity.take_damage(20 * Globals.damage_mod)
     }
 
     create(level, tiled_data) {
@@ -243,7 +243,7 @@ class Hell is Spell {
 
     hit_effect(level, entity) {
         super.hit_effect(level, entity)
-        entity.take_damage(15)
+        entity.take_damage(15 * Globals.damage_mod)
     }
 
     create(level, tiled_data) {

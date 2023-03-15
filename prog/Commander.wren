@@ -254,6 +254,7 @@ class Commander is Enemy {
             _base_hitbox.x_offset = -15
             _run_hitbox.x_offset = -2
         }
+        x = Math.clamp(x, 16, 264)
     }
 
     destroy(level) {

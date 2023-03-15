@@ -1,6 +1,6 @@
 import "lib/Engine" for Entity
 import "lib/Util" for Hitbox, Math
-import "State" for Constants, Balance
+import "State" for Constants, Balance, Globals
 import "Assets" for Assets
 
 // This is the instantaneous hitbox for weapons everything else in player
@@ -93,29 +93,29 @@ class Weapon is Entity {
     hit_effect(level, enemy) {
         if (_weapon == Constants.WEAPON_SHORTSWORD) {
             if (!_alt) {
-                enemy.take_damage(Balance.SHORTSWORD_DAMAGE)
+                enemy.take_damage(Balance.SHORTSWORD_DAMAGE * Globals.damage_mod)
             } else {
-                enemy.take_damage(Balance.SHORTSWORD_DAMAGE / 2)
+                enemy.take_damage((Balance.SHORTSWORD_DAMAGE / 2) * Globals.damage_mod)
                 enemy.knockback((enemy.x - _player.x).sign * 1, -2)
             }
         } else if (_weapon == Constants.WEAPON_MACE) {
             if (!_alt) {
-                enemy.take_damage(Balance.MACE_DAMAGE)
+                enemy.take_damage(Balance.MACE_DAMAGE * Globals.damage_mod)
             } else {
-                enemy.take_damage(Balance.MACE_DAMAGE * 0.75)
+                enemy.take_damage(Balance.MACE_DAMAGE * 0.75 * Globals.damage_mod)
                 enemy.knockback((enemy.x - _player.x).sign * 1, 0)
             }
         } else if (_weapon == Constants.WEAPON_RAPIER) {
             if (!_alt) {
-                enemy.take_damage(Balance.RAPIER_DAMAGE)
+                enemy.take_damage(Balance.RAPIER_DAMAGE * Globals.damage_mod)
             } else {
-                enemy.take_damage(Balance.RAPIER_DAMAGE * 1.25)
+                enemy.take_damage(Balance.RAPIER_DAMAGE * 1.25 * Globals.damage_mod)
                 enemy.knockback((enemy.x - _player.x).sign * Balance.RAPIER_ALT_SPEED, 1)
             }
         } else if (_weapon == Constants.WEAPON_SPEAR) {
-            enemy.take_damage(Balance.SPEAR_DAMAGE)
+            enemy.take_damage(Balance.SPEAR_DAMAGE * Globals.damage_mod)
         } else if (_weapon == Constants.WEAPON_LEGEND) {
-            enemy.take_damage(Balance.LEGEND_DAMAGE)
+            enemy.take_damage(Balance.LEGEND_DAMAGE * Globals.damage_mod)
         }
         _duration = 0
     }

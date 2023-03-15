@@ -106,8 +106,12 @@ class BlacksmithNPC is NPC {
             level.dialogue.queue("...", center_x, center_y)
             level.dialogue.queue("Good as new.", center_x, center_y)
         } else {
-            level.dialogue.queue("The commander never gets me anything to do anymore.", center_x, center_y)
-            level.dialogue.queue("I wish I had something to work on...", center_x, center_y)
+            if (Globals.event_has_happened("killed_commander")) {
+                level.dialogue.queue("Not a whole lot to do around here without the Commander...", center_x, center_y)
+            } else {
+                level.dialogue.queue("The Commander never gets me anything to do anymore.", center_x, center_y)
+                level.dialogue.queue("I wish I had something to work on...", center_x, center_y)
+            }
         }
     }
 
@@ -165,7 +169,11 @@ class ImprisonedNPC is NPC {
             level.dialogue.queue("I suppose I'll see my self out soon enough.", center_x, center_y)
             Globals.record_event("helped_ray")
         } else {
-            level.dialogue.queue("See you around " + Dialogue.CHAR_SMILE, center_x, center_y)
+            if (Globals.event_has_happened("killed_commander")) {
+                level.dialogue.queue("I don't know why they are still here, the Commander is dead.", center_x, center_y)
+            } else {
+                level.dialogue.queue("See you around " + Dialogue.CHAR_SMILE, center_x, center_y)
+            }
         }
     }
 
@@ -191,6 +199,21 @@ class FinalRayNPC is NPC {
             level.dialogue.queue("Thanks for helping me out so much.", center_x, center_y)
             level.dialogue.queue("I've been exploring the Nexus and I found this. I like my sword too much to use it but I suppose you might find a purpose.", center_x, center_y)
             Globals.record_event("given_lweapon")
+        } else if (!Globals.event_has_happened("killed_commander")) {
+            var strings = [
+                Dialogue.CHAR_SMILE,
+                "I heard there was a Wraith around here, have you seen him?",
+                "Most of my fellow soldiers aren't happy people...",
+                "I wonder what the blacksmith gets up to day-to-day...",
+                "Jack's book was a pretty good read."]
+            level.dialogue.queue(Globals.rng.sample(strings), center_x, center_y)
+        } else if (!Globals.event_has_happened("final_ray")) {
+            Globals.record_event("final_ray")
+            Globals.damage_bonus = 1.2
+            level.dialogue.queue("The Seer told me that a Wraith killed the commander.", center_x, center_y)
+            level.dialogue.queue("He also told me how to use the enchantment I borrowed, but I don't need it.", center_x, center_y)
+            level.dialogue.queue("You can have it.", center_x, center_y)
+            FloatingText.create_floating_text(level, "Damage up", player.x + 4, player.y - 20)
         } else {
             var strings = [
                 Dialogue.CHAR_SMILE,
@@ -271,5 +294,8 @@ class Seer is NPC {
         super.create(level, tiled_data)
         sprite = Assets.spr_finalnpc
         hitbox = Hitbox.new_rectangle(sprite.width, sprite.height)
+        if (Globals.event_has_happened("killed_commander")) {
+            level.remove_entity(this)
+        }
     }
 }
