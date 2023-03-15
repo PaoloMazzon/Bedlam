@@ -47,9 +47,19 @@ class NPC is Entity {
     }
 
     draw(level) {
-        super.draw(level)
+        if (sprite != null) {
+            if (!level.is_paused) {
+                Renderer.draw_sprite(sprite, x, y)
+            } else {
+                Renderer.draw_sprite(sprite, sprite.frame, x, y)
+            }
+        }
         if (_colliding && sprite != null) {
-            Renderer.draw_texture(Assets.tex_uparrow, x + (sprite.width / 2) - 4, y - 11 + (Engine.time * 2).sin)
+            if (!level.is_paused) {
+                Renderer.draw_texture(Assets.tex_uparrow, x + (sprite.width / 2) - 4, y - 11 + (Engine.time * 2).sin)
+            } else {
+                Renderer.draw_texture(Assets.tex_uparrow, x + (sprite.width / 2) - 4, y - 11)
+            }
         }
     }
 }
@@ -209,7 +219,7 @@ class FinalRayNPC is NPC {
             level.dialogue.queue(Globals.rng.sample(strings), center_x, center_y)
         } else if (!Globals.event_has_happened("final_ray")) {
             Globals.record_event("final_ray")
-            Globals.damage_bonus = 1.2
+            Globals.damage_mod = 1.2
             level.dialogue.queue("The Seer told me that a Wraith killed the commander.", center_x, center_y)
             level.dialogue.queue("He also told me how to use the enchantment I borrowed, but I don't need it.", center_x, center_y)
             level.dialogue.queue("You can have it.", center_x, center_y)

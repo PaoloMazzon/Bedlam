@@ -25,6 +25,10 @@ class Item is Entity {
             split = _item_id.split("_")[0]
         }
 
+        if (_item_id == "health_1") {
+            level.dialogue.queue("Hold " + Dialogue.CHAR_GAMEPAD_LBUMPER + " and " + Dialogue.CHAR_GAMEPAD_RBUMPER + " to access your potions.", level.player.x, level.player.y)
+        }
+
         if (_item_id == "shortsword") {
             player.unlock_shortsword()
             FloatingText.create_floating_text(level, "Shortsword", x + 5, y - 20)

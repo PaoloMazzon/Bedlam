@@ -1,5 +1,5 @@
 {
-    "activeFile": "Map_F1.tmj",
+    "activeFile": "Map_G5.tmj",
     "automapping.whileDrawing": false,
     "expandedProjectPaths": [
         "."
@@ -12,8 +12,8 @@
             "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 244.49999999999997,
-                "y": 112.99999999999999
+                "x": 159.83333333333331,
+                "y": 159.83333333333334
             }
         },
         "Map_A1.tmj#terrain": {
@@ -65,8 +65,8 @@
             "scale": 5.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 159.90909090909093,
-                "y": 159.8181818181818
+                "x": 212.8181818181818,
+                "y": 98.63636363636365
             }
         },
         "Map_B1.tmj#terrain": {
@@ -178,7 +178,7 @@
             "selectedLayer": 3,
             "viewCenter": {
                 "x": 263.66666666666663,
-                "y": 123.99999999999997
+                "y": 124.33333333333331
             }
         },
         "Map_C6.tmj#terrain": {
@@ -276,7 +276,7 @@
             "selectedLayer": 3,
             "viewCenter": {
                 "x": 56.125,
-                "y": 122.5
+                "y": 122.375
             }
         },
         "Map_F1.tmj#terrain": {
@@ -317,8 +317,8 @@
             "scale": 1.5,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 240.33333333333337,
-                "y": 119.99999999999997
+                "x": 239.66666666666666,
+                "y": 120.33333333333331
             }
         },
         "Map_F6.tmj#terrain": {
@@ -345,8 +345,8 @@
             "scale": 3,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 159.83333333333331,
-                "y": 159.99999999999997
+                "x": 159.49999999999997,
+                "y": 159.83333333333331
             }
         },
         "Map_G1.tmj#terrain": {
@@ -359,8 +359,8 @@
             "scale": 3,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 159.83333333333331,
-                "y": 159.99999999999997
+                "x": 159.49999999999997,
+                "y": 159.83333333333331
             }
         },
         "Map_G2.tmj#terrain": {
@@ -373,8 +373,8 @@
             "scale": 3,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 159.83333333333331,
-                "y": 159.99999999999997
+                "x": 159.49999999999997,
+                "y": 159.83333333333331
             }
         },
         "Map_G3.tmj#terrain": {
@@ -399,10 +399,10 @@
                 5
             ],
             "scale": 2,
-            "selectedLayer": 3,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 226.75,
-                "y": 157
+                "x": 192.25,
+                "y": 135.75
             }
         },
         "Map_G5.tmj#terrain": {
@@ -446,7 +446,8 @@
         "Map_G2.tmj",
         "Map_G1.tmj",
         "Map_F1.tmj",
-        "Map_F6.tmj"
+        "Map_F6.tmj",
+        "Map_G5.tmj"
     ],
     "project": "game.tiled-project",
     "property.type": "bool",
@@ -457,8 +458,8 @@
         "Map_G3.tmj",
         "Map_G2.tmj",
         "Map_G1.tmj",
-        "Map_F6.tmj",
         "Map_F1.tmj",
+        "Map_F6.tmj",
         "Map_G5.tmj",
         "Map_E6.tmj",
         "Map_G4.tmj",
